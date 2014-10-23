@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"甄姬","img":"../images/heros/card/card_wei007.jpg","nickname":"薄幸的美人"}],
+[{"online":"洛神赋60点","content":"使用甄姬发动洛神在不被改变判定牌的情况下连续判定黑色花色至少8次"},{"online":"薄幸的美人80点","content":"使用甄姬取得100次胜利"}],
+[{"power":"【倾国】——你可以将你的黑色手牌当【闪】使用（或打出）。"},{"power":"【洛神】——回合开始阶段，你可以进行判定：若为黑色，立即获得此生效后的判定牌，并可以再次使用洛神——如此反复，直到出现红色或你不愿意判定了为止。"}],
+[{"q":"甄姬面前有需要判定的延时锦囊时，甄姬发动【洛神】，并获得1张【无懈可击】，在【洛神】发动结束后，甄姬是否可以使用此张【无懈可击】来抵消延时锦囊？","a":"可以。"},
+{"q":"甄姬是否可以先判定延时锦囊，然后再发动【洛神】？","a":"不可以，【洛神】只有在回合开始阶段可以发动，如果甄姬直接进入判定阶段，就视为放弃发动【洛神】。"}],
+[{"p":"甄姬做主，因为倾国技能，所以防御力还好，但是受血量限制，不建议当主公；"},
+{"p":"*甄姬做忠，远位忠比较好，在外围输出，配合曹操主公效果很好；"},
+{"p":"*甄姬做反，近位反比较好，在主公身边有爆发且防御力尚可，可作为主要dps；"},
+{"p":"*甄姬做内，攻防皆可，但控制不足，做内不能有效的平衡场上局势，所以建议伺机而动，不亦名内。"},
+{"p":"注意：甄姬技能相对比较独立，属于核心输出单打独斗型。所以要利用倾国技能保命，才能最大化dps。"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"马岱","img":"../images/heros/card/card_yj109.jpg","nickname":"临危受命"}],
+ [{"online":"暂无","content":""}],
+ [{"power":"马术——锁定技，你计算的与其他角色的距离-1 。"},{"power":"潜袭——每当你使用【杀】对距离为1的目标角色造成伤害时，你可以进行一次判定，若判定结果不为红桃，你防止此伤害，改为令其减1点体力上限。"},{"power":"◆角色减体力上限后其当前的体力值超过其当前的体力上限，须调整至等同于其当前的体力上限。这并非扣减角色的体力，即角色并未失去体力或受到伤害，因此不进行伤害结算。"}],
+ [{"q":"马岱对邓艾数次发动【潜袭】，导致邓艾的体力上限为1。此时邓艾触发【凿险】，如何结算？","a":"邓艾减1点体力上限，由于体力上限为0，直接死亡，不能被挽救。"},{"q":"马岱使用【杀】对距离为1且体力上限为1的庞统造成伤害时，对其发动【潜袭】，如何结算？","a":"1、判定结果为红桃，庞统受到1点伤害，进入濒死状态，进行濒死结算时可以发动【涅槃】，体力回复至1点。2、判定结果不为红桃，马岱防止此伤害，庞统减1点体力上限，由于体力上限为0，直接死亡（并非马岱杀死），不能被挽救（因此庞统不可以发动【涅槃】）。"},{"q":"马岱对周泰数次发动【潜袭】，导致周泰的体力上限减为0，如何结算？","a":"周泰并未扣减体力（可能因为体力上限的变化调整其体力），不可以发动【不屈】，因此无论周泰此时武将牌上是否有牌，直接死亡，不能被挽救。"},{"q":"装备【寒冰剑】/【麒麟弓】的马岱对距离为1的目标角色造成伤害时，如何结算？","a":"此时为马岱发动【潜袭】和【寒冰剑】/【麒麟弓】的时机，马岱可以先发动武将技能【潜袭】：1、判定结果为红桃，正常进行伤害结算，马岱可以发动【寒冰剑】/【麒麟弓】。2、判定结果不为红桃，马岱防止此伤害，改为令目标角色减1点体力上限。然后由于马岱防止此伤害即该伤害结算已经完毕，不可以发动【寒冰剑】/【麒麟弓】。"}],
+ [{"p":"暂无"}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"颜良文丑","img":"../images/heros/card/card_qun005.jpg","nickname":"虎狼兄弟"}],
+[{"online":"其利断金","content":"使用颜良&文丑在1局游戏中发动双雄至少3次并在双雄的回合中杀死过至少3名角色"}],
+[{"power":"双雄——摸牌阶段，你可以选择放弃摸牌并进行一次判定：你获得此判定牌并且此回合可以将任意一张与该判定牌不同颜色的手牌当【决斗】使用。"},{"power":"★颜良&文丑是一名角色而非两名。"}],
+[{"q":"如果判定为红，手上有3张黑牌，是否可以当3个决斗出？","a":"是的。"},
+{"q":"发动双雄后，颜良&文丑是否能在出牌阶段多次使用决斗？","a":"可以。"},
+{"q":"此决斗能否被【无懈可击】响应？","a":"可以。"},
+{"q":"颜良文丑发动双雄判定为红色后，杀死蔡文姬，本回合还能否使用黑色牌当【决斗】？","a":"可以，效果持续到出牌阶段结束。"}],
+[{"p":"颜良文丑当反的话可以对主来次大爆发，比如判定成功，不停决斗主公，可以补刀快死的队友，用他灵魂换来的3张牌继续决斗，当然不确定性因素很多，不建议随便补刀队友，被逼入绝境的时候，可以赌赌看能不能逆天了。"},
+{"p":"　　当忠的话则可以大胆地决斗，说不定你RP好，一轮大爆发下来，反死的死伤的伤。但无论如何，不确定因素太多，不要一直贪图爆发。"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' style='margin:1px 0px 1px -10px;'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

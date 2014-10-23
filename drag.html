@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Untitled Document</title> 
+
+  <style type="text/css"> 
+
+  body{ 
+    margin:0px; 
+  } 
+
+  </style> 
+
+  <script type="text/javascript"> 
+
+  var mainCanvas; 
+  var mainCt; 
+  var MAIN_CANVAS_WIDTH=1026; 
+  var MAIN_CANVAS_HEIGHT=600; 
+  var currentRectX=100; 
+  var currentRectY=100; 
+  var startDragRectX=0; 
+  var startDragRectY=0; 
+  var startDragMouseX=0; 
+  var startDragMouseY=0; 
+  var RECT_WIDTH=300; 
+  var RECT_HEIGHT=300; 
+
+  function pageInit(){ 
+    mainCanvas=document.createElement("canvas"); 
+    mainCanvas.width=MAIN_CANVAS_WIDTH; 
+    mainCanvas.height=MAIN_CANVAS_HEIGHT; 
+    document.body.appendChild(mainCanvas); 
+    mainCanvas.onmousedown=canvasMouseDownHandler; 
+    mainCanvas.onmouseup=canvasMouseUpHandler; 
+
+    mainCt=mainCanvas.getContext("2d"); 
+    redrawRect(); 
+  } 
+
+  function canvasMouseDownHandler(event){ 
+    var canvasMouseX=event.layerX; 
+    if(!canvasMouseX){ 
+    canvasMouseX=event.x; 
+    } 
+    var canvasMouseY=event.layerY; 
+    if(!canvasMouseY){ 
+    canvasMouseY=event.y; 
+    } 
+
+    if(canvasMouseX>currentRectX&&canvasMouseX<currentRectX+RECT_WIDTH&&canvasMouseY>currentRectY&&canvasMouseY<currentRectY+RECT_HEIGHT){ 
+    mainCanvas.onmousemove=canvasMouseMoveHandler; 
+
+    startDragMouseX=canvasMouseX; 
+    startDragMouseY=canvasMouseY; 
+    startDragRectX=currentRectX; 
+    startDragRectY=currentRectY; 
+    } 
+  } 
+
+  function canvasMouseMoveHandler(event){ 
+    var canvasMouseX=event.layerX; 
+    if(!canvasMouseX){ 
+    canvasMouseX=event.x; 
+    } 
+    var canvasMouseY=event.layerY; 
+    if(!canvasMouseY){ 
+    canvasMouseY=event.y; 
+    } 
+
+    currentRectX=startDragRectX+canvasMouseX-startDragMouseX; 
+    currentRectY=startDragRectY+canvasMouseY-startDragMouseY; 
+    redrawRect(); 
+  } 
+
+  function canvasMouseUpHandler(event){ 
+    mainCanvas.onmousemove=null; 
+  } 
+
+  function redrawRect(){ 
+    mainCt.clearRect(0,0,MAIN_CANVAS_WIDTH,MAIN_CANVAS_HEIGHT); 
+    mainCt.fillStyle="#0000FF"; 
+    mainCt.fillRect(currentRectX,currentRectY,RECT_WIDTH,RECT_HEIGHT); 
+  } 
+
+  </script> 
+</head> 
+<body onload="pageInit();"> 
+</body> 
+</html>

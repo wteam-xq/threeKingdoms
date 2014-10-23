@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"甘宁","img":"../images/heros/card/card_wu002.jpg","nickname":"锦帆的游侠"}],
+[{"online":"神出鬼没40点","content":"使用甘宁在1个回合内发动至少6次奇袭"},{"online":"锦帆游侠80点","content":"使用甘宁取得100次胜利"}],
+[{"power":"【奇袭】——出牌阶段，你可以将你的任意黑色牌当【过河拆桥】使用。"}],
+[{"q":"甘宁发动【奇袭】时，是否可以使用【无懈可击】抵消其效果？","a":"可以。抵消【过河拆桥】的效果。"},
+{"q":"甘宁能否使用自己面前的装备牌发动【奇袭】？","a":"可以。"}],
+[{"p":"身份建议：忠，反，"},
+{"p":"甘宁做主，防御低，技能很难大量发动；"},
+{"p":"甘宁做内，输出低，防御低，在没有配合的情况下很难熬到最后；"},
+{"p":"甘宁做忠，注重防御，做好集火发起者工作；"},
+{"p":"甘宁做反，远位反较好，大胆奇袭，目标明确，为队友做好输出铺垫；"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"吕布","img":"../images/heros/card/card_sp008.jpg","nickname":"最强神话"}],
+[{"online":"虎牢关模式","content":"选择该虎牢关神吕布击败挑战的三名玩家"}],
+[{"power":"【马术】——锁定技，当你计算与其他角色的距离时，始终-1。"},{"power":"【无双】——锁定技，你使用【杀】时，目标角色只能连续使用两张【闪】才能抵消此【杀】；与你进行【决斗】的目标角色每次必须连续打出两张【杀】。"}],
+[{"q":"吕布如果使用【杀】攻击装备【八卦阵】的角色，如何结算？","a":"被攻击的角色可以选择先发动【八卦阵】的技能，需要看第一次判定结果：1、如果为红色，则可以发动第二次；2、如果为黑色，必须从手牌中使用1张【闪】后，才可以发动第二次，否则不能再发动【八卦阵】的技能。"},
+{"q":"吕布使用【杀】攻击只有1张手牌【闪】的诸葛亮，诸葛亮是否可以使用【闪】，并使自己进入空城状态而不受到伤害？","a":"诸葛亮此时可以使用【闪】，并使其进入空城状态，但是由于不能连续出第2张【闪】，所以仍然要受到伤害。【决斗】的过程同理。"},
+{"q":"吕布使用【杀】攻击曹操，曹操发动【护驾】，但是“魏”势力角色加上曹操自己一共只使用了1张【闪】，如何结算？","a":"使用的【闪】无效（进入弃牌堆），曹操受到吕布对其造成的伤害，可以发动【奸雄】。"},
+{"q":"吕布对刘备使用【决斗】，刘备发动【激将】，如果“蜀”势力角色加上刘备自己一共只使用了1张【杀】，如何结算？","a":"使用的【杀】无效（进入弃牌堆），刘备受到吕布对其造成的伤害。"},
+{"q":"吕布对1手牌的陆逊使用【杀】时，陆逊是否可以先打出一张【杀】或【闪】，然后发动【连营】之后摸到的牌再打出？","a":"可以。","example":"吕布对只有1张手牌为【闪】的陆逊使用【杀】，陆逊使用【闪】后发动【连营】，又摸起1张【闪】，陆逊可以再次使用【闪】，至此抵消了吕布这张【杀】，陆逊可以再发动【连营】再摸1张牌。"},
+{"q":"吕布使用【杀】攻击装备了【八卦阵】只有一张手牌【闪】的陆逊，如果陆逊第一次判定八卦阵的结果是红色，能否放弃判定第二次八卦阵直接打出【闪】？","a":"可以。并且可以发动【连营】。诸葛亮同理。"}],
+[{"p":"无"},
+{"p":"虎牢关攻略："},
+{"p":"　三国杀神吕布怎么打，三国杀神吕布的技能有哪些，前面小编已经给大家介绍了神吕布的技能实用技巧，下面就来看看三国杀虎牢关神吕布打法。"},
+{"p":"　　三国杀神吕布打法："},
+{"p":"　　1.尽量保持血量，不要变身，除非有秒人的信心了。(因为变身前，吕布共有3回合，对面1人只有1回合，这样算下来，变身前的各方面威力都是大的，你可以在总的一轮对同一人杀3刀，而变身后绝对没有这样有力的形势，所以不要以为变身很厉害)"},
+{"p":"　　2.不要急着秒人，如果有华佗，郭嘉这样的人，有华佗先打华佗，好让他少存红牌，毕竟他一回合只能青囊1次，你能杀他3刀，他必定无法满血的。郭嘉则要放到最后打，让他没有人好分牌。如果有周泰，把他打到红血就行，不要先不去，周泰不屈一般5，6张顶多了，可以放到后面收掉的，如果先打死了，不一定能在6轮内收了别的2个，反过来周泰也是，另外两个健康的状况下，吕布先打自己，不需要不屈，直接重整，免得被拖到3红血，一起收掉。尽量平衡血量，让3个武将都红血，这样才能避免敌方拖延战术，导致重整完毕。"},
+{"p":"　　三英打法：1.这只是我个人观点，左右别装+1马，吕布天生-1，被顺过去反而对己方不利。有人红血或者濒死，能撑的住的就收了，千万不要救，救了只能是半死不活，最后3个都红血;不救能拿1张牌，而且死一个人就等于吕布少了一回合出牌，对他的实力有很大的牵制作用。另外，己方危险情况下绝不能让他变身，免得他爆发一轮秒。最好是1DPS(用来输出)"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

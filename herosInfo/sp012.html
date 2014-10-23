@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"贾羽","img":"../images/heros/card/card_sp012.jpg","nickname":"算无遗策"}],
+[{"online":"绝杀","content":"发动完杀技能致死2名敌方角色"}],
+[{"power":"完杀——锁定技，在你的回合，除你以外，只有处于濒死状态的角色才能使用【桃】。"},{"power":"乱武——限定技，出牌阶段，可以令除你外的所有角色依次对与其距离最近的另一名角色使用一张【杀】，无法如此做者失去1点体力。"},{"power":"帷幕——锁定技，你不能成为黑色锦囊的目标。"},{"power":"★乱武发动时，每个其他角色必须一次做出决定：首先选择一名与自己距离最近的角色（若存在多名距离同样近的，则选择其中一个），然后决定是否对该角色使用一张【杀】，对方可以使用【闪】来抵消，如果无法将一名离自己最近的角色指定【杀】的目标，视为无法如此做，失去1点体力。"}],
+[{"q":"贾诩的回合，于吉进入濒死状态，于吉蛊惑【桃】，角色B质疑，翻开后为真【桃】，B进入濒死状态，于吉能否对B使用【桃】？","a":"不能。“处于濒死状态”是一个时机，解决B的濒死事件时，于吉暂时脱离了“处于濒死状态”。换言之，贾诩的回合，其他角色只能对自己使用桃。"},
+{"q":"贾诩的回合，贾诩自己进入濒死状态，其他角色能否对贾诩使用【桃】？","a":"不能。贾诩的回合里，只有贾诩和处于濒死状态的角色可以使用【桃】，而他自己濒死时则只有贾诩自己能使用【桃】。"},
+{"q":"贾诩发动乱武时，“距离最近”如何理解？","a":"正常情况下，一名角色与其他角色的最短距离为1。即一名角色在没有装备马时，与相邻的两名角色距离最短，都为1。装备【-1】马后，该角色与相邻角色两边的角色距离同为最短，都为1。（详见标准版规则说明书“角色间的距离”一段）"},
+{"q":"贾诩发动乱武，与某角色距离最近的角色只有一个处于空城状态的诸葛亮，该角色是否可以对诸葛亮使用【杀】？","a":"不能。只能失去1点体力。"},
+{"q":"贾诩发动乱武，某角色没有装备，且相邻的两名角色都装备+1马，该角色能否使用【杀】？","a":"不能。只能失去1点体力。"},
+{"q":"贾诩发动乱武时，角色能否发动武器技能？","a":"可以，只要满足武器发动条件。"},
+{"q":"贾诩发动乱武，某角色没有【杀】死亡，谁获得奖惩？","a":"没人获得。"},
+{"q":"贾诩能否使用黑色的【闪电】？","a":"不能，【闪电】的目标是自己。"},
+{"q":"黑色的【闪电】能否传到贾诩的判定区？","a":"不能。直接传给贾诩的再下一家。"},
+{"q":"场上只有两名角色，其中一名是贾诩时，另一名角色能否使用黑色的【南蛮入侵】？","a":"不能。没有使用目标。"},
+{"q":"能否对贾诩使用【无懈可击】？","a":"【无懈可击】的目标是锦囊，不是角色。可以使用【无懈可击】抵消目标锦囊对贾诩的效果。"},
+{"q":"小乔能否将黑色锦囊造成的伤害转移给贾诩？","a":"可以。"},
+{"q":"贾诩发动乱武导致自己死亡后，在当前回合继续结算的濒死事件中，是否还要受到“完杀”技能的影响？","a":"贾诩死亡后，回合立即结束，所以完杀效果立即消失（但是仍然需要将剩下的事件全部结算完）。"},
+{"q":"于吉蛊惑一种非延时类锦囊，例如【过河拆桥】能否指定贾诩为目标？如果能，无人质疑，翻开是黑色的牌是否还生效？","a":"贾诩不能被黑色的锦囊指定成为目标，于吉在蛊惑时，已经指定贾诩成为了目标，所以该锦囊仍然生效。"}],
+[{"p":"　主公：三流主公，个人认为强于陆小受。魔防高的是优点，4血更方便蓄爆。【乱武】算个清场神技，而且杀忠还不用弃牌。如果上来就有+1马和防具就很强。不过贾诩主不可能脱离嘲讽，时常会被活活砍死。"},
+{"p":"　　忠臣：新一代坑内忠。由于不适合拉仇恨往往前期主忠方算是少了一人。【乱武】对反贼的伤害不可谓不大，不过时机要找准，别一发动结果主没【杀】然后被4反一人一刀砍死。等主公有加1马或是防具，而反贼又比较残的时候，果断一个【乱武】将会起到奇效。"},
+{"p":"　　反贼：做反的贾诩优势在于不容易成为被集火对象，而且【完杀】非常克制忠臣留桃救主的行为。缺点是【乱武】对队友伤害太大，而且有时害死队友还会让主忠拿牌，所以【乱武】慎发动。适合曹操、曹丕等卖血系主公局，【完杀】对曹操和曹丕来说是很可怕的。因为曹操虽然牌多，但基本都是进攻牌，而曹丕又只能让别人拿牌，被【完杀】就基本就死绝了。"},
+{"p":"内奸：贾诩最适合的职业出现了，没有队友【乱武】的负作用就小了很多。【乱武】几乎是贾诩唯一的爆发，所以等到残血武将比较多时再发动。内奸贾诩就是攒牌攒装备，不要给任何人输出你的理由。就算不能秒杀全场，神装贾诩打主内反也不虚。贾诩单挑虽弱，但有装备的贾诩单挑非常强。所以五谷的时候，知道该拿什么牌了吧。"}] ];
+
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' style='margin:1px 0 1px 90px;'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero" style="width:275px;">			
+		</div>
+
+		<div class="basic_text" style="width:750px;">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [ [{"name":"马超","img":"../images/heros/card/card_sp011.jpg","nickname":"西凉的猛狮"}],
+[{"online":"暂无；","content":""}],
+[{"power":"武将技能："},{"power":"【马术】——锁定技，当你计算与其他角色的距离时，始终-1。"},{"power":"★【马术】的效果与装备【-1马】时很像，但你仍然可以装备一匹【-1马】。"},{"power":"【铁骑】——当你使用【杀】，并指定了一名角色为目标后，你可以进行判定，若结果为红色，此【杀】不可被闪避。"},{"power":"★【马术】的效果与装备【-1马】时很像，但你仍然可以装备一匹【-1马】。"}],
+[{"q":"马超对装备了【八卦阵】的角色出【杀】，如何结算？","a":"首先是马超决定是否发动【铁骑】，如果发动技能，判定为红色，则对方不能使用【闪】。如果发动技能，判定为黑色，则对方继续选择是否发动【八卦阵】的技能。"},
+{"q":"马超是否对装备了【仁王盾】的角色使用黑【杀】，如果发动【铁骑】判定为红色，是否可以使【杀】生效？","a":"不可以，即使【铁骑】判定为红色，黑【杀】只是不可被闪避，但依然受到【仁王盾】技能的影响而无效。类似地，对藤甲使用普杀时同理。"},
+{"q":"马超对大乔使用【杀】，如何结算？","a":"首先大乔选择是否【流离】，然后马超选择是否发动【铁骑】。"},
+{"q":"马超发动【铁骑】的判定牌属于谁？","a":"属于马超自己，因此郭嘉不能收入手牌，小乔也不能把黑桃当作红桃。"},
+{"q":"马超装备【雌雄双股剑】使用【杀】指定一名异性角色为目标后，如何结算？","a":"先发动武将技能，后发动武器技能。","example":"马超对黄月英使用【杀】，马超选择发动【铁骑】，判定为红桃，此时黄月英再选择是自己弃手牌还是让马超从牌堆摸一张牌，之后黄月英受到伤害。"}],
+[{"p":"马超算是三国杀中第一个强命武将了。攻击力不容置疑。而攻击范围的加强，又让马超能更容易的攻击目标。但防御力较低，是马超的弊端。"},
+{"p":"【主公】：推荐指数：★☆☆☆☆  马超没有防御力，不推荐做主公。"},
+{"p":"【忠臣】：推荐指数：★★★★☆  马超的攻击范围和攻击范围都得到了很好的应用，配合刘备主更是如虎添翼。"},
+{"p":"【反贼】：推荐指数：★★★★☆  和做忠相似，能很好的发挥攻击范围和攻击强度，对主公进行最有效的打击。"},
+{"p":"【内奸】：推荐指数：★★★☆☆  防御力较低，仇恨较高，单挑强力。做内奸只能算是中庸之选。"}] ];
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

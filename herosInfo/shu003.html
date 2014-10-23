@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"张飞","img":"../images/heros/card/card_shu003.jpg","nickname":"万夫不当"}],
+ [{"online":"燕人的咆哮40点","content":"使用张飞在1局游戏中发动丈八蛇矛特效杀死至少1名角色"},{"online":"万夫不当80点","content":"使用张飞取得100次胜利"}],
+ [{"power":"咆哮——出牌阶段，你可以使用任意数量的【杀】。"}],
+ [{"q":"张飞发动咆哮技能时能否使用任意数量的属性杀？","a":"可以。"}],
+ [{"p":"张飞的【咆哮】技能让很多三国杀武将都很羡慕。但是张飞本身因为没有抓牌技能，所以爆发主要靠蓄杀来完成。"},{"p":"【主公】：推荐指数：★☆☆☆☆  张飞没有防御力，不推荐做主。"},{"p":"【忠臣】：推荐指数：★★★★☆  能通过杀死反贼之后继续爆发，需要留意的是蓄杀，找准时机再出手。"},{"p":"【反贼】：推荐指数：★★★★☆  和做忠臣相似，需要注意的仍然是蓄杀，并将主要输出都对主公打出。"},{"p":"【内奸】：推荐指数：★★☆☆☆  高输出，高仇恨，无防御，不推荐做内奸。"}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

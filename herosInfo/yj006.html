@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"马谡","img":"../images/heros/card/card_yj006.jpg","nickname":"怀才自负"}],
+ [{"online":"怀才自负","content":"使用马谡在1局游戏中发动心战获得桃和无中生有各至少两张"}],
+ [{"power":"心战——出牌阶段，若你的手牌数大于你的体力上限，你可以观看牌堆顶的三张牌，然后展示其中任意数量的红桃牌并获得之，其余以任意顺序置于牌堆顶。每回合限一次。"},
+ {"power":"挥泪——锁定技，杀死你的角色立即弃置所有的牌。"}],
+ [{"q":"马谡发动【心战】观看的红桃牌是否可以不展示？","a":"可以。如果展示则必须获得，如果不展示则不可以获得。"},
+ {"q":"曹丕在场时马谡死亡，如何结算？","a":"在马谡死亡时这个时机，首先亮出马谡的身份牌，若游戏未结束，从当前正进行回合的角色开始按逆时针方向依次决定是否发动/触发【行殇】和【挥泪】，最后曹丕执行奖惩。","example":"曹丕在出牌阶段杀死马谡，亮出马谡身份牌为反贼，若游戏未结束，曹丕可以先发动【行殇】获得马谡所有的牌，然后马谡触发【挥泪】，曹丕弃置所有的牌，最后曹丕执行奖惩摸三张牌。"},
+ {"q":"曹植在场时，体力为1并且装备【白银狮子】的主公孙尚香杀死忠臣马谡时，如何结算？","a":"首先亮出马谡的身份牌为忠臣，然后触发【挥泪】，孙尚香一次性弃置所有的牌，当孙尚香弃置的牌进入弃牌堆时，曹植可以发动【落英】获得其中的梅花牌。当剩下的牌进入弃牌堆后，孙尚香可以先发动武将技能【枭姬】，再触发装备技能【白银狮子】的第二项效果回复1点体力。最后孙尚香执行奖惩一次性弃置所有的牌，当孙尚香弃置的牌进入弃牌堆时，曹植可以再次发动【落英】获得其中的梅花牌。"},
+ {"q":"曹植在场时，体力为1并且装备【白银狮子】主公凌统杀死忠臣马谡时，如何结算？","a":"首先亮出马谡的身份牌为忠臣，然后触发【挥泪】，凌统一次性弃置所有的牌，当凌统弃置的牌进入弃牌堆时，曹植可以发动【落英】获得其中的梅花牌。当剩下的牌进入弃牌堆后，凌统可以先发动武将技能【旋风】，若执行效果杀死一名没有任何牌的反贼，则执行奖惩摸三张牌，再触发装备技能【白银狮子】的第二项效果回复1点体力。最后凌统执行奖惩一次性弃置所有的牌，当凌统弃置的牌进入弃牌堆时，曹植可以再次发动【落英】获得其中的梅花牌。"},{"q":"场上有八名角色，其中装备【麒麟弓】但没有装备【-1马】的凌统的下家为马谡，并且凌统与马谡的下家曹操的距离为2。凌统杀死马谡触发【挥泪】弃置所有的牌，是否可以发动【旋风】选择执行第二项效果对曹操造成1点伤害？","a":"可以。马谡一旦死亡，则之后计算场上距离时不再计入。"}],
+ [{"p":"一将成名马谡一经放出，就引来了玩家的非议。其【挥泪】技能，让很多玩家看了就很头疼。而【心战】技能则可以提高回合内马谡的手牌数量，增加其生存能力。"},{"p":"【主公】：推荐指数：★☆☆☆☆  选择马谡做主公【挥泪】技能消失，但是【心战】可以让主公的手牌增加，生存能力增加，也不失为一种好事。"},{"p":"【忠臣】：推荐指数：★★★★☆   【挥泪】让反贼不敢将你置于死地，但是【心战】技能又能更大的打击反贼，做忠还不错。"},{"p":"【反贼】：推荐指数：★★★☆☆  与忠臣打法相同，只要将自己的活力都用字主公身上，就可以了。"},
+ {"p":"【内奸】：推荐指数：★★★★☆  控制能力有限，但是其【挥泪】技能，会让忠反都对你恭恭敬敬的。"}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

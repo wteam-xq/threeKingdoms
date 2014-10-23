@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [ [{"name":"曹操","img":"../images/heros/card/card_wei001.jpg","nickname":"魏武帝"}],
+[{"online":"乱世的奸雄60点","content":"使用曹操在1局游戏中发动奸雄得到至少3张南蛮入侵和1张万箭齐发"},{"online":"魏武帝60点","content":"使用曹操取得100次胜利"}],
+[{"power":"【奸雄】——你可以立即获得对你造成伤害的牌。"},{"power":"【护驾】——主公技，当你需要使用（或打出）一张【闪】时，你可以发动护驾。所有魏势力角色按行动顺序依次选择是否打出一张【闪】“提供”给你（视为由你使用或打出），直到有一名角色或没有任何角色决定如此做时为止。"},{"power":"★同一张牌的一次完整的结算中（包括因结算引发的其他事件）只能发动一次奸雄。"}],
+[{"q":"【奸雄】技能是否在满足条件时必须发动？","a":"【奸雄】不是锁定技，可以选择性发动。"},
+{"q":"当锦囊牌对曹操造成伤害时，曹操获得哪张牌？","a":"只获得相应的锦囊，例如曹操判定【闪电】受到伤害，可以将【闪电】收入手牌。"},
+{"q":"角色A对角色B使用【借刀杀人】，要求B对曹操使用【杀】，若B使用了【杀】对曹操造成伤害，曹操获得哪张牌？","a":"获得B使用的【杀】。"},
+{"q":"角色发动武将技能对曹操造成伤害时，曹操拿哪张牌？","a":"如果是被【刚烈】、【离间】、【雷击】等造成伤害，那么不能获得任何牌。如果是相关的技能消耗造成伤害，例如【流离】，【天香】等，则曹操获取伤害源打出或使用的相应牌。"},
+{"q":"角色发动武器技能对曹操造成伤害，曹操获得哪张牌？","a":"只获得相应的【杀】。","example":"曹操被其他角色发动【青龙偃月刀】的技能伤害，只能获得该角色使用的最后的一张【杀】；曹操被其他角色发动【贯石斧】的技能伤害，只能获得该角色使用的那张【杀】，不能获得对方为了发动武器技能弃掉的牌；曹操被其他角色发动【丈八蛇矛】的技能伤害，可以获得该角色为了发动武器技能打出的两张手牌。"},
+{"q":"曹操进入濒死状态时，是否可以发动【奸雄】技能获得导致曹操进入濒死状态的牌？","a":"不可以，除非曹操被救回。","example":"A角色对曹操使用【杀】，曹操受伤害进入濒死状态，如果没有角色对曹操使用【桃】，则曹操死亡，该【杀】进入弃牌堆。"},
+{"q":"曹操发动【护驾】时，“魏”势力角色是否可以发动相关的武将或防具技能？","a":"可以。例如甄姬可以发动【倾国】，“魏”势力角色可以发动【八卦阵】的技能进行判定。"},
+{"q":"曹操发动【护驾】时，装备了【八卦阵】的“魏”势力角色可以发动几次【八卦阵】的技能？","a":"曹操每次发动【护驾】，“魏”势力角色只能发动1次【八卦阵】的技能。。"},
+{"q":"曹操发动【护驾】时，装备了【八卦阵】的“魏”势力角色发动【八卦阵】的技能，判定牌为黑色，此时该角色是否可以从手中打出一张【闪】“提供”给曹操？","a":"可以。"},
+{"q":"吕布对曹操使用【杀】，曹操发动【护驾】，如果“魏”势力角色总共只“提供”了一张【闪】，如何结算？","a":" 若曹操此时自己再使用一张【闪】，则可以抵消吕布的【杀】；若曹操此时自己不能再使用一张【闪】，则受到该【杀】的伤害，“魏”势力角色“提供”的那张【闪】无效，不能收回。"},
+{"q":"曹操受到连环传导的伤害时能否发动【奸雄】？","a":"可以。"},
+{"q":"有人使用【万箭齐发】，曹操发动【奸雄】技能后，小乔发动【天香】把伤害转移给曹操，曹操如何结算？","a":"直接结算【天香】，同一张牌的一次完整的结算中（包括因结算引发的其他事件）只能发动一次奸雄。"}],
+[{"p":"　曹操主公局，反贼选择方面，因为曹操的特性就是吸收南蛮万剑，然后压全场体力上限，那么首选就是克制AOE的武将，如法正，夏侯惇，当然夏侯惇可以选择，所以也可以当忠臣。鲁肃也很不适合做忠臣，因为曹操的本质决定了，他很难好施给曹操，或者把别人的牌换给曹操，倒是把曹操掉血得来的AOE牌换个反贼比较方便点。虽然强命系武将，对于曹操来说，可以无视护驾，但是毕竟强命系不是集体出场，所以强命系以反贼面目出场，还是集火魏国忠臣的情况多一些。"},
+{"p":"　　曹操作为忠臣方面，由于嘲讽度不高，也缺乏和主公的配合，所以忠臣的选择应该比较靠后。如果做忠臣，尽量在前位时选曹操。由于低嘲讽，主公残血时，曹操的威力，也发挥不出来了。"},
+{"p":"　　曹操作为内奸，是一个比较不错的选择，因为他的一般嘲讽度，和吸收AOE存牌的能力，导致最后的*可能性。但是由于没有任何防御技能，前期必须降低自身嘲讽度，以屯牌为主，看准时机，用群来收人头，明确控场内的地位。"},
+{"p":"　　曹操作为反贼，也是可以接受的，因为以彼之道还之彼身，特别是忠臣，反贼残血，因为有曹操在，大大的抑制了AOE的使用。关键时刻曹操使用AOE收了同伴，然后突突掉主公，这样的例子很多。"}] ];
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

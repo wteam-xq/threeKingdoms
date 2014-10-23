@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"曹丕","img":"../images/heros/card/card_wei014.jpg","nickname":"霸业的继承者"}],
+[{"online":"暂无","content":""}],
+[{"power":"【行殇】——你可以立即获得死亡角色的所有牌。"},{"power":"【放逐】——你每受到一次伤害，可令除你以外的任一角色补X张牌，X为你已损失的体力值，然后该角色将其武将牌翻面。"},{"power":"【颂威】——主公技，其他魏势力角色的判定牌结果为黑色且生效后，可以让你摸一张牌。"},{"power":"★通过“行殇”获得的牌不需要展示给所有人看。"},{"power":"★判定牌需要在结果确定了后才能发动“颂威”。"}],
+[{"q":"曹丕行殇收取的牌是否需要展示？","a":"不需要。"},
+{"q":"曹丕发动行殇能否只收取其中的一部分牌？","a":"不能。"},
+{"q":"曹丕能否观看阵亡角色的牌后再决定是否收取？","a":"不能。"},
+{"q":"曹丕做主公杀死忠臣或反贼，先获得牌还是先执行奖惩？","a":"先发动行殇，后执行奖惩。"},
+{"q":"庞统发动涅槃弃掉的牌曹丕能否获得？","a":"不能。庞统发动涅槃并没有死亡。"},
+{"q":"周泰死亡后，曹丕能否获得其不屈牌？","a":"不能。"},
+{"q":"曹丕能否放逐背面向上的角色？","a":"可以，该角色将武将牌翻回正面。"},
+{"q":"曹丕对当前回合人发动放逐，该角色能否继续出牌？","a":"可以。该角色跳过的是下一个回合，不影响本回合继续出牌。"},
+{"q":"曹丕是否可以拒绝颂威的摸牌？","a":"不能。"},
+{"q":"魏国武将翻开的判定牌为黑色，能否在被其他武将修改判定前另曹丕摸牌？","a":"不能，必须在判定结果决定后才能令曹丕摸牌。"},
+{"q":"曹仁的据守是否是翻面？曹丕能否使据守的曹仁翻回来？","a":"是的，曹仁发动据守，是将武将牌翻面。曹丕可以使曹仁从背面翻至正面。同样的，曹仁在自己的回合被曹丕翻至背面，曹仁也可以通过据守翻回正面，即无需跳过下一个回合。","example":"（【翻面】：将武将牌由正面朝上翻转至背面朝上的状态或由背面朝上翻转至正面朝上的状态。游戏中，当一名角色的回合即将开始时，若其武将牌处于背面朝上的状态，则将之翻转至正面朝上，然后跳过该角色的这一回合。）"}],
+[{"p":"主公：虽说身为主公只有4血看上去略微脆皮，但攻击4血曹丕也是要付出相当惨痛的代价——且不说翻面被集火能不能扛过第二轮，这挂了还要被收尸那更是万念俱灰的事情。曹丕毫无疑问推荐主公位，胜率较之主流的三大主公有过之而无不及。"},
+{"p":"忠臣：忠臣位对于曹丕来说始终有些别扭，因为技能大多为利己主义，也无法起到一般辅助武将对主公武将的强力协助，单靠卖血翻翻面始终觉得缺了点什么。唯有遇上暴力主，如曹操、袁绍之流方可显出实力。"},
+{"p":"反贼：由于反贼的目标明确，盯着主公翻面集火其实是不错的选择。反贼人数相对较多，能遇上与曹丕合适的队友的概率也会大大增加，新手玩家推荐以反贼曹丕练习上手，会打出不少有趣的配合。"},
+{"p":"内奸：曹丕作为内奸的胜率也是相当之高的，武将本身不吸引集火，容易隐藏身份。行殇又多是装备牌，囤上满身装备等着和主公1v1就行。只是不容易爆发，单挑打法十分讲究，需要大家耐心从实战中吸取经验和教训。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

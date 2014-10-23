@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"神司马懿","img":"../images/heros/card/card_le007.jpg","nickname":"晋国之祖"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【忍戒】——锁定技，当你受到伤害或于弃牌阶段弃牌时，获得等同于受到伤害（或弃牌）等量的“忍”标记。"},{"power":"【拜印】——觉醒技，回合开始阶段，若你拥有4个或更多的忍标记，须减1点体力上限，并永久获得技能“极略”（弃一枚忍标记发动下列一项技能：“鬼才”、“放逐”、“完杀”、“制衡”、“集智”）。"},{"power":"【连破】——若你于一回合内杀死至少一名角色，可于此回合结束后，进行一个额外的回合。"},{"power":"★鬼才、放逐、集智这类技能在对应时机弃标记发动；制衡和完杀各只能于每个回合的出牌阶段弃标记发动一次（完杀的效果持续到发动回合的结束）。"},{"power":"★若连破产生的新回合中再次达成连破发动条件，仍可继续追加额外的回合。"},{"power":"【觉醒技】：觉醒技是锁定技和限定技的集合，当满足发动条件时必须发动，通常会改变角色的某种状态（例如体力上限），然后让角色永久获得新的技能，此状态不可逆转。"}],
+[{"q":"神司马懿弃牌阶段弃了1张牌后被张昭张纮发动【固政】返回手牌，最终获得几枚忍标记？","a":"1枚。神司马懿于弃牌阶段弃牌时，每弃一张手牌就会触发【忍戒】获得一枚忍标记。"},
+{"q":"觉醒后的神司马懿没有忍标记时受到伤害，是否可以发动【放逐】？","a":"可以。神司马懿在受到伤害后触发【忍戒】获得忍标记后，依然处于“受到伤害后”这个时机，可以弃一枚刚刚获得的忍标记发动【放逐】。"},
+{"q":"神司马懿在其他角色的回合杀死至少一名角色，在该角色的回合结束后，是否可以发动【连破】？","a":"可以。"},
+{"q":"左慈回合开始时发动【化身】获得【连破】，在回合内杀死至少一名角色，在回合结束后如何结算？","a":"此时左慈的两个武将技能【连破】和【化身】都可以发动，左慈可以选择发动的顺序。若左慈先发动【化身】，则失去【连破】，不可以再发动。"},
+{"q":"左慈在自己的回合内杀死至少一名角色，在回合结束后发动【化身】获得【连破】时，可以发动【连破】吗？","a":"可以。左慈发动【化身】获得【连破】，此时依然为回合结束后且左慈满足发动【连破】的条件。"},
+{"q":"贾诩发动【乱武】，结算过程中贾诩先死亡，神司马懿再杀死至少一名角色，【乱武】结算完毕后神司马懿是否可以发动【连破】？","a":"不可以。贾诩死亡其回合立即结束，神司马懿未满足在回合内杀死至少一名角色的条件。"},
+{"q":"贾诩发动【乱武】，结算过程中神司马懿先杀死一名角色，贾诩再死亡，神司马懿是否可以发动【连破】？","a":"可以。贾诩死亡其回合立即结束，神司马懿可以发动【连破】，在【乱武】结算完毕后进行一个额外的回合。"},
+{"q":"贾诩发动【乱武】，结算过程中神司马懿杀死贾诩，【乱武】结算完毕后神司马懿是否可以发动【连破】？","a":"可以。贾诩死亡其回合立即结束，神司马懿可以发动【连破】，在【乱武】结算完毕后进行一个额外的回合。"}],
+[{"p":"【你只是内奸】"},
+{"p":"　　经过一段时间对神司马的了解，我发现了一个事情，他在当内奸时，有很高的战斗力，但是当反贼时，这种战斗力却降低了。这是为什么呢？内奸要杀掉所有的人，而反贼，只要灭了主公就可以了，那么为什么当反贼的司马懿战斗力，反而降低了呢？"},
+{"p":"　　初期概括原因，是这样的，你当内奸时，四反贼杀主公，没人理你，而忠臣保护主公，集火反贼，等到你觉醒了，就可以收了许多受伤的人，完成连破了。而在当反贼时，由于目标变成了忠臣，你一人轮空两轮，使得反贼以三搏四，全部变得无力了。等你觉醒，你的同伴也离死，或死得差不多了。"},
+{"p":"　　用过司马懿当反贼的人，大概都明白他的尴尬，标记不足，连破后变得乏力，但其原因到底是什么呢？标记不足的原因是什么呢？"},
+{"p":"　　标记不足是弃牌不够，而弃牌不够是牌消耗大于增加，可以增加手牌数量的办法，大概有无中生有，五谷丰登，借刀杀人，顺手牵羊几种。但是最重要的一种，却是另一个资源，反贼，杀死反贼，也就是你的同伴！"},
+{"p":"　　如果你能找到很好的爆发点，不要让你的同伴白死，酒火杀，南蛮入侵，等等群伤的办法，在你摸三张牌再度行动之后，你上理论带来的伤害，可能足已杀死你原本想要杀的人了。"},
+{"p":"　　我明白，这种方法，可能有很多人难以接受，但是，司马懿的作战方式，如果在反贼已集体乏力时，只有这样，因为，你动一轮，要比你已将死的同伴动上一轮要可怕的多。"},
+{"p":"　　终究还是游戏观念的问题，这种行动方式，你可以理解为，同伴以死给你放权。当反贼时，你杀死他们，目的只有一个，就是杀掉主公。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' style='margin:1px 0px 1px -5px;'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"周瑜","img":"../images/heros/card/card_le003.jpg","nickname":"赤壁的火神"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【琴音】——弃牌阶段，当你弃掉了两张或更多的手牌，可令所有角色各回复1点体力或各失去1点体力。"},{"power":"【业炎】——限定技，出牌阶段，你可以选择1~3名角色，你分别对他们造成最多共3点火焰伤害（你可以任意分配），若你将对1名角色分配2点或更多的火焰伤害，你必须先弃掉4张不同花色的手牌并失去3点体力。"},{"power":"★失去体力意味着相关的武将技能不能发动。例如遗计，反馈等等……失去体力不等于受到伤害。"},{"power":"★发动琴音时只能选择其中的1项执行，所有人回复1点体力或所有人失去一点体力（包括周瑜自己）。"}],
+[{"q":"发动业炎如果周瑜进入濒死如何结算？先求桃才发动火焰伤害吗？","a":"对，先求桃，没桃则死亡，但依然可以结算伤害。"},
+{"q":"业炎造成的伤害是否从神周瑜起逆时针结算效果，例如第一位是夏侯惇，就先结算刚烈？如果业炎过程中神周瑜死亡，是否继续结算？","a":"对，逆时针结算，即使死亡，依然结算，除非满足游戏结束条件。"},
+{"q":"业炎发动是否对神周瑜发动时的体力有要求？","a":"没有，几点体力都可以发动，但如果发动业炎导致周瑜进入濒死状态，则先结算濒死，不管有没有救回，后续伤害都在濒死结算后造成。"},
+{"q":"神周瑜弃牌阶段发动琴音，如果让所有人去1血，这时候后自己在琴音后剩下3血，手牌4张，是否需要继续弃牌到3张？","a":"是的，需要继续弃牌"}],
+[{"p":"身份适应性方面，主公不推荐，主打技能有自残特性会让想保护你的忠臣伤透心。当忠臣则发挥优秀，刘备主公局最推荐，主要可以发动业炎大面积收掉反贼人头。内奸也是很好的选择，无论是琴音还是业炎都能很好的造成场上的大面积减员形成对内奸的有利局势。反贼则远主位置好不被针对打击，并且有队友补牌的情况下，堪称最强反贼之一，任何一个主公面对这三点火焰伤害必心惊胆战，无视距离的高伤害输出是一个优秀反贼的特质。"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

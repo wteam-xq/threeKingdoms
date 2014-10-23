@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"左慈","img":"../images/heros/card/card_qun013.jpg","nickname":"迷之仙人"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【化身】：所有人都展示武将牌后，你随机获得两张未加入游戏的武将牌，选一张置于你面前并声明该武将的一项技能，你拥有该技能且同时将性别和势力属性变成与该武将相同直到该化身被替换。在你的每个回合开始时和结束后，你可以替换化身牌，你须为新的化身重新声明一项技能（你不可声明限定技、觉醒技或主公技）。"},{"power":"★你所拥有的化身牌背面朝上置于一旁——形成“化身库”，声明技能后将化身牌正面朝上放置（置于左慈旁），被替换后仍背面朝上放回“化身库”，每张化身牌的武将技能都可以被反复声明。"},{"power":"【新生】：你每受到1点伤害，可获得一张新化身牌。"},{"power":"★当你获得新化身牌时，同样是从未加入游戏的武将牌堆中随机抽取。"}],
+[{"q":"左慈发动【化身】如何表示拥有哪一项技能？","a":"声明只有一个技能的武将，将武将牌放置于左慈的武将牌下面，然后将技能露出方便查看即可。声明有两个技能的武将，选择下面的技能操作方法同上，选择上面的技能时，将左慈的武将牌盖在该技能的下面，只露出上面的技能即可。"},
+{"q":"左慈获得的【化身】牌是否需要展示？","a":"不需要，直接背面朝上放入“化身库”。"},
+{"q":"死亡角色的武将牌是否加入武将牌堆？","a":"加入。"},
+{"q":"当左慈的回合即将开始时，若其武将牌处于背面朝上的状态，则将其武将牌翻转至正面朝上，然后跳过这一回合，在跳过回合之前/之后是否可以发动【化身】？","a":"不可以。"},
+{"q":"左慈拥有【遗计】，一次受到2点伤害后，如何结算？","a":"可以发动两次遗计和两次新生，四次技能的发动顺序由左慈自己选择。"},
+{"q":"左慈发动【放权】后，如何结算？","a":"在回合结束时可以弃置一张手牌令一名其他角色进行一个额外的回合，在回合结束后可以发动【化身】，然后该角色的额外回合开始。"},
+{"q":"左慈拥有【屯田】时发动【化身】更换技能，如何结算？","a":"所有田进入弃牌堆。"},
+{"q":"左慈是否可以发动【化身】选择拥有【急袭】？","a":"不可以。这不是一个完整的技能。"},
+{"q":"左慈是否可以不替换【化身】牌而声明该化身牌的另一项技能？","a":"可以。"},
+{"q":"左慈是否可以发动【化身】选择左慈的武将牌？","a":"不可以。左慈的武将牌不属于【化身】牌。"},
+{"q":"左慈回合开始时发动【化身】拥有【不屈】，在出牌阶段处于【不屈】状态，在回合结束后发动【化身】拥有【急救】，如何结算？","a":"左慈发动【化身】在失去【不屈】的同时获得【急救】，然后左慈由于失去【不屈】立即进入濒死状态，进行濒死结算，由于此时已经是左慈的回合外，左慈可以发动【急救】对自己使用【桃】。在濒死结算过程中左慈每回复1点体力，去掉任意一张【不屈】牌。除非左慈最终能回复至1体力，否则死亡。"},
+{"q":"游戏开始后左慈发动【化身】选择神诸葛亮，是否可以发动【七星】发给左慈十一张牌？","a":"游戏开始后所有玩家挑选好武将牌后同时亮出，然后分发体力牌，最后分发起始手牌，此时左慈发动【七星】。"},
+{"q":"左慈发动【化身】选择神武将，是否可以任意选择自己的势力？","a":"可以。"},
+{"q":"左慈被蔡琰【断肠】后，“当前”所有技能是否全部消失？","a":"是，此时所有 化身牌和技能都消失。"}],
+[{"p":"三国中最神秘的人物左慈，在三国杀中的表现也是这样。比较考人品的娱乐将。只要有血就会有更多的武将牌，就会有更多的技能选择。"},
+{"p":"【主公】：推荐指数：★★★★☆  唯一的优势就是多一点体力，能够有更多的机会得到武将牌。"},
+{"p":"【忠臣】：推荐指数：★★★★☆  在队友的帮助下，可能会有更多武将牌能够选择，而发挥意想不到的效果。"},
+{"p":"【反贼】：推荐指数：★★★★☆  和做忠臣同理，有队友的帮助，可能会有更多的武将牌进行选择。"},
+{"p":"【内奸】：推荐指数：★★★★☆  因为左慈没有很高的嘲讽力度，并且随着战局的推延会有更多的武将牌选择，做内还算比较适合。"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' >" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

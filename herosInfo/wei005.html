@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"许褚","img":"../images/heros/card/card_wei005.jpg","nickname":"虎痴"}],
+[{"online":"妈，我冷40点","content":"使用许褚在1局游戏中发动裸衣至少2次并在裸衣的回合中杀死过至少2名角色"},{"online":"虎痴80点","content":"使用许褚取得100次胜利"}],
+[{"power":"【裸衣】——摸牌阶段，你可以少摸一张牌；若如此做，该回合的出牌阶段，你使用【杀】或【决斗】（你为伤害来源时）造成的伤害+1。"}],
+[{"q":"许褚是否可以先摸1张牌，然后再决定是否发动【裸衣】？","a":"不可以，必须在摸牌开始前选择是否发动。"},
+{"q":"许褚发动【裸衣】时，对其他角色使用【决斗】，若许褚失败，受到几点伤害？","a":"1点。"},
+{"q":"许褚发动【裸衣】对小乔造成伤害，小乔发动【天香】。被天香的人受到几点伤害？","a":"+1伤害。"},
+{"q":"许褚受到【兵粮寸断】的效果时，能否发动【裸衣】？","a":"不能。"}],
+[{"p":"因为许褚输出高，防御低，所以做主公比较无力，不推荐。"},
+{"p":"许褚做忠，远位忠较好，在外围打出伤害，多留无懈和闪保命；"},
+{"p":"许褚做反，78位反较好，主公手牌匮乏时，许褚裸衣效果极佳；"},
+{"p":"许褚做内，平衡血量，控制仇恨，拿到武器时候适时补刀，提高手牌质量。"},
+{"p":"注意：许褚最大的弱点是过河拆桥，顺手牵羊，所以仇恨控制很重要，不要让这7张牌在自己身上使用太多。一定控制好裸衣时机！"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

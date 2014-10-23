@@ -1,0 +1,135 @@
+html,body,canvas{
+	margin:0px;
+	padding:0px;
+	border:0;
+}
+
+/*页面字体*/
+.mainMenu{
+	width:1024px;
+	height:600px;
+	background:#E1CAA1 url(../images/StrategyBack.jpg) no-repeat;
+	font-size:27px;
+	background-repeat:no-repeat;
+	font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
+	overflow:hidden;
+}
+
+.otherPage{
+	/*background:#E1CAA1 url(../images/militaryBg.jpg) repeat-y;
+	background-attachment:fixed;*/
+	font-size:27px;
+	width:1024px;
+	height:600px;
+	font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
+	overflow-x:hidden;
+	background-color:#E1CAA1;
+	}
+
+html{
+  overflow:hidden;
+}
+	
+/*战略页面按钮*/
+.m_button{
+	width:275px;
+	height:80px;
+	background:url(../images/StrategyButton.png);
+	position: absolute;
+	left:60px;
+	
+	text-align: center;
+    vertical-align: middle;
+	
+	font-family:Courier New, Helvtica, sans-serif;
+	font-size:35px;
+	/*text-shadow: rgba(10, 10, 10, 0.5) 2px 2px 5px;*/
+	color: #fff;
+	/*text-shadow: 0 0 1.2em #fff, 0 0 1.2em #fff;*/
+	font-weight:bold;
+	z-index:3;
+	overflow: hidden;
+}
+
+.m_button_l:nth-child(1){
+	top:50px;
+}
+
+.m_button_l:nth-child(2){
+	top:190px;
+}
+
+.m_button_l:nth-child(3){
+	top:345px;
+}
+
+.m_button_l:nth-child(4){
+	top:460px;
+}
+
+.m_button_l:hover{
+	text-shadow: 0 0 1.2em #ffffbe, 0 0 0.2em #ffffbe;
+	left:85px;
+}
+.m_button span{
+	position:relative;
+	top:23px;
+}
+/*详细攻略部分按钮*/
+.detail_button{
+	background-image:url(../images/military_page_button.png);
+	height:51px;
+	width:288px;
+	position:fixed;
+	background-repeat:no-repeat;
+	height:90px;
+	
+	font-family: Courier New, Helvetica, sans-serif;
+	font-size:120%;
+	font-weight:bold;
+    color: #fff;
+    text-shadow: rgba(10, 10, 10, 0.5) 2px 2px 2px;
+    text-align: center;
+	}
+.detail_button span{
+	vertical-align: middle;
+	position:relative;
+	top:28px;
+	}	
+	
+.back_button{
+	left:368px;
+	top:-20px;
+	}
+.next_page{
+	left:736px;
+	top:530px;
+	}
+.last_page{
+	left:0px;
+	top:530px;
+	}
+.turn_top{
+	left:368px;
+	top:530px;
+	color:#fff;
+	font-weight:normal;
+	padding:30px 0 0 0;
+	text-decoration:none;
+	}
+.detail_button:hover{
+	background-image:url(../images/military_page_button2.png);
+	}
+/*背景图片样式*/
+.background_img{
+	position:absolute;
+	background-image: url(../images/militaryBg.jpg);
+	left:0px;
+	top:0px;
+	display:none;
+	z-index:-2;
+	height:600px;
+	width:1024px;
+	position:fixed;
+	background-repeat:repeat-y;
+	}

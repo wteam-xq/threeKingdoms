@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"神曹操","img":"../images/heros/card/card_le005.jpg","nickname":"超世之英杰"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【归心】——你每受到1点伤害，可分别从每名其他角色处（手牌、装备区和判定区）获得一张牌，若如此做将你的武将牌翻面。"},{"power":"【飞影】——锁定技，当其他角色计算与你的距离时，始终+1。"}],
+[{"q":"神曹操一次性受到2点伤害，归心如何结算？","a":"一次一次结算，先分别获得一张翻一次面，再分别获得一张再翻一次面。（【翻面】：将武将牌由正面朝上翻转至背面朝上的状态或由背面朝上翻转至正面朝上的状态。游戏中，当一名角色的回合即将开始时，若其武将牌处于背面朝上的状态，则将之翻转至正面朝上，然后跳过该角色的这一回合。）"}],
+[{"p":"主公：神曹操当主公是很好用的，虽然没有主公技。因为反贼肯定是要对主公造成伤害杀掉他的，神曹操也能归心摸空多个反贼，让忠臣补刀或者自己动手。而且多加一点血意味着能多卖一次血以及多加一张的手牌上限，对神曹操还是很具诱惑力的。话说太阳神三国杀中是禁神曹操主公的，所以除非是和同学娱乐瞎玩，不然一般是不建议神曹操主公的，扰乱游戏平衡。"},
+{"p":"忠臣：忠臣是神曹操的话很容易沦为三血白板，反贼动他真的是吃力不讨好。忠臣神曹操也助长了主公被集火的几率。不过跟主公其他忠臣间的配合好的话，能很快的手刃反贼。"},
+{"p":"反贼：反贼选神曹操的话还是要看局势，也不能说好也不能说不好，但是归心的话收益是四个身份里偏低的，就跟反贼放AOE是一个道理。不过己方很懂事的挂一个连弩出来砍你一下的话，接下来要怎么做大家都懂的。"},
+{"p":"内奸：除非你内奸能当的很嚣张，不然还是三血白板，虽然内奸归心的收益是最高的。进入主内残局的时候，神曹操就会偏弱了，要想办法限制住主公的距离。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' style='margin:1px 0px 1px 25px;'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

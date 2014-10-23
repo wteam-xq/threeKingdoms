@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+ var hero_info = [ [{"name":"周泰","img":"../images/heros/card/card_wu013.jpg","nickname":"厉战之躯"}],
+[{"online":"金枪不倒40点","content":"使用周泰在1局游戏中拥有过至少9张不屈牌并且未死"},{"online":"历战之躯80点","content":"使用周泰取得100次胜利"}],
+[{"power":"【不屈】——每当你扣减1点体力后，若你当前的体力值为0：你可以从牌堆顶亮出一张牌置于你的武将牌上，若此牌的点数与你武将牌上已有的任何一张牌都不同，你不会死亡；若出现相同点数的牌，你进入濒死状态。"},{"power":"◆置于武将牌上的牌视为移出游戏。"},{"power":"◆为了简化结算流程，周泰一次扣减多点体力只发动一次【不屈】"}],
+[{"q":"周泰亮出的牌司马懿和张角能否替换？","a":"不能。不属于判定牌。"},
+{"q":"小乔【天香】给不屈状态下的周泰，周泰摸几张牌？","a":"等同于体力上限的牌。"},
+{"q":"周泰在不屈状态下自己回合结束能保留多少手牌？","a":"0张。"},
+{"q":"周泰不屈状态下自己使用桃或者受到别人的回血效果时，如何结算？","a":"任意弃掉1张状态牌。如果唯一的1张状态牌也被弃掉，则回复到1点体力值。"},
+{"q":"周泰在【不屈】状态下进入濒死状态，是否可以求多个桃？","a":"可以，直到回复到1点体力值为止。"}],
+[{"p":"身份建议：主，内"},
+{"p":"周泰做忠，输出低，控制低，很难保住主公杀掉反贼；"},
+{"p":"周泰做反，输出低，很难对主公造成伤害；"},
+{"p":"周泰做内，控制血量，做好平衡，控制仇恨；"},
+{"p":"周泰做主，比较抗打，尽量打出高输出；"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

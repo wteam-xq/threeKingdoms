@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"邓艾","img":"../images/heros/card/card_wei015.jpg","nickname":"矫然的壮士"}],
+[{"online":"暂无","content":""}],
+[{"power":"【屯田】——每次当你于回合外失去牌时，可进行一次判定，将非红桃结果的判定牌置于你的武将牌上，称为“田”；每有一张田，你计算与其他角色的距离便减少1。"},{"power":"【凿险】——觉醒技，回合开始阶段，若田的数量达到3张或更多，你须减1点体力上限，并永久获得技能“急袭”(出牌阶段，你可以把任意一张田当【顺手牵羊】使用)。"},{"power":"【觉醒技】：觉醒技是锁定技和限定技的集合，当满足发动条件时必须发动，通常会改变角色的某种状态（例如体力上限），然后让角色永久获得新的技能，此状态不可逆转。"}],
+[{"q":"邓艾于回合外进行一次判定，判定牌进入弃牌堆后，可以发动【屯田】吗？","a":"不可以。判定牌属于邓艾，但不是邓艾拥有的牌，不存在“失去”一说。对于角色来说，只有装备区里的牌和手牌才会失去。"},
+{"q":"荀彧对邓艾发动【驱虎】时，如何结算？","a":"双方各以牌面向下的方式同时出一张手牌后，邓艾可以发动【屯田】，再同时亮出。"},
+{"q":"曹植对邓艾使用【过河拆桥】选择弃掉其装备区里的一张梅花牌时，如何结算？","a":"该牌进入弃牌堆时，曹植可以发动【落英】。该牌进入弃牌堆后/曹植发动【落英】获得该牌后即邓艾失去该牌，可以发动【屯田】。"},
+{"q":"张郃发动【巧变】跳过摸牌阶段，选择邓艾和只有1张手牌的司马懿为目标时，如何结算？","a":"邓艾和司马懿按行动顺序依次失去一张手牌：1、邓艾的行动顺序在司马懿之前，则邓艾先失去一张手牌，邓艾发动【屯田】进行判定时司马懿打出唯一的手牌发动【鬼才】，然后由于司马懿没有手牌，张郃获得之前邓艾失去的那张手牌，【巧变】结算完毕。2、司马懿的行动顺序在邓艾之前，则司马懿先失去唯一的手牌，然后，邓艾失去一张手牌，发动【屯田】，最后张郃同时获得之前邓艾和司马懿失去的手牌，【巧变】结算完毕。"},
+{"q":"鲁肃对司马懿和邓艾发动【缔盟】时，如何结算？","a":"交换是同时进行的，双方同时失去手牌，此时邓艾可以发动一次【屯田】（司马懿此时没有手牌），然后同时获得对方给予的手牌。"},
+{"q":"邓艾在回合外受到1点伤害进入濒死状态，进行濒死结算，吴国太对邓艾发动【补益】，展示邓艾的一张手牌不为基本牌，如何结算？ ","a":"先执行【补益】的一个效果邓艾弃置该牌，此时邓艾可以发动【屯田】，再执行【补益】的第二个效果邓艾回复1点体力，濒死结算完毕。"},
+{"q":"A对装备【寒冰剑】的张角使用【借刀杀人】选择对B使用【杀】，邓艾使用【无懈可击】进行响应，在为【无懈可击】选择【借刀杀人】为目标后发动【屯田】进行判定时张角打出【寒冰剑】发动【鬼道】，然后邓艾又使用了一张【无懈可击】进行响应，在为该【无懈可击】选择前一张【无懈可击】为目标后发动【屯田】进行判定，最后【借刀杀人】生效，如何结算？","a":"如果B此时在张角的攻击范围内，张角可以选择对B使用【杀】进行响应，若张角不使用【杀】，没有任何事发生；如果B此时不在张角的攻击范围内，张角不可以对B使用【杀】，没有任何事发生。"},
+{"q":"张角对邓艾发动【寒冰剑】弃掉第一张牌，邓艾发动【屯田】进行判定时张角打出【寒冰剑】发动【鬼道】，如何结算？","a":"张角需要再弃掉邓艾的一张牌。技能发动成功后必须依次执行各个能执行的效果。"},
+{"q":"未受伤且未觉醒的邓艾回合开始阶段，田的数量达到3张或更多时，如何结算？","a":"邓艾触发【凿险】，减1点体力上限（将体力牌翻面），体力值调整为当前体力上限，并永久获得技能【急袭】。"},
+{"q":"邓艾发动【急袭】计算与其他角色的距离时，计入当【顺手牵羊】使用的田吗？","a":"不计入。"},
+{"q":"邓艾可以发动【急袭】把一张红色的田当【顺手牵羊】对贾诩使用吗？","a":"可以。视为邓艾对贾诩使用了一张红色的【顺手牵羊】。"}],
+[{"p":"邓艾的觉醒技【凿险】技能被誉为三国杀中最容易发动的觉醒技。而【顺手牵羊】的实力绝对不容小视。而【屯田】技能不只是为了觉醒技而设计，攻击距离的增加也让邓艾在长生能够更加游刃有余。邓艾只要把仇恨控制到中等，就能够迅速觉醒，发挥更强大的作用。"},
+{"p":"【主公】：推荐指数：★★★★☆  邓艾很适合做主公，初期受到反贼的打击能够加速觉醒，后期大量顺手打压反贼。"},
+{"p":"【忠臣】：推荐指数：★☆☆☆☆  如果没人动邓艾的话，邓艾能力太弱，做忠臣只能让反贼绕过直接打主，故不推荐做忠。"},
+{"p":"【反贼】：推荐指数：★★☆☆☆  和做忠相似，主忠方可以在最后再收拾邓艾。故不推荐做反。"},
+{"p":"【内奸】：推荐指数：★★★★★  初期酱油，后期强大的邓艾和内奸角色很合拍。所以满分推荐邓艾做内。"}] ];
+
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+ var hero_info = [ [{"name":"于吉","img":"../images/heros/card/card_qun011.jpg","nickname":"太平道人"}],
+[{"online":"神鬼莫测40点","content":"使用于吉在1局游戏中累计蛊惑假牌至少成功3次"},{"online":"太平道人80点","content":"使用于吉取得100次胜利"}],
+[{"power":"蛊惑——当你需要使用或打出一张基本牌或非延时类锦囊牌时，你可以声明并将1张手牌扣于桌上。若无人质疑，则该牌按你所述之牌来用。若有人质疑则亮出验明：若为真，质疑者各失去1点体力；若为假，质疑者各摸1张牌。除非被质疑的牌为红桃花色且为真（仍然可用），否则无论真假，该牌都作废，弃置之。"},{"power":"★失去体力没有伤害来源，并且不能触发任何与伤害有关的技能。"},{"power":"★无人质疑时，将用于蛊惑的牌亮开，该牌的颜色即为于吉使用（或打出）这张牌的颜色。"},{"power":"★没有体力的角色不能质疑。"}],
+[{"q":"于吉发动【蛊惑】，别人质疑猜错死亡的话，奖惩如何结算？","a":"质疑失败没有伤害来源，因此没有人获得奖励或惩罚。"},
+{"q":"于吉发动【蛊惑】，造成玩家失去体力之后，能否发动相关的武将技，比如【天香】、【刚烈】、【奸雄】、【反馈】、【武魂】、【遗计】等？","a":"失去体力，没有造成伤害，因此上述技能等均不能发动。"},
+{"q":"于吉濒死能否蛊惑吃【桃】？","a":"可以。"},
+{"q":"于吉蛊惑出【桃】救濒死的角色，如何结算？","a":"从当前行动回合的角色开始按逆时针方向依次结算，在于吉【蛊惑】之前放弃出【桃】的玩家，即使通过质疑摸牌摸到了【桃】，也不能再救。在于吉之后的角色如果通过质疑于吉的【蛊惑】摸到了【桃】，可以救。"},
+{"q":"对于吉使用【顺手牵羊】或者【过河拆桥】，于吉装备区里没有牌，判定区里有延时锦囊，如果于吉通过【蛊惑】使得手牌张数变为0，如何结算？","a":"强制牵（或拆）延时锦囊。"},
+{"q":"对于吉使用【顺手牵羊】或者【过河拆桥】，如果于吉通过【蛊惑】使得自己没有任何牌，如何结算？","a":"【顺手牵羊】或【过河拆桥】作废，进入弃牌堆。"},
+{"q":"于吉能否发动【丈八蛇矛】的特效时【蛊惑】？","a":"不能。"},
+{"q":"吕布对于吉使用【杀】，于吉发动【蛊惑】出2【闪】，如何结算？","a":"2张【闪】依次质疑，顺序由于吉指定。"},
+{"q":"于吉蛊惑【杀】声明属性（无属性/火属性/雷属性）被人质疑，验明时真假如何判断？","a":"如果原牌不是【杀】或虽然是【杀】但与声明的属性不同，则算作假；如果原牌是【杀】且属性与声明的相同，则算作真。"},
+{"q":"于吉蛊惑【杀】不声明属性无人质疑，此【杀】的属性如何处理？","a":"无人质疑时，原牌仍然要翻开。若原牌是【杀】，按原牌属性结算；若原牌不是【杀】，按无属性【杀】结算。"},
+{"q":"于吉蛊惑【杀】声明属性（无属性/火属性/雷属性）无人质疑，此【杀】的属性如何处理？","a":"无论翻开后的原牌是什么属性，此【杀】均按声明的属性结算。"},
+{"q":"于吉蛊惑【杀】时无人质疑，此【杀】的花色如何处理？","a":"以翻开后的原牌花色为参照。"},
+{"q":"于吉蛊惑无属性【杀】成功，能否发动已装备的【朱雀羽扇】特效？","a":"可以，在验明后发动。"}],
+[{"p":"1：到你回合前不要去蛊惑 当你是不存在的吧"},
+{"p":"2：到你的回合时你出的第一张牌一定要很明显的表明你的身份(推荐这张牌尽量用非蛊惑的方式打出)"},
+{"p":"3：然后从第2张牌开始用你手中的牌开始搞对家吧，别用假牌，是拆就蛊惑拆，是杀就蛊惑杀，是无中就蛊惑无中。放心，对家肯定会有一个人站出来质疑的。"},
+{"p":"4：尽量留不少于两手牌的情况下过牌"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

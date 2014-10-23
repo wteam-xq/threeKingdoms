@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"董卓","img":"../images/heros/card/card_qun006.jpg","nickname":"魔王"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"酒池——你可以将你的任意一张黑桃手牌当【酒】使用。"},{"power":"肉林——锁定技，你对女性角色、女性角色对你使用【杀】时，需连续使用两张【闪】才能抵消。"},{"power":"崩坏——锁定技，回合结束阶段，若你的体力不是全场最少的（或同时为最少），则你必须减1点体力或1点体力上限。"},{"power":"暴虐——主公技，其他群雄角色每造成一次伤害，可进行一次判定，若为黑桃，你回复1点体力。"},{"power":"★表示董卓的体力值需要用到至少两张体力牌。例如：董卓作为主公时，用一张5点和一张4点的体力牌表示起始体力，当他第一次扣减体力上限时（假设当前体力值为6），将4点体力的体力牌翻至3点体力的一面。然后把武将牌调整至露出6点体力。"},{"power":"★当体力上限扣减至0时，角色直接死亡（不可能被救活）。"}],
+[{"q":"董卓的体力如何表示？","a":"用两张体力卡拼成董卓的体力。（做主公时9点体力）"},
+{"q":"如果场上有其他角色与董卓同为最少，董卓是否需要崩坏？","a":"不需要。"},
+{"q":"董卓的体力是全场最少的，能否主动选择发动崩坏？","a":"不能。"},
+{"q":"董卓的暴虐，其判定牌属于谁？","a":"该群雄角色。"},
+{"q":"其他群雄角色对董卓造成伤害时，能否发动暴虐？","a":"可以。"},
+{"q":"崩坏后手牌超过了当前体力值，是否需要弃牌？","a":"不需要。"},
+{"q":"群雄角色对司马懿造成伤害，先发动暴虐还是先发动反馈？","a":"先发动暴虐判定，再发动反馈。"}],
+[{"p":"个人认为做忠反的董卓比做主公更为强力。"},
+{"p":"　　忠臣：董卓忠臣没有吸引仇恨的能力，但也不会成为突破口。董卓的威慑力和杀伤力不亚于许褚，而防御力远远强于许褚，所以被反贼包围的董卓将是恐怖的存在。【崩坏】就按一血一上限崩，桃留着给主公吧。要有一定的把握才酒杀，很多时候别人都会留【闪】防着你，攒着牌作威慑的效果不亚于直接酒杀。"},
+{"p":"　　反贼：完美的近位反，能给主公很大的心理压力。建议董卓做反就攒牌蓄爆，充分发挥血量优势。董卓攒牌比吕蒙、曹仁之流要强力得多，因为就算董卓不出牌也能通过威慑起到相应的作用，而一个关键的酒杀就足以粉碎主忠所有的希望。董卓的高血量也是发动自杀性袭击的资本，把自己跟主忠连起来，让队友酒属性杀。如果能用自己2血换主忠2血就很合算了。"},
+{"p":"　　内奸：不太适合。做内选董卓，是想速推主忠反吗？董卓仇恨固然不高，但内奸最怕的就是局势失控，你要控制局势，往往就要拖延时间，然后你就崩死了。就算能成功进入主内反，也很难获得最后的胜利。也许袁绍局可以选董卓当内，其他主公不推荐。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

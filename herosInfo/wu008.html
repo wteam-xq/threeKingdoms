@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+ var hero_info = [ [{"name":"孙尚香","img":"../images/heros/card/card_wu008.jpg","nickname":"弓腰姬"}],
+[{"online":"因祸得福20点","content":"使用孙尚香在1局游戏中累计失去至少5张已装备的装备牌"},{"online":"弓腰姬80点","content":"使用孙尚香取得100次胜利"}],
+[{"power":"【结姻】——出牌阶段，你可以弃两张手牌并指定一名受伤的男性角色：你和目标角色各回复1点体力。每回合限用一次。"},{"power":"★发动结姻的条件是“有受伤的男性角色”，与你是否受伤无关。"},{"power":"【枭姬】——当你失去一张装备区里的牌时，你可以立即摸两张牌。"},{"power":"★例如这些时机：你受到【顺手牵羊】、【过河拆桥】等锦囊的影响以及你自己替换装备时。"}],
+[{"q":"孙尚香发动【结姻】时，是否可以只为自己回复体力？","a":"不可以。"},
+{"q":"当场上没有男性角色受伤时，孙尚香是否可以发动【结姻】？","a":"不可以。"},
+{"q":"孙尚香失去1张装备区里的牌时，是否一定要发动【枭姬】摸两张牌？","a":"【枭姬】不是锁定技，可选择性发动。"},
+{"q":"孙尚香是否可以替换自己的装备来触发【枭姬】？","a":"可以。"},
+{"q":"孙尚香是否可以主动弃掉自己装备区里的牌来发动【枭姬】技能？","a":"不可以。"},
+{"q":"孙尚香发动【贯石斧】的技能时，是否可以弃装备区里的牌发动【枭姬】？","a":"可以。但是不能弃掉【贯石斧】本身。"},
+{"q":"孙尚香做主公，如果杀掉了忠臣，需要弃光所有牌，此时如果其装备区有牌，孙尚香是否可以发动【枭姬】技能？","a":"可以。","example":"孙尚香做主公，对忠臣周瑜使用【杀】导致周瑜死亡，此时孙尚香必须弃掉所有牌。若孙尚香此时装备了【+1马】、【-1马】、【雌雄双股剑】，则在弃掉所有牌后，孙尚香可以发动【枭姬】技能再摸6张牌。"}],
+[{"p":"身份建议：反，忠，内"},
+{"p":"孙尚香做主，防御较低；"},
+{"p":"孙尚香做反，控制仇恨，在输出和结姻上做好平衡；"},
+{"p":"孙尚香做忠，主要以和主公结姻为主，如有队友配合，加大爆发时的输出力度；"},
+{"p":"孙尚香做内，控制仇恨，加强装备提升，最后进入主内时，胜算很大；"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

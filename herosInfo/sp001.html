@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"杨修","img":"../images/heros/card/card_sp001.jpg","nickname":"恃才放旷"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【啖酪】——当一个锦囊指定了包括你在内的多个目标，你可以立即摸一张牌，若如此做，该锦囊对你无效。"},{"power":"【鸡肋】——当你受到伤害时，说出一种牌的类别（基本牌，锦囊牌，装备牌），对你造成伤害的角色不能使用、打出或弃置该类别的手牌直到回合结束。"},{"power":"◆弃牌阶段，若仅剩不可弃的手牌且超出手牌上限时，该角色需展示其手牌。例如，若指定的是装备牌，此时该角色2点体力，同时手里有两张【闪】和三张装备牌，弃牌阶段，该角色必须把两张【闪】弃掉，然后该角色展示这三张装备牌，结束他的回合。"}],
+[{"q":"杨修被【借刀杀人】指定成为目标时，能否发动啖酪？","a":"不能，借刀杀人的目标只有一名角色，另一名角色是【杀】指定的目标。"},
+{"q":"杨修和另一名角色单挑进入局面后，该角色若使用【南蛮入侵】、【万箭齐发】等群体性锦囊，杨修是否能发动啖酪？","a":"【南蛮入侵】，【万箭齐发】不能发动啖酪，因为锦囊目标仅有杨修一人。【五谷丰登】、【桃园结义】可以发动啖酪。"},
+{"q":"游戏中黄月英使用锦囊牌并指定多个目标时，黄月英的【集智】和杨修的【啖酪】按什么顺序发动？","a":"这种情况黄月英可先发动【集智】技能，之后才轮到杨修选择是否发动【啖酪】。例如，若黄月英使用【五谷丰登】，则黄月英可先发动【集智】摸一张牌，然后翻开【五谷丰登】的牌，在黄月英选择牌前，杨修可先决定是否发动【啖酪】，之后再结算【五谷丰登】"},
+{"q":"使用【五谷丰登】后对杨修使用【无懈可击】，杨修是否还能发动啖酪？","a":"杨修的啖酪在指定目标后立即发动，时机比【无懈可击】的时机更前。"},
+{"q":"对杨修使用【铁索连环】，杨修是否能发动啖酪？","a":"如果只指定杨修一人为目标，杨修不能发动啖酪。如果指定了杨修和另一名角色，那么杨修可以发动啖酪。"},
+{"q":"若对杨修造成伤害的角色不是当前回合人，鸡肋的效果持续到谁的回合结束？[A ]鸡肋的效果持续到当前回合人的回合结束。","a":"貂蝉发动离间，指定杨修和另一名角色A决斗，杨修受到1点伤害，指定角色A的基本牌，那么貂蝉回合结束后鸡肋的效果解除"},
+{"q":"若杨修只剩1点体力，受到伤害时，鸡肋在什么时机发动？[A]受到伤害时，也就是在进入濒死状态之前。","a":"杨修1点体力时受到来自主公的1点伤害，杨修首先发动鸡肋，指定基本牌，然后杨修进入濒死状态，无人救回，杨修死亡，翻开身份忠臣，则主公只需弃掉所有除基本牌之外的牌"},
+{"q":"某角色被杨修鸡肋指定了基本牌后，本回合内该角色能否通过武将或武器技能使用（或打出）基本牌？[A]不能。","a":"关羽被鸡肋指定了基本牌，那么他不能用红色的锦囊当【杀】使用或打出"},
+{"q":"被鸡肋指定一种牌后，能否将该类型牌当做其他类型牌使用或打出？[A]可以。","a":"鸡肋了大乔的基本牌，大乔仍然可以将方片的基本牌当【乐不思蜀】使用"},
+{"q":"被杨修鸡肋指定了某一种牌后，能否通过手牌之外的方式使用或打出该类型的牌？[A]可以。杨修的鸡肋只对手牌有限制。","a":"关羽被鸡肋了基本牌，他仍可以用已装备的牌当【杀】使用或打出，并且需要出【闪】时，仍然可以使用【八卦阵】判定。但判定结果若为黑色，则仍然不可从手牌中使用或打出【闪】。"},
+{"q":"某角色被鸡肋指定一种牌后，弃牌阶段能否将该种类的牌弃掉？","a":"不能弃掉该类别牌。若弃掉其他种类的牌后仍然超出手牌上限，则需要展示自己手牌，然后弃牌阶段结束。"},
+{"q":"被鸡肋指定了某一种牌后，被【过河拆桥】手牌中的该类型牌，是否弃掉？","a":"弃掉。被鸡肋指定的牌不能主动使用打出或弃置，被动的弃牌不受鸡肋的影响。"},
+{"q":"张角或司马懿被杨修鸡肋指定了某种牌后，能否将该类型牌用于修改判定？","a":"不能。张角和司马懿修改判定的牌属于打出。注：张角可以用装备区的牌修改判定。"},
+{"q":"一次受到多点伤害时，杨修能发动几次鸡肋？","a":"1次。每受到1次伤害只能发动一次鸡肋。"},
+{"q":"夏侯渊发动神速1指定杨修，杨修受到伤害发动鸡肋指定夏侯渊的装备牌，夏侯渊能否弃掉装备牌发动神速2？","a":"只能弃掉装备区中的牌发动神速2，不能从手牌中弃掉装备牌发动神速2。"},
+{"q":"被杨修鸡肋指定了装备牌后，能否发动武器技能？","a":"可以。被鸡肋指定装备牌只是不能从手牌中使用、打出或弃置装备牌。"},
+{"q":"被鸡肋指定某一种牌后，孙权能否发动制衡从手中弃掉这些牌？","a":"不能。"},
+{"q":"被鸡肋指定某一种牌后，能否用此种类牌拼点？","a":"可以。拼点不属于使用、打出或弃置。"},
+{"q":"于吉被鸡肋指定某一种牌后，能否将此种类牌用于蛊惑？","a":"可以，但不能声明成为被鸡肋指定的种类。"},
+{"q":"于吉被鸡肋指定基本牌后，用基本牌蛊惑某种锦囊，被质疑后亮出，此牌是否弃掉？","a":"弃掉。该牌作废后不属于任何人。"},
+{"q":"被鸡肋指定锦囊后，【铁索连环】能否重铸？","a":"能。重铸不属于使用、打出或弃置。"},
+{"q":"被鸡肋指定某一种牌后，杨修在本回合死亡，鸡肋的效果是否还存在？","a":"存在，持续到回合结束。"}],
+[{"p":"主公：★★☆☆☆"},
+{"p":"反贼：★★★☆☆"},
+{"p":"忠臣：★★☆☆☆"},
+{"p":"内奸：★★★★☆"}] ];
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

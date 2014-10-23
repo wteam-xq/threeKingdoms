@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mainmenu Page</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<script src="js/jquery-1.7.min.js"></script>
+<script src="js/custom-script.js"></script>
+<link rel="stylesheet" type="text/css" href="css/threeKingdoms.css">
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $("#military").click(function(){
+	window.location.href="herosMainPage/canvas_three.html";
+  }); //end click function()
+  $("#card").click(function(){
+	window.location.href="herosMainPage/card.html";
+  });
+  $("#rule").click(function(){
+	window.location.href="herosMainPage/rule.html";
+  });
+   $("#strategy").click(function(){
+	window.location.href="herosMainPage/StrategyPage.html";
+  });
+
+});//end ready function()
+</script>
+
+</head>
+<body id="mainmenu">
+<!-- 水晶按钮 -->
+<!-- <div class="button aqua" id="card">
+	<div class="glare"></div>
+	<span>游戏牌</span>
+</div>
+
+<div class="button aqua" id="rule" style="top:23%;">
+	<div class="glare"></div>
+	<span>规则</span>
+</div>
+
+<div class="button aqua" id="strategy" style="top:36%;">
+	<div class="glare"></div>
+	<span>攻略</span>
+</div>
+
+<div class="button aqua" id="military" style="top:49%;">
+	<div class="glare"></div>
+	<span>武将</span>
+</div> -->
+
+<div class="main_button" id="card">
+	<span>游戏牌</span>
+</div>
+
+<div class="main_button" id="rule">
+	<span>规则</span>
+</div>
+
+<div class="main_button" id="strategy">
+	<span>攻略</span>
+</div>
+
+<div class="main_button" id="military">
+	<span>武将</span>
+</div>
+
+</body>
+</html>

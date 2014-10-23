@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"法正","img":"../images/heros/card/card_yj003.jpg","nickname":"蜀汉的辅翼"}],
+ [{"online":"蜀汉的辅翼","content":"使用法正在1局游戏中发动眩感获得其他角色的桃至少3个"}],
+ [{"power":"恩怨——锁定技，其他角色每令你回复一点体力，该角色摸一张牌；其他角色每对你造成一次伤害，须给你一张红桃手牌，否则该角色失去1点体力。"},
+ {"power":"眩惑——出牌阶段，你可以将一张红桃手牌交给一名其他角色，然后，你获得该角色的一张牌并立即交给除该角色外的其他角色。每回合限一次。"}],
+ [{"q":"【恩怨】的第一项效果在哪些情况下会触发？","a":"其他角色对受伤的法正使用任何牌/发动任何技能，执行效果时法正回复1点体力，都会触发【恩怨】的第一项效果。","example":"体力为1的法正受到1点伤害，进入濒死状态，进行濒死结算，陆逊使用最后一张手牌【桃】选择法正为目标后可以发动【连营】，然后【桃】生效，法正回复至1点体力，触发【恩怨】的第一项效果，陆逊摸一张牌，濒死结算完毕。"},
+ {"q":"其他角色杀死法正，是否会触发【恩怨】的第二项效果？","a":"不会。虽然【恩怨】的第二项效果是以攻方的角度去描述，但这是守方法正的武将技能，是在造成伤害后触发的，濒死结算完毕后若法正死亡即造成伤害后法正已经死亡，不触发【恩怨】的第二项效果。"},
+ {"q":"徐盛使用【杀】对体力为1的法正造成1点伤害，法正进入濒死状态，进行濒死结算，徐盛对法正使用了一张【桃】，如何结算？","a":"法正回复至1点体力，触发【恩怨】的第一项效果，徐盛摸一张牌，濒死结算完毕。然后在造成伤害后【破军】和【恩怨】的第二项效果都可以发动/会触发，应从当前正进行回合的角色开始按逆时针方向依次决定是否发动/触发（【狂骨】、【暴虐】情况类似）：1、徐盛先发动【破军】，首先执行【破军】的第一个效果，法正摸一张牌，再触发【恩怨】的第二项效果，徐盛须给法正一张红桃手牌，否则失去1点体力，最后执行【破军】的第二个效果，法正将其武将牌翻面。2、法正先触发【恩怨】的第二项效果，徐盛须给法正一张红桃手牌，否则失去1点体力，接着徐盛可以发动【破军】。"},
+ {"q":"法正发动【眩惑】获得目标角色的手牌后可以观看后再分配吗？","a":"可以。“获得”即成为手牌。"},{"q":"法正发动【眩惑】获得的牌可以交给自己吗？","a":"可以。"},{"q":"法正发动【眩惑】获得目标角色的手牌有可能就是自己交给目标角色的那张红桃手牌吗？","a":"可能。如果法正选择获得目标角色的手牌，应从目标角色的所有手牌（包括法正给他的那张红桃手牌）中随机获得。"},{"q":"法正对装备【寒冰剑】和【八卦阵】的凌统发动【眩惑】选择获得凌统装备区里的【八卦阵】，此时凌统对法正发动【旋风】选择执行第一项效果，在造成伤害时凌统发动【寒冰剑】，如何结算？","a":"此时【八卦阵】虽然是法正的手牌，但是由于【眩惑】尚在结算过程中，这张【八卦阵】不可以和其他手牌混在一起，（tips6）需单独背面向上放置，因此凌统可以选择弃置这张【八卦阵】和另一张手牌。然后法正由于没有了那张【八卦阵】而无法执行【眩惑】分配牌的效果。","example":"周瑜对郭嘉发动【反间】，郭嘉选择亮出的牌是【桃】并受到1点伤害，郭嘉进入濒死状态，进行濒死结算。周瑜对郭嘉使用该【桃】进行响应（使用结算完毕后该牌进入弃牌堆，但是单独放置在一边），郭嘉回复至1点体力，濒死结算完毕，郭嘉在受到伤害后发动【遗计】，此时恰好需要洗牌形成新牌堆，那么那张【桃】不参与洗牌，郭嘉从新牌堆中摸两张牌并进行分配，然后郭嘉获得那张【桃】。"}],
+ [{"p":"法正在身份局中最适合做内奸，【恩怨】技能让他的生存能力大大提升，并且带有爱憎分明的意味。而【眩惑】技能则是很好的控制技能。"},{"p":"【主公】：推荐指数：★★★☆☆  选择法正做非主流主公，实属下下策。"},{"p":"【忠臣】：推荐指数：★★★☆☆  最适合的主公：刘备、孙权、张角。中规中矩的打法。"},{"p":"【反贼】：推荐指数：★★★☆☆  与做忠臣打法相似，因为输出不够给力，配合力较弱，故不推荐做反贼。"},
+ {"p":"【内奸】：推荐指数：★★★★☆  【恩怨】给了法正更大的生存空间。【眩惑】更好的平衡场上局面，想用法正获得内奸的胜利，需要玩家多动脑筋！"}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"刘备","img":"../images/heros/card/card_sp019.jpg","nickname":"汉昭烈帝"}],
+ [{"online":"暂无","content":""}],
+ [{"power":"巨象——锁定技，【南蛮入侵】对你无效；若其他角色使用的【南蛮入侵】在结算后置入弃牌堆，你获得之。"},
+ {"power":"【昭烈】——摸牌阶段摸牌时，你可以少摸一张，指定你攻击范围内的一名角色亮出牌堆顶上3张牌，将其中的非基本牌和【桃】置于弃牌堆，该角色进行二选一：你对其造成X点伤害，然后他获得这些基本牌；或他依次弃置X张牌，然后你获得这些基本牌。（X为其中非基本牌的数量）"},{"power":"【誓仇】——主公技，限定技，回合开始时，你可指定一名蜀国角色并交给其两张牌。本盘游戏中，每当你受到伤害时，改为该角色替你受到等量的伤害，然后摸等量的牌，直至该角色第一次进入濒死状态。"}],
+ [{"q":"“昭烈”造成的伤害，是依次结算还是一次性伤害？","a":"是一次性造成的伤害，例如夏侯惇的“刚烈”只能判定一次。"},
+ {"q":"“昭烈”亮出的牌是判定牌吗？","a":"不是。"},
+ {"q":"发动“昭烈”时，若目标角色选择承受伤害导致死亡，“昭烈”判定剩余的基本牌如何处理？","a":"直接置于弃牌堆。"},
+ {"q":"当曹植在场上时，“昭烈”展示出的非基本牌中若有草花花色，能否发动“落英”获得之？","a":"不可获得，“昭烈”亮出的牌不属于任何角色，曹植只能获得其他角色的、因判定或弃牌而进入弃牌堆的草花 牌。"},{"q":"当“昭烈”选择邓艾为目标时，邓艾选择弃牌，“屯田”如何结算？","a":"当邓艾选择弃牌时，由于是依次弃掉X张牌时，其每弃一张牌进行一次“屯田”技能判定。"},{"q":"当“昭烈”进行结算时，若目标角色选择弃牌，但是不足判定数量怎么办？","a":"若目标角色弃牌数不能达到规定数量，则必须选择受到伤害而不能选择弃牌。"},{"q":"若对陆逊选择昭烈，陆逊选择弃牌，此时能否发动连营？","a":"可以，且若选择“依次弃置X张牌”，在满足弃牌数量之前，“连营”必须强制发动，张春华的“伤逝”也如此 处理。"},
+ {"q":"“昭烈”可否对自己使用？","a":"不可以，只能对攻击范围内的其他角色使用。"},{"q":"若“昭烈”亮出3张【桃】以外的基本牌，此时如何结算？","a":"此时X=0，该角色可以选择你对其造成0点伤害，然后他获得这些基本牌；或他依次弃置0张牌，然后你获得这些基本牌。"},{"q":"若刘备与庞统“誓仇”，庞统发动“涅盘”，“誓仇”是否解除？","a":"解除。庞统发动涅盘时处于濒死状态。"},{"q":"当“誓仇”目标第一次进入濒死状态时，被救回，是否还要摸取造成这次伤害的等量的牌？","a":"不摸牌，该角色进入濒死状态时，“誓仇”技能效果立即消失，因为不再摸取与伤害等量的牌。"},{"q":"对本盘游戏中已经进入过濒死状态的蜀国角色发动“誓仇”，如何解除？","a":"“誓仇”仅会检定技能生效后的第一次濒死状态，之前的濒死效应，因没有技能效果的存在，所以并不会被回 忆到。“誓仇”依然在发动后，该蜀势力角色第一次进入濒死时被解除。"},{"q":"小乔对已经与蜀势力的“誓仇”的SP刘备发动“天香”受到伤害，如何结算？","a":"首先明确“誓仇”和“天香”都是在角色受到伤害时发动，获取牌的时机则都是在角色受到伤害后的后续事件 中进行的。“誓仇”角色替刘备承受“天香”伤害，“天香”摸取等同已损失体力值的牌的效果只对收到伤害的该蜀 势力角色有效，之后由于“誓仇”的效果再摸取与该次伤害等量的牌。徐盛的“破军”和蔡文姬的“悲歌”亦如此。"},{"q":"当一名角色装备【寒冰剑】对已发动“誓仇”的SP刘备出【杀】并造成伤害时，该角色选择发动【寒冰剑】效 果，如何结算？","a":"【杀】的目标依然是刘备，因此将弃掉刘备两张牌防止此伤害。“誓仇”的对象只在刘备受到伤害时替代其承 受等量伤害，而并非替代其成为新的目标。包括【雌雄双古剑】、【麒麟弓】、【古锭刀】等武将效果，以及个人在 “造成伤害时”或“指定杀的目标后”对角色产生特别效果的武将，如：sp赵云等，都是以刘备为目标进行的，只对 目标刘备产生技能效果。"},{"q":"若“化身”为蜀势力的左慈被指定为“誓仇”的对象，当其“化身”为其他势力角色时，“誓仇”效果是否有 效？","a":"有效。“誓仇”鉴定的是指定时是否合法，在之后的效果结算中，即使左慈“化身”非蜀势力角色时，“誓仇 ”依然照常结算。"},{"q":"当魏延对距离1以内的刘备造成伤害，“誓仇”转移伤害给另一名与魏延距离1以上的蜀势力角色时，是否触发 “狂骨”？","a":"不发动。反之，若刘备与魏延距离为1以上，而“誓仇”的目标角色与魏延距离为1以内，魏延对刘备造成伤害 ，则触发“狂骨”。"},{"q":"当法正被“昭烈”指定，选择受伤并获取基本牌时，“恩怨”是否可以令刘备摸牌？若法正被“誓仇”指定， 受到伤害摸牌时，“恩怨”是否会令刘备失去体力或交给其一张手牌？","a":"均不会。“昭烈”展示的牌并不属于刘备，因此法正并没有获得“其他角色”2张或更多的牌，反而“恩怨”对 法正造成伤害的是刘备，刘备要选择失去体力或者交给法正手牌。而“誓仇”的伤害来源是其他角色而不是刘备本人 ，其他角色要交给法正手牌或流失体力。"},{"q":"当刘备发动“誓仇”指定蜀势力角色A之后杀死蔡文姬被断肠，“誓仇”效应是否终止？","a":"不终止。“誓仇”的持续效应不因是去技能而结束。解除时间点仅为A第一次进入濒死状态。"},{"q":"当场上存在袁术时，“伪帝”和“誓仇”如何处理？","a":"“伪帝”视同于另一个限定技“誓仇”，在不同发动顺序及目标的情况下，视以下情况处理：","example":"例1：刘备对蜀势力角色A发动“誓仇”，袁术亦对A发动“誓仇”，之后在本盘游戏中，每当刘备、袁术造成伤害时 ，均改为A受到等量的伤害，然后摸鱼该伤害等量的牌，直至A第一次濒死时，两个“誓仇”效应同时解除。"},{"example":"例2：刘备对蜀势力角色A发动“誓仇”，之后A第一次进入濒死时“誓仇”效应解除。袁术在其后亦对A发动“誓仇”，该效应依然有效，直至A再次濒死时，袁术的“誓仇”效应解除，循序反之亦然。"},{"example":"例3：刘备对蜀势力角色A发动“誓仇”，袁术在其后对刘备发动“誓仇”。之后在本盘游戏中，每当刘备受到伤害时，改为A受到等量的伤害，然后摸与该伤害等量的牌。每当袁术受到伤害时，首先改为刘备受到等量的伤害，而刘备受到伤害时，仍然改为A受到等量的伤害。然后摸与该伤害等量的牌，直至A第一次濒死时，刘备的“誓仇”效应解除。之后每当袁术受到伤害时，改成刘备受到等量的伤害，然后摸与该伤害等量的牌。直至刘备第一次濒死时，袁术的“誓仇”效应解除。发动顺序反之替换相应名称即可。"}],
+ [{"p":""}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	if(hero_info[3][i].q != null){
+		faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	}
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

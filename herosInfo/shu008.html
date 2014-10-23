@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"魏延","img":"../images/heros/card/card_shu009.jpg","nickname":"嗜血的独狼"}],
+ [{"online":"嗜血成性60点","content":"使用魏延在一个回合内发动狂骨回复至少3点体力"},{"online":"嗜血的独狼80点","content":"使用魏延取得100次胜利"}],
+ [{"power":"狂骨——锁定技，任何时候，每当你对与你距离为1以内的任意角色造成1点伤害，你回复1点体力值。"}],
+ [{"q":"魏延对距离为1以内的角色造成伤害的同时也受到反馈效果自己进入濒死状态，如何结算？","a":"首先结算濒死状态，然后再结算【狂骨】。例如：1点体力值的魏延杀小乔，小乔发动【天香】把伤害转移给魏延自己。那么魏延如果求桃被救回，则再结算【狂骨】，回复1点体力。"},
+ {"q":"满体力值的魏延对小乔造成伤害被小乔转移给魏延自己后，如何结算？","a":"魏延首先受到伤害，然后触发【狂骨】回复1点体力值，最后由于没有减少体力因此不摸牌。"},
+ {"q":"魏延对夏侯惇造成伤害，先结算【狂骨】还是先结算【刚烈】？","a":"狂骨。"},
+ {"q":"魏延对小乔造成伤害，小乔把伤害转移给距离魏延2以上的角色，魏延是否能发动【狂骨】？","a":"不能。"},
+ {"q":"魏延装备【麒麟弓】对一个因装备+1马而距离为2的玩家使用【杀】造成伤害，能发动【狂骨】吗？","a":"可以发动。"},
+ {"q":"由于连环传导，导致魏延对距离为1以内的角色造成伤害，是否发动狂骨？","a":"是的，只需魏延作为伤害来源。魏延对自己造成的伤害也能发动狂骨。"}],
+ [{"p":"身份建议：反，内"},{"p":"魏延做忠，主动输出能力低，很难对反贼造成有效的打击；"},{"p":"魏延做主，防御力低，若近位为忠臣，很难触发技能"},{"p":"魏延做内，平衡两方血量的同时保证自己血量和装备，不宜太嘲讽；"},{"p":"魏延做反，近位反较好，打击主公的同时自己可以回血，帮队友挡刀；"}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+ var hero_info = [
+ [{"name":"徐庶","img":"../images/heros/card/card_yj009.jpg","nickname":"忠孝的侠士"}],
+ [{"online":"暂无","content":""}],
+ [{"power":"无言——锁定技，你使用的非延迟类锦囊对其他角色无效；其他角色使用的非延迟类锦囊对你无效。"},
+ {"power":"举荐——出牌阶段，你可以弃至多三张牌，然后让一名其他角色摸等量的牌。若你以此法弃牌不少于三张且均为同一类别，你回复1点体力。每回合限一次。"}],
+ [{"q":"徐庶是蜀势力角色还是魏势力角色？","a":"蜀势力角色。根据徐庶的人物历史背景，游卡桌游特意其武将牌设计成“身在曹营心在汉”的效果，希望各位玩家喜欢。"},
+ {"q":"徐庶使用【五谷丰登】时，如何结算？","a":"徐庶从牌堆顶亮出等同于现存角色数量的牌，然后按行动顺序进行结算：轮到对徐庶进行结算时，徐庶选择并获得这些牌中的一张；轮到对其他目标角色进行结算时会触发【无言】，该角色不可以选择并获得牌。全部角色结算完毕后，剩余的牌进入弃牌堆。"},
+ {"q":"徐庶在场时，其他角色使用【五谷丰登】，如何结算？","a":"该角色从牌堆顶亮出等同于现存角色数量的牌，然后按行动顺序进行结算：轮到对徐庶进行结算时，会触发【无言】，徐庶不可以选择并获得牌；轮到对其他目标角色进行结算时，该角色选择并获得这些牌中的一张。全部角色结算完毕后，剩余的牌进入弃牌堆。"},
+ {"q":"貂蝉对徐庶和另一名男性角色发动【离间】时，如何结算？","a":"无论貂蝉决定由哪名角色对另一名角色使用【决斗】，该【决斗】都会因触发【无言】而无效。"},{"q":"孟获在场时，徐庶使用【南蛮入侵】，如何结算？","a":"虽然在【南蛮入侵】指定目标后会触发【祸首】，但是该【南蛮入侵】依然为徐庶使用的，之后会触发【无言】，不会发生伤害事件，使得【祸首】的触发没有实际意义。"},{"q":"游戏牌有哪些类别？","a":"游戏牌分为基本牌、锦囊牌和装备牌三类。"}],
+ [{"p":"徐庶的技能从表面上看，不是很强力。但是通过仔细研究，我们可以看出徐庶的防御力还是很强大的。玩家只有通过杀才能解决掉徐庶。而徐庶的第二个技能又很好的解决了无用的锦囊牌得归属。不但能给队友增加手牌实力，并且能让自己的血量进行恢复。"},{"p":"【主公】：推荐指数：★★★☆☆  徐庶的主动输出能力较差，会让忠臣感觉压力较大。虽辅助能力较强，但其控制能力太弱，故不推荐做主。"},{"p":"【忠臣】：推荐指数：★★★★★  防御力过强但是嘲讽力度也不弱的徐庶能帮主公挡刀，并且能帮主公刷手牌，配合张角主和孙权主都很给力。"},{"p":"【反贼】：推荐指数：★★★★★  因为徐庶的防御力很强，可以长期对防贼阵营进行辅助，但是一定需要配合一些强攻的队友。"},
+ {"p":"【内奸】：推荐指数：★★★★☆  虽然徐庶防御不弱，但因为单挑能力很差，所以不建议徐庶做内奸。"}]
+ ];
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

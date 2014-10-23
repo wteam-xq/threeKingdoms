@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+ var hero_info = [ [{"name":"华佗","img":"../images/heros/card/card_qun001.jpg","nickname":"神医"}],
+[{"online":"乱世名医30点","content":"使用华佗在1局游戏中发动急救使至少3个不同的角色脱离濒死状态"},{"online":"神医80点","content":"使用华佗取得100次胜利"}],
+[{"power":"【急救】"},{"power":"你的回合外，你可以将你的任意红桃或方块牌当【桃】使用。"},{"power":"【青囊】"},{"power":"出牌阶段，你可以主动弃掉一张手牌，令任一角色回复1点体力。每回合限用一次。"}],
+[{"q":" 华佗能否用装备区里的红色的牌来发动【急救】技能？","a":" 可以。"},
+{"q":" 华佗在自己回合外进入濒死状态时能否发动【急救】？","a":" 可以。"},
+{"q":" 华佗中【闪电】时，能否发动【急救】技能？","a":" 不能，因为闪电是属于自己回合的判定阶段，不符合【急救】发动条件。同理华佗在自己回合内被【刚烈】或者【天香】导致濒死状态都不能发动【急救】技能。"},
+{"q":"左慈声明不屈后拥有三张不屈牌，在自己的回合结束声明为急救，此时进入濒死左慈能否发动急救？","a":"可以，声明技能的时机是回合结束后，此时满足急救的发动条件。"},
+{"q":"能否对满体力值的角色发动【青囊】？","a":"不能。"},
+{"q":"【青囊】技能每回合能使用几次？","a":"1次。"}],
+[{"p":"华佗可以被誉为三国杀中最强力的治疗，但是他的输出基本为0。所以在三国杀中还是做好一个治疗者吧。"},
+{"p":"【主公】：推荐指数：★★★★☆  保留手牌，增强防御力。4血的华佗还是相对恐怖的一件事。忠臣最好选择输出较高的武将。"},
+{"p":"【忠臣】：推荐指数：★★★☆☆  能很直接的为主公保驾护航，但是会成为众矢之的，所以要承受不小的压力。"},
+{"p":"【反贼】：推荐指数：★★★☆☆  能够很好的节省反贼放的桃，反贼队友应该及时对华佗救治，让主忠方崩溃。"},
+{"p":"【内奸】：推荐指数：★★☆☆☆  虽然生存力很出色，也能通过治疗控制场上形势，但是其单挑能力较弱，故不推荐做内。"}] ];
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

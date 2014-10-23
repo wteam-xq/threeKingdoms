@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"徐晃","img":"../images/heros/card/card_wei010.jpg","nickname":"周亚夫之风"}],
+[{"online":"火烧乌巢：","content":"使用徐晃在一局游戏中对一名被断粮过的角色造成火焰伤害并杀死该角色。"},{"online":"　　力劈华山：","content":"使用徐晃在一局游戏中发动贯石斧特效杀死一名角色。"}],
+[{"power":"【断粮】——出牌阶段，可以将你的任意一张黑色的基本牌或装备牌当【兵粮寸断】使用；你可以对与你距离2以内的角色使用【兵粮寸断】。"}],
+[{"q":"徐晃在一回合内能否发动多次断粮？","a":"可以。"},
+{"q":"徐晃发动断粮使用的【兵粮寸断】能否被【无懈可击】抵消？","a":"可以。在判定之前使用。"},
+{"q":"徐晃所有装备牌都可以当【兵粮寸断】使用么？","a":"不能。只能用黑色的装备牌。"}],
+[{"p":"主公：此局纯娱乐。除非忠内武将非常般配且配合完全默契，否则很难保住在面对进攻时等同白板的徐晃。"},
+{"p":"忠臣：徐晃做忠臣还算不错，身为忠臣最重要的作用是替主公抵挡伤害与攻击反贼。在前者上，徐晃那颇显嘲讽的脸让他可以胜任，手里保留的红色牌也能让他在面对反贼集火时不至于毫无防御力。当主公危险时，大可以放弃一切黑色装备和手牌将能兵到的反都兵上。虽然徐晃不具攻击性的技能，但【断粮】对于敌方手牌的限制本身也算是一种进攻和防御。"},
+{"p":"反贼：徐晃做反应该是最合适他的身份，尤其是近位（以7、8号位尤佳）的反徐晃，一回合一次的【断粮】绝对会让主公像吃了苍蝇一样。较为克制刘备、孙权、袁绍这几个对手牌数量要求高的主公。徐晃做反的优势在于在压制主忠手牌的前提下，不会太拖队友后腿。因为徐晃发动技能使用的都是黑色牌，而不是作为主要防御牌的闪，所以徐晃本身的防御力并不十分单薄。"},
+{"p":"内奸：因为徐晃仇恨还是很高的，做内奸很容易第一轮就遭到攻击，因此徐晃做内并不推荐。真要做的话，切记前几轮不要随便兵粮，攒装备保留高质量手牌再行控场，争取进入主内反。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

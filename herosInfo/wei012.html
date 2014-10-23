@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"典韦","img":"../images/heros/card/card_wei012.jpg","nickname":"古之恶来"}],
+[{"online":"一夫当关","content":"使用典韦在1局游戏中发动至少5次强袭，并用强袭至少杀死3名角色。"}],
+[{"power":"【强袭】——出牌阶段，你可以自减1点体力或弃一张武器牌，然后对你攻击范围内的一名角色造成1点伤害。每回合限用一次。"},{"power":"★若同时用到当前装备的武器攻击范围时，不能弃掉这张武器牌。"},{"power":"★若仅剩1点体力时发动此技能，且进入濒死状态无人救回，则典韦死亡后，目标角色受到1点伤害。"}],
+[{"q":"武器牌是否包括手牌和已经装备的牌？","a":"全包括。"},
+{"q":"强袭技能导致的伤害是否无属性？","a":"无属性。"},
+{"q":"典韦只剩1点体力时，是否可以发动技能扣减体力？","a":"可以，只剩1点体力时扣减体力发动强袭，则典韦先进入濒死状态，然后无论是否被救回，强袭的目标仍要受到1点伤害（除非触发胜利条件）。"},
+{"q":"典韦是否能弃掉已装备的武器发动强袭？","a":"可以，但如果强袭的目标在你弃掉武器后超出了你的攻击范围，则你不能弃掉已装备的武器发动强袭。"}],
+[{"p":"1.主公：不适合。"},
+{"p":"　　2.忠臣"},
+{"p":"典韦作为一个点爆型高嘲讽武将，非常适合做孙权和张教主的忠。孙权局典韦的打法就是吸引一部分反贼的仇恨，拼死尽量多的反贼，将比赛拖入残局，这样换换的作用就能最大化。我用典韦忠时经常可以1换1到2反贼，这样局面就变成了6人或5人局，这正是孙权喜闻乐见的啊。典韦吸引仇恨也可以有效的防止主被速推。张角局同理，不过鉴于张角技能的特殊性，主公的仇恨浮动很大，所以更难用一些。"},
+{"p":"　　曹操主典韦忠也不错，可以不顾安危的为主公护驾，看到主公收了aoe以后还可以从容自尽，让主公不至于有杀忠弃牌的风险。刘备主选典韦忠则看中了配合，鉴于刘备主仇恨稍低，典韦更应该谨慎行事，尽量在有【桃】或者武器时发动【强袭】。"},
+{"p":"　　3.反贼"},
+{"p":"这应该是典韦最适合的职业。做忠时如果近位反都是郭嘉夏侯什么的典韦就废了，做反时至少明确了集火目标是谁。典韦适合做近位反，远位就算了。最害怕典韦的主公莫过于妙脆角和曹操这种回血能力很渣的武将。尤其是妙脆角，有典韦在很容易就速推了。就算速推不了，典韦对于张角血量的压制也是张角不能承受的，张角每损一血实力和威慑力就下一个档次。刘备和孙权主就不那么怕典韦了，不过也可以一试。"},
+{"p":"　　4.内奸"},
+{"p":"高嘲讽的武将做内比较难，但不是不可以。如果选择了典韦做内，那么第1、2轮可能都要酱油掉。你无论跳忠跳反，都容易遭到集火，所以按明内打最合算。既然这样，如果主公比较容易被速推，如妙脆角、孙换换，就不要选典韦内了。典韦酱油2轮很可能主没了，要输出很可能自己没了。酱油明内后就可以适当帮助弱势群体了，这时把自己当4血白板打。适时的用【强袭】帮助收反拿牌。进入主内反后就属于心理的较量了。在我看来，只要会控，没有人不适合做内奸。"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

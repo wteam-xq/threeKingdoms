@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"张辽","img":"../images/heros/card/card_wei004.jpg","nickname":"前将军"}],
+[{"online":"掩其无备10点","content":"使用张辽在1局游戏中发动至少10次突袭"},{"online":"前将军80点","content":"使用张辽取得100次胜利"}],
+[{"power":"【突袭】——摸牌阶段，你可以放弃摸牌，然后从至多两名（至少一名）角色的手牌里各抽取一张牌。"},{"power":"★摸牌阶段，你一旦发动突袭，就不能从牌堆获得牌；只剩一名其他角色时，你就只能选择着一名角色；若此时其他任何人都没有手牌，你就不能发动突袭。"}],
+[{"q":"当场上有三名或者更多的角色时，张辽发动【突袭】是否可以只从一名角色的手牌选择获得一张牌？","a":"可以。"},
+{"q":"张辽发动【突袭】时，是否可以1张牌也不获得？","a":"不可以。张辽发动【突袭】至少要存在一名有手牌的角色。如果不能满足此条件，张辽不能发动【突袭】。"},
+{"q":"张辽发动【突袭】时，是否可以从一名角色的手牌里获得2张牌？","a":"不可以。"},
+{"q":"张辽发动【突袭】时，是否可以从一名角色的手牌里获得1张牌，再从牌堆摸1张牌？","a":"不可以，发动【突袭】就不能从牌堆获得牌。"},
+{"q":"张辽发动【突袭】时，是否可以摸1张牌后先看是什么牌，再摸第2张牌？","a":"不可以，张辽必须先摸完牌才能看。"},
+{"q":"张辽受到【兵粮寸断】的效果时，能否发动【突袭】？","a":"不可以。"}],
+[{"p":"张辽做主，远程控制反贼手牌，防御力不低，但不推荐；"},
+{"p":"张辽做忠，若配合输出型主公，7,8位较好，若配合控制型主公，1,2位较好。合理突袭，削弱手牌数；"},
+{"p":"张辽做反，远位反比较好，在外围对主忠进行手牌控制，助对手提高输出质量；"},
+{"p":"张辽做内，突袭技能可以比较客观的对场上进行平衡，所以打法推荐，明内。"},
+{"p":"注意：张辽一定要留意场上每个人的动作，来分析他们的手牌，且决定是否突袭。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

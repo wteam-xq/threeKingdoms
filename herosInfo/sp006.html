@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_wei</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+  //调用自定义javascript(custom-script.js)脚本方法
+var hero_info = [ [{"name":"庞德","img":"../images/heros/card/card_sp006.jpg","nickname":"抬榇之悟"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"马术——锁定技，当你计算与其他角色的距离时，始终-1。"},{"power":"猛进——当你使用的【杀】被【闪】抵消时，你可以弃掉对方的一张牌。"},{"power":"★猛进的效果可以弃掉对方的手牌或装备区里的牌，但不能是判定区里的牌。"}],
+[{"q":"庞德杀张角，张角出【闪】后，谁先发动技能？","a":"张角先。"},
+{"q":"庞德装备【青龙偃月刀】或【贯石斧】，目标闪避后，如何结算？","a":"庞德先选择是否发动猛进，然后再选择是否发动武器技能。"}],
+[{"p":"主公：在身份选择方面，庞德除去不适合做主公外，其余身份都能有不错的发挥。"},
+{"p":"忠臣：做忠臣还是不错的。唯一需要注意的是，庞德天生一张嘲讽脸，很容易在开局阶段被集火。不过若是忠臣庞德能活到残局，那么胜面就非常大了。"},
+{"p":"反贼：应该是庞德最适合的身份了，用来对抗3大主公都很好，反贼庞德砍主公可谓刀刀入肉，闪还是不闪？这是主公恒久的问题...但是切记不可用庞德做张角袁绍主公局的反。原因嘛...你们懂的。"},
+{"p":"内奸：庞德如果做内，就务必要谨记低调。在保证防御的同时用富裕的杀和锦囊来进攻，时刻记住内奸是独行者，只有攒装备自保才是硬道理。庞德是越到后期越强悍的武将，单挑实力也是非常不俗的。"}] ];
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"神关羽","img":"../images/heros/card/card_le001.jpg","nickname":"鬼神再临"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【武神】——锁定技，你的每一张红桃手牌都视为【杀】，你使用红桃的【杀】时无距离限制。"},{"power":"【武魂】——锁定技，任意角色每对你造成1点伤害，获得一个梦魇标记。你死亡时，令持有最多该标记的一名角色判定：除非结果为【桃】或【桃园结义】，否则该角色立即死亡。"}],
+[{"q":"神关羽死亡时，如果场上有两个或两个以上角色拥有最多的梦魇标记，如何结算？","a":"由神关羽指定其中一个角色进行【武魂】的判定。"},
+{"q":"被【武魂】技能杀死的角色，能否用【桃】救？","a":"立即死亡，不能救。"},
+{"q":"杀死反贼神关羽时，是先判定【武魂】还是先摸3张牌？","a":"先判定【武魂】。"},
+{"q":"如果最后只剩下主公和反贼神关羽，主公杀死神关羽时如何结算？","a":"一旦满足游戏结束条件的局面出现，游戏立即结束，所有结算均停止。这种局面下主公获胜。"},
+{"q":"如果持有最多梦魇标记的角色比神关羽早死去，那么神关羽死亡时如何结算？","a":"剩下活着的角色里拥有最多梦魇标记的人成为【武魂】的对象。"},
+{"q":"如果神关羽死亡时，场上没有任何一个角色拥有梦魇标记，能否发动【武魂】？","a":"不能发动。"},
+{"q":"神关羽算蜀势力角色吗？","a":"神武将可以是任何国家的。"}],
+[{"p":"首先，神关羽不推荐当主公。"},
+{"p":"因为“武神”的局限性，【无中生有】、【万箭齐发】、【五谷丰登】等牌都无法使用。"},
+{"p":"虽然当主公的神关羽拥有六血，有强大的手牌上限。"},
+{"p":"但是却没有强大的手牌补给，一样没用。"},
+{"p":"况且当主公的神关羽，一旦死了游戏就结束了，“武魂”技能相当于废掉了。"},
+{"p":"任何人杀主公的神关羽，都不用考虑“武魂”带来的危害了。"},
+{"p":"同理，内奸的神关羽也不推荐。"},
+{"p":"内奸想要赢就必须要活到最后，“武魂”技能也是相当于废掉了。"},
+{"p":"除非内奸死亡，帮助一方阵营离胜利更近一步。"},
+{"p":"那也不太有意义了。"},
+{"p":"比较推荐的是忠臣和反贼。"},
+{"p":"神将因为可以选择自己的阵营，忠臣的神关羽必然会选择与主公一样的阵营。"},
+{"p":"例如主公刘备，神关羽忠臣则可以更好的响应主公的激将。（况且神关羽满手的无距离【杀】）"},
+{"p":"忠臣的神关羽可让许多反贼头疼，杀神关羽，必须要出来一个人做出牺牲。"},
+{"p":"可谓损失巨大啊。"},
+{"p":"反贼的神关羽更加凸显了他的暴虐。"},
+{"p":"建议反贼的神关羽要保持主公的梦魇标记最多。"},
+{"p":"（方法：比如主公打出AOE牌或者你跟主公【决斗】时，都主动选择扣血。）"},
+{"p":"这样，神关羽死了，主公也要死，反贼赢了。"},
+{"p":"主公梦魇标记多了，忠臣当然坐不住了，必然会想尽办法让其他的梦魇标记更多。"},
+{"p":"这时候陪葬品可能就是一个忠臣了。"},
+{"p":"不过也好，能够给主公阵营致命的一击。"},
+{"p":"当然，如果碰上死敌司马懿，只能拼人品了……（如果司马懿是自己阵营的那更爽了）。"},
+{"p":"神关羽与一些回血武将（华佗、孙尚香等）、给别人手牌武将（郭嘉、刘备等）都有不错的配合。"},
+{"p":"搭配起来会让神关羽的威力更加迅猛，成为所有玩家的噩梦。"}] ];
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

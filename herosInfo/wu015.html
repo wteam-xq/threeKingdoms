@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"孙策","img":"../images/heros/card/card_wu015.jpg","nickname":"江东小霸王"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【激昂】——每当你使用（指定目标后）或被使用（成为目标后）一张【决斗】或红色的【杀】时，你可以摸一张牌。"},{"power":"【魂姿】——觉醒技，回合开始阶段，若你的体力为1，你须减1点体力上限，并永久获得技能“英姿”和“英魂”。"},{"power":"【制霸】——主公技，其他吴势力角色的出牌阶段，可与你进行一次拼点，若该角色没赢，你可以获得双方拼点的牌；你的觉醒技发动后，你可以拒绝此拼点。"},{"power":"★你觉醒技发动的回合，（于回合开始阶段）便可以立即发动【英魂】。"}],
+[{"q":"孙策发动【方天画戟】对多名目标使用最后一张红色的手牌【杀】时，如何结算？","a":"孙策在指定目标后只可以发动一次【激昂】。无论选择几名目标，孙策都只使用了一张红色的【杀】。"},
+{"q":"角色发动【方天画戟】对大乔、孙策使用最后一张红色的手牌【杀】时，如何结算？","a":"孙策只可以发动一次【激昂】。无论大乔是否对孙策发动【流离】，孙策都是成为一张红色的【杀】的目标。"},
+{"q":"装备【雌雄双股剑】的女性角色对孙策使用红色的【杀】时，如何结算？","a":"该角色指定孙策为目标后，该角色和孙策从当前正进行回合的角色开始按逆时针方向依次（tips1） tips1：同一时机有多个技能可以发动/多个技能的效果需要执行：首先从当前正进行回合的角色开始按逆时针方向每个角色依次发动可以发动的技能/执行需要执行的效果；轮到某一名角色发动技能时，若该角色有多个技能可以发动，则武将技能优先于装备技能发动；若该角色有多个武将/装备技能可以发动，则由该角色自己选择发动的顺序。决定是否发动【雌雄双股剑】和【激昂】。"},
+{"q":"马超对孙策使用红色的【杀】时，如何结算？","a":"马超指定孙策为目标后（tips2） tips2：指定目标时即成为目标时，指定目标后即成为目标后。（注意：造成与受到是不同的两个时机。），马超和孙策从当前正进行回合的角色开始按逆时针方向依次决定是否发动【铁骑】和【激昂】。"},
+{"q":"黄月英/陆逊对孙策使用【决斗】/最后一张手牌红色的【杀】时，如何结算？","a":"黄月英/陆逊在选择孙策为目标后，可以发动【集智】/【连营】，孙策在成为目标后，可以发动【激昂】。"},
+{"q":"孙策对刘禅使用最后一张红色的手牌【杀】时， 如何结算？","a":"孙策指定刘禅为目标时，刘禅触发【享乐】，孙策由于无法额外弃置一张基本牌，之后该【杀】对刘禅进行使用结算前会执行【享乐】的效果，该【杀】对刘禅无效。孙策指定刘禅为目标后，可以发动【激昂】。"},
+{"q":"貂蝉对孙策和徐庶发动【离间】时，孙策是否可以发动【激昂】？","a":"可以。然后在进行【决斗】的使用结算前会执行【无言】的效果，【决斗】对目标角色无效。"},
+{"q":"于吉用红桃的【杀】/【决斗】发动【蛊惑】对孙策使用【杀】/【决斗】时， 如何结算？","a":"该牌选择孙策为目标时，暂时视为无色，在亮出后恢复实际花色，孙策在成为目标后可以发动【激昂】。"},
+{"q":"吴将发动【制霸】与觉醒后的主公孙策拼点，孙策拒绝，吴将之后在出牌阶段是否可以再次发动【制霸】？","a":"不可以。吴将在自己回合的出牌阶段只能发动一次。"},
+{"q":"吴将出牌阶段是否可以对主公孙策和袁术各发动一次【制霸】？","a":"可以。其中孙策觉醒后可以拒绝此拼点，袁术由于没有【魂姿】无法拒绝。"},
+{"q":"陆逊发动【制霸】与觉醒后的主公孙策拼点，孙策拒绝，陆逊是否可以发动【连营】？","a":"不可以。陆逊发动【制霸】时孙策先决定是否拒绝拼点，若不拒绝，双方各以牌面向下的方式同时出一张手牌后，陆逊可以发动【连营】，再同时亮出。"},
+{"q":"太史慈发动【天义】与主公孙策拼点，太史慈没赢，孙策可以获得双方拼点的牌吗？","a":"不可以。"},
+{"q":"太史慈发动【天义】与主公孙策拼点后，是否可以发动【制霸】与孙策拼点？","a":"可以。反之亦可。"}],
+[{"p":"孙策可以被成为山包中最暴力的角色，因为其【激昂】技能让他和【决斗】【杀】更为紧密。【魂姿】也被玩家誉为最危险的觉醒技，但是觉醒之后的孙策是在是太恐怖了。不但增加了手牌实力，并且控制力陡增。而【制霸】技能可能是发动最多的主公技了，无论是什么身份的吴国武将，可能都会尝试和主公孙策拼点。"},
+{"p":"【主公】：推荐指数：★★★★☆  孙策做主公很强大，但是因为其主公技的两面性，使得孙策会受到所有吴国武将的打压。"},
+{"p":"【忠臣】：推荐指数：★★★☆☆  孙策可以进行良好的辅助，反贼需要对孙策严加看管，绝对不能让其觉醒。"},
+{"p":"【反贼】：推荐指数：★★★★☆  做反的孙策可以给主很多压力，如果加之队友的有效配合，将会成为一线猛将。"},
+{"p":"【内奸】：推荐指数：★★★★★  因为双方都不会让孙策进行早觉醒，所以前期不会进行强力打压。单挑能力极佳的孙策在残局中也会毫无压力。"}] ];
+
+
+
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

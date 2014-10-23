@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"赵云","img":"../images/heros/card/card_le008.jpg","nickname":"神威如龙"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【绝境】——锁定技，摸牌阶段，你摸牌的数量为你已损失的体力值+2；你的手牌上限始终+2。"},{"power":"【龙魂】——你可以将同花色的X张牌按下列规则使用（或打出）：红桃当【桃】；方块当火属性的【杀】；梅花当【闪】；黑桃当【无懈可击】。（X为你当前的体力值且至少为1）。"}],
+[{"q":"体力为2的神赵云是否可以发动【龙魂】将最后两张方块手牌当【火杀】使用的同时发动 【方天画戟】对至多三名目标角色使用该【火杀】？","a":"可以。该【火杀】视为最后一张手牌。"},
+{"q":"体力为2的神赵云是否可以发动【龙魂】将最后一张方块手牌和装备区里的一张方块马当【火杀】使用的同时发动 【方天画戟】对至多三名目标角色使用该【火杀】？","a":"不可以。"},
+{"q":"“X为你当前的体力值且至少为1”是什么意思？","a":"若神赵云当前的体力值大于0，X=神赵云当前的体力值；若神赵云当前的体力值为0或更低时，X=1。","example":"神赵云进行濒死结算时，可以发动【龙魂】将1张红桃牌当【桃】使用。"},
+{"q":"甲对神赵云使用【借刀杀人】指定杀乙，神赵云【龙魂】装备区的黑桃武器当【无懈可击】使用，甲又使用【无懈可击】，如何结算？","a":"如果乙仍在神赵云的攻击范围内且神赵云愿意，依然可以使用【杀】；若不能或不愿使用【杀】，无事发生，【借刀杀人】结算完毕。"}],
+[{"p":"　身份适应方面主公不考虑，三血状态下龙魂基本上没办法发动，看着忠臣倒下是一件很难受的事情，一血状态下能力是不错，但是反贼不会那么好心开局把你送到一血，忠臣如果把输出浪费到主公身上帮其到一血很有可能导致自己的生命安全受到威胁。内奸也还算不错，低调攒装备，无论主忠还是反贼都清楚把输出扔到你的身上完全是浪费。忠臣和反贼的选择则需要时刻把自己压在一血，不然很难对团队有什么帮助，有桃子有无懈留着帮队友就足够了。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

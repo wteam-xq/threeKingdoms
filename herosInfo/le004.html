@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"神诸葛亮","img":"../images/heros/card/card_le004.jpg","nickname":"赤壁的妖术师"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【七星】——游戏开始前，共发你11张牌，选4张作为手牌，其余的面朝下置于一旁（移出游戏），称之为“星”。每当你于摸牌阶段摸牌后，可用任意数量的手牌等量交换这些“星”。"},{"power":"【狂风】——回合结束阶段，你可以弃掉1枚“星”指定一名角色：直到你的下回合开始，该角色每次受到的火焰伤害+1。"},{"power":"【大雾】——回合结束阶段，你可以弃掉X枚“星”指定X名角色：直到你的下回合开始，防止他们受到的除雷电伤害外的一切伤害。"},{"power":"★“星”不属于游戏中的牌，所以“星”不能被锦囊和武将技能影响。"},{"power":"★目前的雷电伤害有“雷杀”，张角的技能“雷击”，以及“闪电”三种。"},{"power":"★大雾不能防止失去体力。"}],
+[{"q":"如果神诸葛在放完狂风或者大雾后在该回合死亡，该回合狂风和大雾效用是否保留？","a":"不保留，神诸葛死亡则狂风大雾效果即刻消失。"},
+{"q":"狂风和大雾是否可以对自己使用？","a":"可以。"}],
+[{"p":"　身份适应方面，主公是一个很不错的选择，可以靠着大雾对玩命的忠臣有很好的保护，牌库的高数量也能很好的提升自己的手牌质量。忠臣也有很好的发挥，保护主公方面做的尤其出色。反贼则因为过牌量大很容易拿到关键牌，无论是保护队友还是找距离配合集火都做得不错。当内奸则一定要遵循一点，进入单挑之前不要透支尽量有星的剩余，这是你技能的根本，也是获得最后胜利的基本保障。总的来说，神诸葛是一个能力很强的角色，但是他也算是一个典型的中前期武将，越往后拖越虚，所以神诸葛的敌对方一定不能打的太急。神诸葛也有其最明显的弱点，就是透支。敌对神诸葛的星越来越少，意味着胜利的天平就越向你们倾斜，这是一个很考验耐心的事情，所以急躁不得。另外，掏空其手牌贴兵粮也是个很不错的限制方法。"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' style='margin:1px 0px 1px -10px;'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>

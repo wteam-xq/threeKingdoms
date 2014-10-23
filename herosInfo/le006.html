@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas_three_shu</title>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../css/herosDetail.css">
+<script src="../js/three_shu_webWorker.js"></script>
+<script type="text/javascript">
+  //页面加载后执行
+window.onload = function(){
+var hero_info = [ [{"name":"神吕布","img":"../images/heros/card/card_le006.jpg","nickname":"修罗之道"}],
+[{"online":"暂无","content":""}],
+[{"power":"武将技能："},{"power":"【狂暴】——锁定技，游戏开始时，你获得2个暴怒标记；你每受到或造成1点伤害，获得1个暴怒标记。"},{"power":"【无谋】——锁定技，你每使用一张非延时类锦囊（在它结算前）,弃掉1个暴怒标记或失去1点体力。"},{"power":"【无前】——出牌阶段，你可以弃2个暴怒标记并选择一名角色，该角色的防具无效且你获得“无双”的技能，直到回合结束。"},{"power":"【神愤】——出牌阶段，弃6个暴怒标记：你对每名其他角色各造成1点伤害，其他角色先弃掉各自装备区里所有的牌，再各弃四张手牌，然后将你的武将牌翻面，每回合限一次。"},{"power":"（【翻面】：将武将牌由正面朝上翻转至背面朝上的状态或由背面朝上翻转至正面朝上的状态。游戏中，当一名角色的回合即将开始时，若其武将牌处于背面朝上的状态，则将之翻转至正面朝上，然后跳过该角色的这一回合。）"}],
+[{"q":"神愤是不是锁定技","a":"不是"}],
+[{"p":"主公：神吕布当主公，理论上来说不好也不坏，虽然没什么生存技能，锦囊牌也不能用，但是神愤的收益比较高，屯好AOE攒够暴怒标记后一个神愤能很快清全场，而且反贼的集火也容易攒到暴怒标记。"},
+{"p":"忠臣：忠臣选神吕布会有这么几个问题：能不能攒够暴怒标记，如果反贼一直在集火主公的话。还有是放完神愤会不会把主公弄死，要是在2号位一个神愤后主公掉血裸了，难保后面反贼不把他集火而死。一般说主公上家放神愤比较有利，不过我是主公看到你的无前，又看你受伤害能攒暴怒标记在不清楚身份的情况下肯定会杀两下的。"},
+{"p":"反贼：反贼选神吕布的话位置还是比较重要的，2号位是个好位置，主公上家则最次，中间的话比较尴尬，因为锦囊牌不怎么能用，距离可能还不够。不过最大的问题是一个神愤、一个AOE下去自己人的血可能伤的比对面都多，让本来的优势崩盘。"},
+{"p":"内奸：内奸神吕布的话最好一开始就明内，然后想办法慢慢攒够暴怒标记，不能够太过嘲讽。发动神愤的话最好能有个防具，最好是一个神愤过后能清掉大半的人。如果一个神愤过后场上还是留下了3、4个人，那这些人在你翻面时不杀你还杀谁？"}] ];
+
+
+
+ //加载武将称号、图像
+ document.getElementById("hero").innerHTML = "<img src=" + hero_info[0][0].img + " ><span class='head_font' style='margin:1px 0px 1px 25px;'>" + hero_info[0][0].name + "</span>";
+ document.getElementById("hero_nickname").innerHTML = "<span class='blue'>武将称号：</span>" + hero_info[0][0].nickname + "<br/><div class='list'></div>";
+ //加载Online战功
+ var online_task = "<span class='blue'>Online战功：</span>";
+ for(var i=0; i < hero_info[1].length; i++){
+	online_task = online_task +  hero_info[1][i].online + "<br/><span>" + hero_info[1][i].content + "</span><br/><div class='small_list'></div>";
+ }
+ document.getElementById("online").innerHTML = online_task;
+ //加载武将技能
+ var hero_power = "<div class='list'></div><span class='blue'>武将技能：</span><br/>";
+ for(var i=0; i < hero_info[2].length;i++){
+	hero_power = hero_power + "<span>" +  hero_info[2][i].power + "</span><br/>" + "<div class='small_list'></div>";
+ }
+ document.getElementById("hero_power").innerHTML = hero_power;
+ //有问有答事件
+ var faq = "<span class='blue'>有问有答：</span><br/>";
+ for(var i=0; i < hero_info[3].length;i++){
+	faq = faq + "<span>[Q]</span>" + hero_info[3][i].q + "<br/>" + "<span>[A]</span>" + hero_info[3][i].a + "<br/>";
+	if( hero_info[3][i].example != null){
+		faq = faq + "<span>例如:</span>" + hero_info[3][i].example + "<br/>";
+	}
+	faq = faq + "<div class='small_list'></div>";
+ }
+ document.getElementById("FAQ").innerHTML = faq;
+ 
+ //攻略事件
+ var strategy = "<span class='blue'>身份局攻略：</span><br/>";
+ for(var i=0; i < hero_info[4].length; i++){
+	strategy = strategy + hero_info[4][i].p + "<br/>";
+ }
+ document.getElementById("strategy").innerHTML = strategy;
+
+}//end onload function()
+  
+</script>
+
+</head>
+<body>
+	
+	<button class="m_button m_button_center" name = "top" onclick = "window.history.back(-1);" id="back_button"><span>返回</span></button>
+
+	<div class="basic_info">
+		<div class="hero" id="hero">			
+		</div>
+
+		<div class="basic_text">
+			<div id="hero_nickname">
+			</div>
+			
+			<div id="online">				
+			</div>
+			
+			<div id="hero_power">		
+			</div>
+		</div>
+	</div>
+	
+	<div class="extend_info">
+		<div class="FAQ" id="FAQ">
+		</div>
+
+		<div class="strategy" id="strategy">
+		</div>
+	<div>
+	
+	<div ><a  class="footer_button" href="javascript:scroll(0,0)" target="_self">返回顶部</a></div>
+</body>
+</html>
