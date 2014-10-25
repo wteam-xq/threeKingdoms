@@ -11,4 +11,8 @@
 * 项目引入js 库包括：
   1.jquery-1.10.2.min.js; 2.bootstrap-3.2.0.min.js; 3.bootstrap-3.2.0.min.css.
 
-计划：
+计划(动工前的准备)：
+* 1.完成手绘UI图；（参考其他Web app布局）
+* 2.阅读、理解完bootstrap教程；（慕课网、官网教程）
+* 3.设计代码文件结构图；
+* 4.photoshop完成UI图；
