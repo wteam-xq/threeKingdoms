@@ -323,15 +323,86 @@ var three_god = [
 ]
 ];
 
-onmessage = function (event){
-var three_json_data = new Array(three_all,three_shu,three_wei,three_wu,three_heros,three_god);
+function start(){
+   var ranNum = Math.random();
+    if(ranNum < 0.25){
+    $("body").css("background-image","url(images/shu.jpg)");
+    }else if(ranNum < 0.50){
+    $("body").css("background-image","url(images/wu.jpg)");
+    }else if(ranNum < 0.75){
+    $("body").css("background-image","url(images/wei.jpg)");
+    }else{
+    $("body").css("background-image","url(images/wteam-logo.png)");
+    }
+    //判断浏览器支不支持localStorage
+    if (window.localStorage) {
+    var storage = window.localStorage;
+    var storage_three_all = storage.getItem("storage_three_all");
+    var message_json = "";
+    //判断localStorage中有没有存储json对象
+    if(storage_three_all){
+      window.setTimeout("window.location.href='mainmenu.html'", 700);
+      /*message_json = "localStorage中已经存储了json";
+      alert(message_json);
+      //清空所有的localStorage
+      storage.clear();
+      alert("清空localStorage完成！");
+      
+      storage.removeItem("storage_three_all");
+      storage.removeItem("storage_three_shu");
+      storage.removeItem("storage_three_wei");
+      storage.removeItem("storage_three_wu");
+      storage.removeItem("storage_three_heros");
+      storage.removeItem("storage_three_god");*/
+    }else{
+      /*message_json = "localStorage中没有存储json，现在从异步获取json！";
+      alert(message_json);
+      
+      //后台异步处理json数据
+       //WEB页主线程  
+       if(typeof Worker == 'undefined'){
+        alert("你正在使用的浏览器暂时还不支持WEB Workers!");
+         return;
+         } 
+       var worker = new Worker('js/webWorker.js'); //创建一个Worker对象并向它传递将在新线程中执行的脚本的URL  
+       worker.postMessage("init_json");     //向worker发送数据  
+       worker.onmessage = function(event){     //接收worker传过来的数据函数  
+        alert(event.data);
+        for(var i = 0; i < event.data.length; i++){
+          three_json_data[i] = event.data[i];
+          //alert(three_json_data[i][1][0].name);
+        }
+        alert("接收数据成功！");
+       }
+       worker.onerror = function(event){   
+          alert("于第["+ event.lineno +"]行发生错误 : " + event.message); //显示错误讯息   
+        }  */
+        
+      
+      //将json数据存入
+      storage.setItem("storage_three_all",JSON.stringify(three_all));
+      storage.setItem("storage_three_shu",JSON.stringify(three_shu));
+      storage.setItem("storage_three_wei",JSON.stringify(three_wei));
+      storage.setItem("storage_three_wu",JSON.stringify(three_wu));
+      storage.setItem("storage_three_heros",JSON.stringify(three_heros));
+      storage.setItem("storage_three_god",JSON.stringify(three_god));
+      window.location.href='mainmenu.html'
+    }
+    
+  } else {
+    alert('internet exploer is no support local storage!');
+  }
 
-	var d = event.data;//通过evt.data获得发送来的数据
-	//var jsonData_three_god = [];
-	
-	//准备加载或创建json数据
-	if(d == "init_json"){
-		postMessage(three_json_data);//将获取到的数据发送会主线程
-	}
-	
 }
+
+// onmessage = function (event){
+// var three_json_data = new Array(three_all,three_shu,three_wei,three_wu,three_heros,three_god);
+
+// 	var d = event.data;//通过evt.data获得发送来的数据
+	
+// 	//准备加载或创建json数据
+// 	if(d == "init_json"){
+// 		postMessage(three_json_data);//将获取到的数据发送会主线程
+// 	}
+	
+// }
