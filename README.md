@@ -10,6 +10,7 @@
 * 项目中的images 文件夹对应百度网盘链接：[images](http://pan.baidu.com/s/1sjmEicd) 
 * 项目引入js 库包括：
   1.jquery-1.10.2.min.js; 2.bootstrap-3.2.0.min.js; 3.bootstrap-3.2.0.min.css.
+  引入库百度网盘链接：[components](http://pan.baidu.com/s/1i3yzO93)
 
 计划(动工前的准备)：
 * 1.完成手绘UI图；（参考其他Web app布局）
@@ -21,3 +22,4 @@
 * 完成收尾的优化（文件名、文件布局）；
 * 开始导入 手绘 布局图；
 * 根据布局图 修改页面；
+
