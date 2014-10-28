@@ -28,13 +28,13 @@ body.MainPage{
 
 /*css3 水晶按钮*/
 .button{
-    width: 250px;
-    height: 40px;
-    padding: 5px 16px 3px;
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    border: 2px solid #ccc;
-    position: relative;
+  width: 250px;
+  height: 40px;
+  padding: 5px 16px 3px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border: 2px solid #ccc;
+  position: relative;
 	left:35%;
 	top:10%;
      /* Label */
@@ -135,99 +135,6 @@ body.MainPage{
 	top:23px;
 }
 
-/*武将页面按钮*/
-.m_button{
-	width: 288px;
-    height: 51px;
-	top:0px;
-	background-image:url(../images/military_page_button.jpg);
-	position: absolute;
-	color: #fff;
-	/*font-family: STHupo,Courier New, Helvetica, sans-serif;*/
-	font-family:Courier New, Helvtica, sans-serif;
-
-	font-size:35px;
-	text-shadow: rgba(10, 10, 10, 0.5) 2px 2px 2px;
-	font-weight:bold;
-    text-align: center;
-    vertical-align: middle;
-	z-index:3;
-}
-.m_button_l{
-	/*left:-288px;*/
-	left:0;
-	display:none;
-}
-.m_button_l:nth-child(2){
-	top:51px;
-}
-
-.m_button_center{
-	left:368px;
-}
-
-.m_button_r{
-	/*left:1024px;*/
-	left:736px;
-	display:none;
-}
-.m_button_r:nth-child(1){
-	left:1024px;
-	display:block;
-}
-.m_button_r:nth-child(2){
-	top:51px;
-}
-.m_button_r:nth-child(3){
-	top:102px;
-}
-.m_button_r:nth-child(4){
-	top:153px;
-}
-.m_button_r:nth-child(5){
-	top:204px;
-}
-.m_button_r:nth-child(6){
-	top:255px;
-}
-.m_button_r:nth-child(7){
-	top:306px;
-}
-.m_button_r:nth-child(8){
-	top:357px;
-}
-
-
-.m_button_l:hover,.m_button_r:hover,.m_button_center:hover{
-	background-image:url(../images/military_page_button2.jpg);
-}
-.mainMenu_l span,.m_button_center span,.m_button_r span{
-	position:relative;
-	/*兼容vm play book
-	top:-13px;*/
-}
-
-/*武将头像*/
-#hero_head{
-	display:none;
-	width:360px;
-	height:360px;
-	position:absolute;
-	}
-
-/*背景图片样式*/
-.background_img{
-	position:absolute;
-	background-image: url(../images/militaryBg.jpg);
-	left:0px;
-	top:0px;
-	display:none;
-	z-index:-2;
-	height:600px;
-	width:1024px;
-	position:fixed;
-	background-repeat:repeat-y;
-	}
 
 /*固定窗口*/
 html{

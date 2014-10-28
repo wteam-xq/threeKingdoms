@@ -1,0 +1,107 @@
+body,html,canvas{
+	margin:0px;
+	padding:0px;
+	overflow-x:hidden;
+}
+/*页面字体*/
+body{
+	width:1024px;
+	background:#E1CAA1 url(../images/militaryBg.jpg) repeat-y fixed;
+	font-size:27px;
+	
+	font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
+}
+/*页面上半部分*/
+.basic_info{
+	width:1024px;
+	float:right;
+}
+.hero{
+	height:337px;
+	width:200px;
+	float:right;
+	position:relative;
+	/*top:-35px;*/
+}
+
+span.head_font{
+	font-weight:bold;
+	font-size:50px;
+	margin-bottom:15px;
+	position:relative;
+	margin:1px 0 1px 50px;
+}
+span.head_font2{
+	font-weight:bold;
+	font-size:50px;
+	margin-bottom:15px;
+	position:relative;
+	margin:1px 0 1px 0px;
+}
+.basic_text{
+	width:810px;
+}
+/*有问有答*/
+.FAQ span{
+	color:#CC0000;
+}
+span.blue{
+	color:#2820DE;
+}
+/*大小透明分隔栏*/
+.list{
+	height:15px;
+}
+.small_list{
+	height:10px;
+}
+
+.extend_info{
+	position:relative;
+	width:1024px;
+	top:20px;
+}
+
+.strategy{
+	position:relative;
+	top:20px;
+}
+/*武将页面按钮*/
+.m_button{
+	width: 288px;
+    height: 51px;
+	top:0px;
+	background-image:url(../images/military_page_button.jpg);
+	position: absolute;
+	color: #fff;
+	/*font-family: STHupo,Courier New, Helvetica, sans-serif;*/
+	font-family:Courier New, Helvtica, sans-serif;
+
+	font-size:35px;
+	text-shadow: rgba(10, 10, 10, 0.5) 2px 2px 2px;
+	font-weight:bold;
+    text-align: center;
+    vertical-align: middle;
+	z-index:3;
+
+	left:368px;
+}
+
+.footer_button{
+	width: 288px;
+    height: 51px;
+	background-image:url(../images/military_page_button.jpg);
+	color: #fff;
+	font-family:Courier New, Helvtica, sans-serif;
+
+	font-size:35px;
+    text-align: center;
+    vertical-align: middle;
+	position:relative;
+	left:368px;
+	top:20px;
+}
+
+.m_button:hover,.footer_button{
+	background-image:url(../images/military_page_button2.jpg);
+}
