@@ -10,17 +10,13 @@
 <link rel="stylesheet" type="text/css" href="../css/heros.css">
 
 <script type="text/javascript">
-	$(document).ready(function(){
-  //页面加载后执行
-  window.onload = function(){
-	  //调用自定义javascript(custom-script.js)脚本方法
-	 showMainButton();
-  }//end onload function()
-  
-  three_Onclick();
-  wind_three_Onclick();
-  three_canvas('three_shu');
-});//end ready function()
+
+	$(window).load(function(){
+	  three_Onclick();
+	  wind_three_Onclick();
+	  three_canvas('three_shu');
+	  showMainButton();
+	});//end ready function()
 </script>
 
 </head>
@@ -34,6 +30,7 @@
 			<button class="m_button m_button_l" id="three" name="l_button_one"><span>三国鼎立</span></button>
 			<button class="m_button m_button_l" id="wind" name="l_button_two"><span>风火山林</span></button>
 		</div>
+		
 		<div>
 			<button class="m_button m_button_center" id="back_button"><span>返回主菜单</span></button>
 		</div>
