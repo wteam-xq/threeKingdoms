@@ -1,27 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
 <title>起始页</title>
-<meta name="viewport"
-	content="width=device-width, minimum-scale=1, maximum-scale=1">
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <script src="components/jquery-1.10.2.min.js"></script>
 <script src="datas/heros.js"></script>
 <link rel="stylesheet" type="text/css" href="css/mainmenu.css">
 
+<!-- 导入bootstrap -->
+<script src="components/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="components/bootstrap.min.css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
 <script type="text/javascript">
 $(document).ready(function(){
-  //页面加载后执行
-  window.onload = function(){
-	  start();
-  }//end onload function()
+
+  // 进度条页面2秒后跳转
+  $("#start").animate({
+    "margin-left": "-" + $("#start").css('width')
+  }, 2000, function(){
+    $("#start").hide();
+    $('#mainmenu').show();
+  });
+
+  //页面加载后执行， dom 加载完成后
+  $("#heros").click(function(){
+  window.location.href="herosMainPage/heros.html";
+  }); //end click function()
+  $("#card").click(function(){
+  window.location.href="herosMainPage/card.html";
+  });
+  $("#rule").click(function(){
+  window.location.href="herosMainPage/rule.html";
+  });
+   $("#strategy").click(function(){
+  window.location.href="herosMainPage/strategy.html";
+  });
   
 });//end ready function()
 </script>
 
 </head>
-<body id="start">
-	<!-- <img src="images/shu.png" alt="蜀国"/> -->
-	<!-- <button type="button">点击换图</button> -->
+<body>
+  <div class="container" id="start">
+    
+  </div>
+
+	<div class="container" id="mainmenu">
+    <div class="main_button" id="card">
+      <span>游戏牌</span>
+    </div>
+
+    <div class="main_button" id="rule">
+      <span>规则</span>
+    </div>
+
+    <div class="main_button" id="strategy">
+      <span>攻略</span>
+    </div>
+
+    <div class="main_button" id="heros">
+      <span>武将</span>
+    </div>
+  </div>
+
 </body>
 </html>

@@ -81,7 +81,7 @@ DrawMenu.prototype.clickButton = function(event){
 		event.stopPropagation();
 		});
 	$("#back").click(function(event){
-		window.location.href = "../mainmenu.html";
+		window.location.href = "../index.html";
 		});
 
 	$("#back_button").click(function(event){

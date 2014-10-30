@@ -3,13 +3,14 @@ html,canvas,body{
 	padding:0px;
 }
 /*起始页面*/
-body#start{
+#start{
 	width:1024px;
 	height:600px;
 	background-image:url(../images/shu.jpg);
 	background-repeat:no-repeat;
 	}
-body#mainmenu{
+#mainmenu{
+  display: none;
 	width:1024px;
 	height:600px;
 	background-image:url(../images/mainmenu.jpg);
@@ -24,69 +25,6 @@ body.MainPage{
 	background-repeat:no-repeat;
 	background-attachment:fixed;
 	background:#E1CAA1 url(../images/militaryBg.jpg) repeat-y fixed;*/
-}
-
-/*css3 水晶按钮*/
-.button{
-  width: 250px;
-  height: 40px;
-  padding: 5px 16px 3px;
-  -webkit-border-radius: 16px;
-  -moz-border-radius: 16px;
-  border: 2px solid #ccc;
-  position: relative;
-	left:35%;
-	top:10%;
-     /* Label */
-    /*font-family: STHupo, Courier New, Helvetica, sans-serif;*/
-	font-family: Courier New, Helvetica, sans-serif;
-	font-size:200%;
-	font-weight:bold;
-    color: #fff;
-    text-shadow: rgba(10, 10, 10, 0.5) 2px 2px 2px;
-    text-align: center;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-/*兼容vm play book
-#card span,#rule span,#military span{
-	position:relative;
-	top:-14px;
-}
-#strategy span{
-	position:relative;
-	top:-14px;
-	left:5px;
-}*/
-
-.aqua{
-        background-color: rgba(60, 132, 198, 0.8);
-        border-top-color: #8ba2c1;
-        border-right-color: #5890bf;
-        border-bottom-color: #4f93ca;
-        border-left-color: #768fa5;
-        -webkit-box-shadow: rgba(66, 140, 240, 0.5) 0px 10px 16px;
-        -moz-box-shadow: rgba(66, 140, 240, 0.5) 0px 10px 16px;
-		background-image: -webkit-gradient(linear, 0% 0%, 0% 90%, from(rgba(28, 91, 155, 0.8)), to(rgba(108, 191, 255, .9)));
-		background-image: -moz-linear-gradient(rgba(28, 91, 155, 0.8) 0%, rgba(108, 191, 255, .9) 90%);
-       
-}
-.button .glare {
-        position: absolute;
-        top: 0;
-        left: 5px;
-        -webkit-border-radius: 8px;		
- -moz-border-radius: 8px;
- height: 2px;
- width: 273px;
- padding: 10px 0;
- background-color: rgba(255, 255, 255, 0.25);
- background-image: -webkit-gradient(linear, 0% 0%, 0% 95%, from(rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0)));
-}
-
-.aqua:hover {
-	 background-image: none;
 }
 
 /*主页面按钮*/
@@ -131,8 +69,8 @@ body.MainPage{
 	margin-top:8px;
 }
 .main_button span{
-	position:relative;
-	top:23px;
+	line-height: 80px;
+	font-size: 25px;
 }
 
 

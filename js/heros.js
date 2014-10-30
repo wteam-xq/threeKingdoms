@@ -174,7 +174,7 @@ function to_skip(){
 		}
 	});
 	$("#back_button").click(function(){
-		window.location.href="../mainmenu.html";
+		window.location.href="../index.html";
 	});
  }
 
@@ -259,7 +259,7 @@ function to_skip(){
 	});
 	
 	$("#back_button").click(function(){
-		window.location.href="../mainmenu.html";
+		window.location.href="../index.html";
 	});
  }
 

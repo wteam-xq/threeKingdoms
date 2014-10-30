@@ -102,7 +102,7 @@ DrawMenu.prototype.clickButton = function(){
 		_this.drawMenu("card");
 	});
 	$("#back").click(function(){
-		window.location.href = "../mainmenu.html";
+		window.location.href = "../index.html";
 	});
 }
 

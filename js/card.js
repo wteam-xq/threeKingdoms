@@ -51,7 +51,7 @@ DrawMenu.prototype.clickButton = function(){
 		window.location.href = "../herosMainPage/canvas_three.html";
 		});
 	$("#back").click(function(){
-		window.location.href = "../mainmenu.html";
+		window.location.href = "../index.html";
 		});
 
 	$("#back_button").click(function(event){
@@ -68,7 +68,7 @@ DrawMenu.prototype.clickButton = function(){
 		page_type = "card_index"
 		});	
 	$("#back_index").click(function(){
-		window.location.href = "../mainmenu.html";
+		window.location.href = "../index.html";
 	});
 	/*卡牌的详细页面跳转回卡牌图列表，例如“酒”的详细页面 点击“返回上级” 跳回“基本牌”图列表*/
 	$("#detail_back").click(function(){
