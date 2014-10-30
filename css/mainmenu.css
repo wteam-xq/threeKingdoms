@@ -2,13 +2,17 @@ html,canvas,body{
 	margin:0px;
 	padding:0px;
 }
+html{
+	background-color: #000;
+}
 /*ÆðÊ¼Ò³Ãæ*/
 #start{
-	width:1024px;
-	height:600px;
-	background-image:url(../images/shu.jpg);
-	background-repeat:no-repeat;
-	}
+	position:fixed;
+	top:40%;
+	padding:0 10%;
+	width:100%;
+}
+
 #mainmenu{
   display: none;
 	width:1024px;

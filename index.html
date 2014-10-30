@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <script src="components/jquery-1.10.2.min.js"></script>
 <script src="datas/heros.js"></script>
+<script src="js/main.js"></script>
 <link rel="stylesheet" type="text/css" href="css/mainmenu.css">
 
 <!-- 导入bootstrap -->
@@ -20,37 +21,17 @@
 <![endif]-->
 
 <script type="text/javascript">
-$(document).ready(function(){
 
-  // 进度条页面2秒后跳转
-  $("#start").animate({
-    "margin-left": "-" + $("#start").css('width')
-  }, 2000, function(){
-    $("#start").hide();
-    $('#mainmenu').show();
-  });
-
-  //页面加载后执行， dom 加载完成后
-  $("#heros").click(function(){
-  window.location.href="herosMainPage/heros.html";
-  }); //end click function()
-  $("#card").click(function(){
-  window.location.href="herosMainPage/card.html";
-  });
-  $("#rule").click(function(){
-  window.location.href="herosMainPage/rule.html";
-  });
-   $("#strategy").click(function(){
-  window.location.href="herosMainPage/strategy.html";
-  });
-  
-});//end ready function()
 </script>
 
 </head>
 <body>
   <div class="container" id="start">
-    
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <span class="txt">45%</span>
+      </div>
+    </div>
   </div>
 
 	<div class="container" id="mainmenu">
