@@ -5,14 +5,46 @@ html,canvas,body{
 html{
 	background-color: #000;
 }
+
+/*固定窗口*/
+html{
+	overflow:hidden;
+}
+body{
+	overflow:hidden;
+}
+
+/*进度条插件*/
+.jCProgress {
+     position: absolute;
+     z-index: 9999999;
+     /*  margin-top:-15px; /* offset from the center */
+}
+
+.jCProgress > div.percent {
+     font: 18px/27px 'BebasRegular', Arial, sans-serif;
+     color:#ebebeb;
+     text-shadow: 1px 1px 1px #1f1f1f;
+
+     position:absolute;
+     margin-top:40px;
+     margin-left:22px;
+     text-align: center;
+     width:60px;
+}
 /*起始页面*/
+#progress{
+	position:fixed;
+	top:40%;
+	padding:0 50%;
+	width:100%;
+}
 #start{
 	position:fixed;
 	top:40%;
 	padding:0 10%;
 	width:100%;
 }
-
 #mainmenu{
   display: none;
 	width:1024px;
@@ -76,12 +108,3 @@ body.MainPage{
 	line-height: 80px;
 	font-size: 25px;
 }
-
-
-/*固定窗口*/
-html{
-	overflow:hidden;
-	}
-body{
-	overflow:hidden;
-	}
