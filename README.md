@@ -11,10 +11,11 @@
 * 项目中的components 文件夹对应百度网盘链接：[components](http://pan.baidu.com/s/1i3yzO93)
   * 1.jquery-1.10.2.min.js; 
   * 2.bootstrap-3.2.0.min.js; 
-  * 3.bootstrap-3.2.0.min.css.
+  * 3.bootstrap-3.2.0.min.css;
+  * 4.progress.js;
 
 
-计划(动工前的准备)：
+动工前的准备：
 * 1.完成手绘UI图；（参考其他Web app布局）
 * 2.阅读、理解完bootstrap教程；（慕课网、官网教程）
 * 3.设计代码文件结构图；
@@ -27,10 +28,10 @@
 * 完成起始页面 进度条页面；(方案：1.配合bootstrap组件实现；2.第三方jquery插件实现)
 * 完成 大部分bootstrap教程。
 
-* 开始导入 手绘 布局图；
-* 根据布局图 修改页面；
+* 完成 手绘 布局图；
+* 根据布局图 修改、完成首页；
 
 
 ### 开发日志：
 * 11-01：
-  * bootstrap 配合 jquery的进度条速度很不理想，3秒内打开，进度条显示跟不上。
+  * bootstrap 配合 jquery的进度条效果很不理想，3秒内打开，进度条样式跟不上。

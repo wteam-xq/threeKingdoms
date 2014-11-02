@@ -48,7 +48,7 @@ DrawMenu.prototype.clickButton = function(){
 		_this.drawDetailPage(card_weapon);
 		});
 	$("#card_heros").click(function(){
-		window.location.href = "../herosMainPage/canvas_three.html";
+		window.location.href = "../herosMainPage/heros.html";
 		});
 	$("#back").click(function(){
 		window.location.href = "../index.html";
