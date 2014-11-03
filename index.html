@@ -20,7 +20,7 @@
   <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-
+<link rel="icon" href="/favicon.ico">
 <script type="text/javascript">
 
 </script>
@@ -46,24 +46,42 @@
     　<div class="navbar-header">
     　    <a href="##" class="navbar-brand">三国杀</a>
     　</div>
-       <ul class="nav navbar-nav pull-right">
-          <li><a href="##">输入框</a></li>
-          <li><a href="##">搜索图标</a></li>
-       </ul>
+
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="请输入关键字">
+        </div>
+        <button type="submit" class="btn btn-default">查询</button>
+
+      </form>
+
     </div>
     
-    <!-- .col-xs-3 .col-md-3 -->
     <div class="menu-nav">
-      <ul class="nav nav-pills nav-justified" role="tablist">
+      <ul class="nav nav-tabs nav-justified" role="tablist">
         <li class="active" id="rule" role="presentation"><a href="##">规则</a></li>
         <li id="card"><a href="##">游戏牌</a></li>
         <li id="heros"><a href="##">武将</a></li>
         <li id="strategy"><a href="##">攻略</a></li>
       </ul>
     </div>
+    
+    <!-- 规则组合 -->
+    <div class="rule-content">
+     
+      <div class="list-group">
+        <a href="##" class="list-group-item list-group-item-warning">
+          <h3 class="list-group-item-heading">1V1规则</h3>
+          <p class="list-group-item-text">1v1对战模式是以三国杀基本规则为基础，融合3v3竞技模式的全新首创...</p>
+        </a>
 
-    <div class="content">我是内容</div>
-
+        <a href="##" class="list-group-item list-group-item-success">3V3规则</a>
+        <a href="##" class="list-group-item list-group-item-success">身份局规则</a>
+        <a href="##" class="list-group-item list-group-item-success">国战规则</a>
+        <a href="##" class="list-group-item list-group-item-success">虎牢关规则</a>
+        <a href="##" class="list-group-item list-group-item-success">转世规则</a>
+      </div>
+    </div>
   </div>
 
 </body>
