@@ -2,9 +2,6 @@ html,canvas,body{
 	margin:0px;
 	padding:0px;
 }
-html{
-	background-color: #000;
-}
 
 /*固定窗口*/
 html{
@@ -47,64 +44,10 @@ body{
 }
 #mainmenu{
   display: none;
-	width:1024px;
-	height:600px;
-	background-image:url(../images/mainmenu.jpg);
-	background-repeat:no-repeat;
-	background-color:#E1CAA1;
-	}
-/*应用主页面body*/
-body.MainPage{
-	width:1024px;
-	background-color:#E1CAA1;
-	/*background-image:url(../images/militaryBg.jpg);
-	background-repeat:no-repeat;
-	background-attachment:fixed;
-	background:#E1CAA1 url(../images/militaryBg.jpg) repeat-y fixed;*/
+  padding-top: 70px;
+  width: 100%;
+  background-color: #CFBAAA;
 }
-
-/*主页面按钮*/
-.main_button{
-	width:275px;
-	height:80px;
-	background:url(../images/StrategyButton.png);
-	position: absolute;
-	left:380px;
-	
-	text-align: center;
-    vertical-align: middle;
-	
-	font-family:Courier New, Helvtica, sans-serif;
-	font-size:35px;
-	/*text-shadow: rgba(10, 10, 10, 0.5) 2px 2px 5px;*/
-	color: #fff;
-	/*text-shadow: 0 0 1.2em #fff, 0 0 1.2em #fff;*/
-	font-weight:bold;
-	z-index:3;
-	overflow: hidden;
-}
-
-.main_button:nth-child(1){
-	top:110px;
-}
-
-.main_button:nth-child(2){
-	top:210px;
-}
-
-.main_button:nth-child(3){
-	top:310px;
-}
-
-.main_button:nth-child(4){
-	top:410px;
-}
-
-.main_button:hover{
-	text-shadow: 0 0 1.2em #fff, 0 0 0.2em #fff;
-	margin-top:8px;
-}
-.main_button span{
-	line-height: 80px;
-	font-size: 25px;
+.menu-nav{
+  width:100%;
 }

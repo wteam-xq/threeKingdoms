@@ -35,8 +35,10 @@ $(document).ready(function(){
       $('#mainmenu').show();
      }
   };
-  var myplugin = $('#progress').cprogress(options);
-  myplugin.start();
+  // var myplugin = $('#progress').cprogress(options);
+  // myplugin.start();
+  $("#start").hide();
+  $('#mainmenu').show();
   
   $("#heros").click(function(){
   window.location.href="herosMainPage/heros.html";

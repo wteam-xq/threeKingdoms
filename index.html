@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <script src="components/jquery-1.10.2.min.js"></script>
-<script src="components/progress.min.js"></script>
+<!-- <script src="components/progress.min.js"></script> -->
 <script src="datas/heros.js"></script>
 <script src="js/main.js"></script>
 <link rel="stylesheet" type="text/css" href="css/mainmenu.css">
@@ -40,22 +40,30 @@
   <div class="container" id="progress">
   </div>
 
-	<div class="container" id="mainmenu">
-    <div class="main_button" id="card">
-      <span>游戏牌</span>
+	<div class="mainmenu" id="mainmenu">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    　<div class="navbar-header">
+    　    <a href="##" class="navbar-brand">三国杀</a>
+    　</div>
+       <ul class="nav navbar-nav pull-right">
+          <li><a href="##">输入框</a></li>
+          <li><a href="##">搜索图标</a></li>
+       </ul>
+    </div>
+    
+    <!-- .col-xs-3 .col-md-3 -->
+    <div class="menu-nav">
+      <ul class="nav nav-pills nav-justified" role="tablist">
+        <li class="active" id="rule" role="presentation"><a href="##">规则</a></li>
+        <li id="card"><a href="##">游戏牌</a></li>
+        <li id="heros"><a href="##">武将</a></li>
+        <li id="strategy"><a href="##">攻略</a></li>
+      </ul>
     </div>
 
-    <div class="main_button" id="rule">
-      <span>规则</span>
-    </div>
+    <div class="content">我是内容</div>
 
-    <div class="main_button" id="strategy">
-      <span>攻略</span>
-    </div>
-
-    <div class="main_button" id="heros">
-      <span>武将</span>
-    </div>
   </div>
 
 </body>
