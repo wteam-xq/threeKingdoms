@@ -40,16 +40,17 @@ $(document).ready(function(){
   $("#start").hide();
   $('#mainmenu').show();
   
-  $("#heros").click(function(){
-  window.location.href="herosMainPage/heros.html";
-  }); //end click function()
-  $("#card").click(function(){
-  window.location.href="herosMainPage/card.html";
-  });
-  $("#rule").click(function(){
-  window.location.href="herosMainPage/rule.html";
-  });
-   $("#strategy").click(function(){
-  window.location.href="herosMainPage/strategy.html";
-  });
+  
+  // $("#heros").click(function(){
+  // window.location.href="herosMainPage/heros.html";
+  // }); //end click function()
+  // $("#card").click(function(){
+  // window.location.href="herosMainPage/card.html";
+  // });
+  // $("#rule").click(function(){
+  // window.location.href="herosMainPage/rule.html";
+  // });
+  //  $("#strategy").click(function(){
+  // window.location.href="herosMainPage/strategy.html";
+  // });
 });

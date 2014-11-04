@@ -3,8 +3,7 @@
 
 #### 三国杀游戏查询手册
 
-本项目是 bootstrap3.2.0 更新版v2.0，
-并在github上 实时更新（学习练手项目）
+本项目是 bootstrap3.2.0 更新版（v2.0），在github上 实时更新（学习练手项目）
 
 * ps: 本项目数据信息部分已过时，更详细准确的三国杀 fap， 请访问： [三国杀fap](http://dadao.net/sgs/#) 
 * 项目中的images 文件夹对应百度网盘链接：[images](http://pan.baidu.com/s/1sjmEicd) 
@@ -13,6 +12,7 @@
   * 2.bootstrap-3.2.0.min.js; 
   * 3.bootstrap-3.2.0.min.css;
   * 4.progress.js;
+* 开发期间 images、components文件经常变更，建议出稳定版本后下载之。（完成版本后才更新网盘内容）
 
 
 动工前的准备：
@@ -24,10 +24,6 @@
 ### 计划（持续更新）：
 
 本周完成：
-* 完成收尾的优化（文件名、文件布局）；
-* 完成起始页面 进度条页面；(方案：1.配合bootstrap组件实现；2.第三方jquery插件实现)
-* 完成 大部分bootstrap教程。
-
 * 完成 手绘 布局图；
 * 根据布局图 修改、完成首页；
 
