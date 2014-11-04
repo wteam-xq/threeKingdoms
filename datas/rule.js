@@ -219,31 +219,31 @@ var json_relive = [{"p":"转世模式规则"},
 var rule_datas = [{
   'title':'1V1规则',
   'content': '1v1对战模式是以三国杀基本规则为基础，融合3v3竞技模式...',
-  'icon_src':'http://tp2.sinaimg.cn/3306361973/50/22875318196/0',
+  'icon_src':'images/caobei.png',
   'data': json_onevsone
 },{
   'title':'3V3规则',
   'content': '3v3竞技模式为依附于三国杀核心规则的团队对战规则变体...',
-  'icon_src':'http://tp2.sinaimg.cn/3306361973/50/22875318196/0',
+  'icon_src':'images/daqiao.png',
   'data': json_threevsthree
 },{
   'title':'身份局规则',
   'content': '你即将开始学习一款集角色扮演、战斗、伪装等要素...',
-  'icon_src':'http://tp2.sinaimg.cn/3306361973/50/22875318196/0',
+  'icon_src':'images/yuji.png',
   'data': json_status
 },{
   'title':'国战规则',
   'content': '玩家的游戏目标与势力有关：消灭所有与自己不同势...',
-  'icon_src':'http://tp2.sinaimg.cn/3306361973/50/22875318196/0',
+  'icon_src':'images/guojia.png',
   'data': json_battle_royal
 },{
   'title':'虎牢关规则',
   'content': '玩家的游戏目标与势力有关：消灭所有与自己不同势...',
-  'icon_src':'http://tp2.sinaimg.cn/3306361973/50/22875318196/0',
+  'icon_src':'images/lvbu.png',
   'data': json_hlg
 },{
   'title':'转世规则',
   'content': '对酒当歌，人生几何？当一个角色死亡的时候...',
-  'icon_src':'http://tp2.sinaimg.cn/3306361973/50/22875318196/0',
+  'icon_src':'images/zhangjiao.png',
   'data': json_relive
 }];

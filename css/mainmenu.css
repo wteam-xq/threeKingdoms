@@ -56,3 +56,10 @@ body{
 .list-item-img{
   margin-right: 5px;
 }
+.logo-brand{
+  padding: 0px !important;
+}
+.logo{
+  width:109px;
+  height:45px;
+}
