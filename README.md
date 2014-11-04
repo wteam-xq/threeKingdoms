@@ -31,3 +31,6 @@
 ### 开发日志：
 * 11-01：
   * bootstrap 配合 jquery的进度条效果很不理想，3秒内打开，进度条样式跟不上。
+* 11-04
+  * 用本地样式 覆盖 bootstrap样式代码：padding:0px !important;
+
