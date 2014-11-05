@@ -5,7 +5,7 @@ var card_basic = {
   "imgs":card_basic_imgs,
   "type":"basic", 
   'content': '酒、火杀、闪、桃、普通杀、雷杀',
-  'icon_src':'images/liubei.png'
+  'icon_src':'images/ganning.png'
 };
 
 var card_kit_imgs = ["../images/card/kit/amazing_grace.jpg","../images/card/kit/archery_attack.jpg","../images/card/kit/collateral.jpg",
@@ -17,7 +17,7 @@ var card_kit = {
   "imgs":card_kit_imgs,
   "type":"kit",
   'content': '五谷丰登、万箭齐发、借刀杀人、过河拆桥...',
-  'icon_src':'images/liubei.png'
+  'icon_src':'images/luxun.png'
 };
 
 var card_physic_imgs = ["../images/card/physic/physic_2.jpg","../images/card/physic/physic_3.jpg","../images/card/physic/physic_4.jpg",
@@ -27,7 +27,7 @@ var card_physic = {
   "imgs":card_physic_imgs,
   "type":"physic",
   'content': '2勾玉、3勾玉、4勾玉、5勾玉',
-  'icon_src':'images/liubei.png'
+  'icon_src':'images/xiaoqiao.png'
 };
 
 var card_status_imgs = ["../images/card/status/juese_fanzei.jpg","../images/card/status/juese_neijian.jpg","../images/card/status/juese_zhongcheng.jpg",
@@ -37,7 +37,7 @@ var card_status = {
   "imgs":card_status_imgs,
   "type":"status",
   'content': '反贼、内奸、忠臣、主公',
-  'icon_src':'images/liubei.png'
+  'icon_src':'images/zhaoyun.png'
 };
 
 var card_weapon_imgs = ["../images/card/weapon/axe.jpg","../images/card/weapon/blade.jpg","../images/card/weapon/chitu.jpg",
@@ -52,7 +52,7 @@ var card_weapon = {
   "imgs":card_weapon_imgs,
   "type":"weapon",
   'content': '连弩、贯石斧、大宛、仁王盾、绝影...',
-  'icon_src':'images/liubei.png'
+  'icon_src':'images/zhenji.png'
 };
 
 var card_heros = {
@@ -60,7 +60,7 @@ var card_heros = {
   "imgs":[],
   "type":"heros",
   'content': '刘备、曹操、孙权、董卓...',
-  'icon_src':'images/liubei.png'
+  'icon_src':'images/zhouyu.png'
 };
 
 var card_datas = [card_basic, card_kit, card_physic, card_status, card_weapon, card_heros];
