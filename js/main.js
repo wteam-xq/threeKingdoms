@@ -45,36 +45,37 @@ $(document).ready(function(){
     myplugin.start();
   }
   // pProgressInit();
-  
-  // 规则面板数据初始化
-  function ruleDataInit(){
-    var $rule = $('#rule');
+
+  // 主菜单列表html生成
+  function createGroupItem(datas, id){
+    var $target_dom = $('#' + id);
     var _item_htmls = '';
     var _item_html = '';
-    var rule_data = null;
-    $rule.empty();
+    var item_data = null;
+    $target_dom.empty();
 
-    if(rule_datas && rule_datas.length > 0){
+    if(datas && datas.length > 0){
       // 加载 规则菜单 dom
-      for(var i = 0, len = rule_datas.length; i < len; i++){
-        rule_data = rule_datas[i];
+      for(var i = 0, len = datas.length; i < len; i++){
+        item_data = datas[i];
         _item_html = '<a href="##" class="list-group-item list-group-item-warning">' + 
-          '<img class="pull-left list-item-img" src="' + rule_data.icon_src + '" alt="' + rule_data.title + '" >' + 
-          '<h3 class="list-group-item-heading">' + rule_data.title + '</h3>' + 
-          '<p class="list-group-item-text">' + rule_data.content + '<span class="badge pull-right">点击查看全部</span></p>' + 
+          '<img class="pull-left list-item-img" src="' + item_data.icon_src + '" alt="' + item_data.title + '" >' + 
+          '<h3 class="list-group-item-heading">' + item_data.title + '</h3>' + 
+          '<p class="list-group-item-text">' + item_data.content + '<span class="badge pull-right">点击查看全部</span></p>' + 
         '</a>';
         _item_htmls += _item_html;
       }
-      $rule.append(_item_htmls);
+      $target_dom.append(_item_htmls);
 
     }else{
-      $rule.html('数据异常！');
+      $target_dom.html('数据异常！');
     }
   }
 
   $("#start").hide();
   $('#mainmenu').show();
-  ruleDataInit();
+  createGroupItem(rule_datas, 'rule');
+  createGroupItem(card_datas, 'card');
   
 
   // $("#heros").click(function(){

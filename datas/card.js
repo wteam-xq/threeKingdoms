@@ -1,20 +1,44 @@
 var card_basic_imgs = ["../images/card/basic/analeptic.jpg","../images/card/basic/fire_slash.jpg","../images/card/basic/jink.jpg",
 "../images/card/basic/peach.jpg","../images/card/basic/slash.jpg","../images/card/basic/thunder_slash.jpg"];
-var card_basic = {"name":"基本牌","imgs":card_basic_imgs,"type":"basic"};
+var card_basic = {
+  "title":"基本牌",
+  "imgs":card_basic_imgs,
+  "type":"basic", 
+  'content': '酒、火杀、闪、桃、普通杀、雷杀',
+  'icon_src':'images/liubei.png'
+};
 
 var card_kit_imgs = ["../images/card/kit/amazing_grace.jpg","../images/card/kit/archery_attack.jpg","../images/card/kit/collateral.jpg",
 "../images/card/kit/dismantlement.jpg","../images/card/kit/duel.jpg","../images/card/kit/ex_nihilo.jpg","../images/card/kit/fire_attack.jpg",
 "../images/card/kit/god_salvation.jpg","../images/card/kit/indulgence.jpg","../images/card/kit/iron_chain.jpg","../images/card/kit/lightning.jpg",
 "../images/card/kit/nullification.jpg","../images/card/kit/snatch.jpg","../images/card/kit/supply_shortage.jpg"];
-var card_kit = {"name":"锦囊牌","imgs":card_kit_imgs,"type":"kit"};
+var card_kit = {
+  "title":"锦囊牌",
+  "imgs":card_kit_imgs,
+  "type":"kit",
+  'content': '五谷丰登、万箭齐发、借刀杀人、过河拆桥...',
+  'icon_src':'images/liubei.png'
+};
 
 var card_physic_imgs = ["../images/card/physic/physic_2.jpg","../images/card/physic/physic_3.jpg","../images/card/physic/physic_4.jpg",
 "../images/card/physic/physic_5.jpg"];
-var card_physic = {"name":"体力牌","imgs":card_physic_imgs,"type":"physic"};
+var card_physic = {
+  "title":"体力牌",
+  "imgs":card_physic_imgs,
+  "type":"physic",
+  'content': '2勾玉、3勾玉、4勾玉、5勾玉',
+  'icon_src':'images/liubei.png'
+};
 
 var card_status_imgs = ["../images/card/status/juese_fanzei.jpg","../images/card/status/juese_neijian.jpg","../images/card/status/juese_zhongcheng.jpg",
 "../images/card/status/juese_zhugong.jpg"];
-var card_status = {"name":"身份牌","imgs":card_status_imgs,"type":"status"};
+var card_status = {
+  "title":"身份牌",
+  "imgs":card_status_imgs,
+  "type":"status",
+  'content': '反贼、内奸、忠臣、主公',
+  'icon_src':'images/liubei.png'
+};
 
 var card_weapon_imgs = ["../images/card/weapon/axe.jpg","../images/card/weapon/blade.jpg","../images/card/weapon/chitu.jpg",
 "../images/card/weapon/crossbow.jpg","../images/card/weapon/dayuan.jpg","../images/card/weapon/dilu.jpg","../images/card/weapon/double_sword.jpg",
@@ -23,7 +47,23 @@ var card_weapon_imgs = ["../images/card/weapon/axe.jpg","../images/card/weapon/b
 "../images/card/weapon/moon_spear.jpg","../images/card/weapon/qinggang_sword.jpg","../images/card/weapon/renwang_shield.jpg","../images/card/weapon/silver_lion.jpg",
 "../images/card/weapon/spear.jpg","../images/card/weapon/vine.jpg","../images/card/weapon/zhuahuangfeidian.jpg","../images/card/weapon/zixing.jpg",
 ];
-var card_weapon = {"name":"装备牌","imgs":card_weapon_imgs,"type":"weapon"};
+var card_weapon = {
+  "title":"装备牌",
+  "imgs":card_weapon_imgs,
+  "type":"weapon",
+  'content': '连弩、贯石斧、大宛、仁王盾、绝影...',
+  'icon_src':'images/liubei.png'
+};
+
+var card_heros = {
+  "title":"武将牌",
+  "imgs":[],
+  "type":"heros",
+  'content': '刘备、曹操、孙权、董卓...',
+  'icon_src':'images/liubei.png'
+};
+
+var card_datas = [card_basic, card_kit, card_physic, card_status, card_weapon, card_heros];
 
 var axe = [{"p":"装备牌*贯石斧"},
 {"img":"../images/card/weapon/axe.jpg"},
