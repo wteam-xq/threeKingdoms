@@ -4,7 +4,7 @@ var card_basic = {
   "title":"基本牌",
   "imgs":card_basic_imgs,
   "type":"basic", 
-  'content': '酒、火杀、闪、桃、普通杀、雷杀',
+  'content': '酒、火杀、闪、桃、普通杀、雷杀...',
   'icon_src':'images/ganning.png'
 };
 
@@ -26,7 +26,7 @@ var card_physic = {
   "title":"体力牌",
   "imgs":card_physic_imgs,
   "type":"physic",
-  'content': '2勾玉、3勾玉、4勾玉、5勾玉',
+  'content': '2勾玉、3勾玉、4勾玉、5勾玉...',
   'icon_src':'images/xiaoqiao.png'
 };
 
@@ -36,7 +36,7 @@ var card_status = {
   "title":"身份牌",
   "imgs":card_status_imgs,
   "type":"status",
-  'content': '反贼、内奸、忠臣、主公',
+  'content': '反贼、内奸、忠臣、主公...',
   'icon_src':'images/zhaoyun.png'
 };
 

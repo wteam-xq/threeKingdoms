@@ -238,7 +238,7 @@ var rule_datas = [{
   'data': rule_battle_royal
 },{
   'title':'虎牢关规则',
-  'content': '玩家的游戏目标与势力有关：消灭所有与自己不同势...',
+  'content': '面对越来越多的《三国杀》系列武将，从官方的...',
   'icon_src':'images/lvbu.png',
   'data': rule_hlg
 },{

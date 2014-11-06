@@ -63,3 +63,18 @@ body{
   width:109px;
   height:45px;
 }
+.app-btn{
+  background-color: #FCF8E3 !important;
+}
+.app-btn:hover{
+  background-color: #FAF2CC !important;
+}
+.dropup .list-group{
+  margin-bottom: 0px !important;
+}
+.str-btn{
+  border-bottom: 1px solid #ccc !important;
+}
+.dropup.str-btn{
+  border-bottom: 0px solid #ccc !important;
+}
