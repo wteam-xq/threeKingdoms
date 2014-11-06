@@ -55,12 +55,6 @@ html,canvas,body{
   width:109px;
   height:45px;
 }
-.app-btn{
-  background-color: #FCF8E3 !important;
-}
-.app-btn:hover{
-  background-color: #FAF2CC !important;
-}
 .dropup .list-group{
   margin-bottom: 0px !important;
 }
@@ -73,4 +67,17 @@ html,canvas,body{
 #strategy{
   /*overflow-y: auto;*/
   /*height:500px;*/
+}
+.bnt-pairs{
+  width: 100% !important;
+}
+.btn-app, .bnt-pairs{
+  background-color: #FCF8E3 !important;
+}
+.btn-app:hover, .bnt-pairs:hover{
+  background-color: #FAF2CC !important;
+}
+.dropdown-app{
+  width: 95% !important;
+  text-align: center !important; 
 }

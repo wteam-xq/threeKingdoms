@@ -88,7 +88,7 @@ $(document).ready(function(){
       item_data = datas[k];
       if (item_data && item_data.array_datas){
         _item_html = '<div class="str-btn dropup">' + 
-          '<div class="btn btn-block btn-lg app-btn">' + item_data.group_name + 
+          '<div class="btn btn-block btn-lg btn-app">' + item_data.group_name + 
             '<span class="caret"></span>' + 
           '</div>' +
           '<div role="tabpanel" class="list-group tab-pane fade rule active in" id="str_' + item_data.id + '"></div>' +
@@ -99,7 +99,7 @@ $(document).ready(function(){
       }
     } 
     // 生成toggle 面板 按钮
-    var $app_btn = $target_dom.find('.app-btn');
+    var $app_btn = $target_dom.find('.btn-app');
 
     $app_btn.on('click', function(){
       var $this = $(this);
