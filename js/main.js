@@ -60,7 +60,7 @@ $(document).ready(function(){
         _item_html = '<a href="##" class="list-group-item list-group-item-warning">' + 
           '<img class="pull-left list-item-img" src="' + item_data.icon_src + '" alt="' + item_data.title + '" >' + 
           '<h3 class="list-group-item-heading">' + item_data.title + '</h3>' + 
-          '<p class="list-group-item-text">' + item_data.content + '<span class="badge pull-right">点击查看全部</span></p>' + 
+          '<p class="list-group-item-text">' + item_data.content + '</p>' + 
         '</a>';
         _item_htmls += _item_html;
       }
