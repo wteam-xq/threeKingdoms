@@ -75,9 +75,32 @@
       <div class="tab-pane fade" id="card">
         卡牌内容
       </div>
+
       <div class="tab-pane fade" id="heros">
         武将内容
+        <div class="dropdown-backdrop dropdown pull-left">
+          <div id="class_type" class="btn btn-info btn-lg app-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            分类类型
+           <span class="caret"></span>
+          </div>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="class_type">
+            <li><a role="menuitem" tabindex="-1" href="#">三国鼎立</a></li>
+            <li><a role="menuitem" tabindex="-1" href="#">风火山林</a></li>
+          </ul>
+        </div>
+    
+        <div class="dropdown-backdrop dropdown pull-right">
+          <div id="class_filter" class="btn btn-lg app-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            筛选
+           <span class="caret"></span>
+          </div>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="class_type">
+            <li><a role="menuitem" tabindex="-1" href="#">蜀国</a></li>
+            <li><a role="menuitem" tabindex="-1" href="#">魏国</a></li>
+          </ul>
+        </div>
       </div>
+
       <div class="tab-pane fade" id="strategy">
         攻略内容
       </div>

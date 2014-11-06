@@ -3,14 +3,6 @@ html,canvas,body{
 	padding:0px;
 }
 
-/*全局*/
-html{
-	overflow:hidden;
-}
-body{
-	overflow:hidden;
-}
-
 /*进度条插件*/
 .jCProgress {
      position: absolute;
@@ -77,4 +69,8 @@ body{
 }
 .dropup.str-btn{
   border-bottom: 0px solid #ccc !important;
+}
+#strategy{
+  /*overflow-y: auto;*/
+  /*height:500px;*/
 }

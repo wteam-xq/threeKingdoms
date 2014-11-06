@@ -68,7 +68,7 @@ $(document).ready(function(){
       return $target_dom;
     }else{
       $target_dom.html('数据异常！');
-      return false;
+      return $target_dom;
     }
   }
 
@@ -78,11 +78,11 @@ $(document).ready(function(){
     var _item_html = '';
     var $item_list = null;
     var item_data = null;
-    $target_dom.empty();
 
     if(datas == null || datas.length == 0){
-      return false;
+      return $target_dom;
     }
+    $target_dom.empty();
 
     for(var k = 0, list_len = datas.length; k < list_len; k++){
       item_data = datas[k];
