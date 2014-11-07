@@ -44,28 +44,44 @@
   </div>
 
   <div class="mainmenu" id="mainmenu">
+
     <div class="navbar navbar-default navbar-fixed-top row" role="navigation">
-    　<div class="navbar-header col-xs-12 col-md-3 pull-left">
+    　<div class="navbar-header col-xs-3 col-md-3 pull-left">
     　    <a href="##" class="navbar-brand logo-brand">
             <img src="images/logo.png" class="logo" alt="logo">
           </a>
     　</div>
-      <form class="navbar-form navbar-right col-xs-12 col-md-4 pull-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="请输入关键字">
+      <form class="navbar-form navbar-right col-xs-9 col-md-4 pull-right row" role="search">
+        <div class="form-group pull-left col-xs-9">
+          <input type="text" class="form-control pull-right" placeholder="请输入关键字">
         </div>
-        <button type="submit" class="btn btn-default">查询</button>
+        <button type="submit" class="btn btn-default col-xs-3">查询</button>
       </form>
     </div>
     
-    <div class="menu-nav">
-      <ul class="nav nav-tabs nav-justified" role="tablist">
-        <li class="active" role="presentation"><a href="#rule" data-toggle="tab">规则</a></li>
-        <li><a href="#card" data-toggle="tab">游戏牌</a></li>
-        <li><a href="#heros" data-toggle="tab">武将</a></li>
-        <li><a href="#strategy" data-toggle="tab">攻略</a></li>
+    <div class="menu-nav row">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active col-xs-3 col-md-3" role="presentation"><a href="#rule" data-toggle="tab">规则</a></li>
+        <li class="col-xs-3 col-md-3"><a href="#card" data-toggle="tab">游戏牌</a></li>
+        <li class="col-xs-3 col-md-3"><a href="#heros" data-toggle="tab">武将</a></li>
+        <li class="col-xs-3 col-md-3"><a href="#strategy" data-toggle="tab">攻略</a></li>
       </ul>
     </div>
+
+    <!-- <div class="btn-group row tkd-nav" data-toggle="buttons">
+      <label class="btn btn-primary active col-xs-3 col-md-3">
+        <input type="radio" name="options" id="1" autocomplete="off" checked> 规则
+      </label>
+      <label class="btn btn-primary col-xs-3 col-md-3">
+        <input type="radio" name="options" id="2" autocomplete="off"> 游戏牌
+      </label>
+      <label class="btn btn-primary col-xs-3 col-md-3">
+        <input type="radio" name="options" id="3" autocomplete="off"> 武将
+      </label>
+      <label class="btn btn-primary col-xs-3 col-md-3">
+        <input type="radio" name="options" id="4" autocomplete="off"> 攻略
+      </label>
+    </div> -->
     
     <!-- 规则组合 -->
     <div class="tab-content">
@@ -78,23 +94,23 @@
 
       <div class="tab-pane fade row" id="heros">
         
-        <div class="dropdown pull-left col-xs-3 col-md-3">
-          <button class="btn bnt-pairs btn-lg dropdown-toggle" type="button" id="class_type" data-toggle="dropdown">
-            分类类型
+        <div class="dropdown pull-left col-xs-5 col-md-3">
+          <button class="btn bnt-pairs btn-sm dropdown-toggle" type="button" id="class_type" data-toggle="dropdown">
+            筛选类型
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu dropdown-app" role="menu" aria-labelledby="class_type">
+          <ul class="dropdown-menu tkd-dropdown-menu" role="menu" aria-labelledby="class_type">
             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">三国鼎立</a></li>
             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">风火山林</a></li>
           </ul>
         </div>
 
-        <div class="dropdown pull-right col-xs-3 col-md-3">
-          <div id="class_filter" class="btn btn-lg bnt-pairs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown pull-right col-xs-5 col-md-3">
+          <div id="class_filter" class="btn btn-sm bnt-pairs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             筛选
            <span class="caret"></span>
           </div>
-          <ul class="dropdown-menu dropdown-app" role="menu" aria-labelledby="class_type">
+          <ul class="dropdown-menu tkd-dropdown-menu" role="menu" aria-labelledby="class_type">
             <li><a role="menuitem" tabindex="-1" href="#">蜀国</a></li>
             <li><a role="menuitem" tabindex="-1" href="#">魏国</a></li>
           </ul>

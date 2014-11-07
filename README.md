@@ -39,4 +39,7 @@
   * bootstrap 配合 jquery的进度条效果很不理想，3秒内完成的进度条，进度条样式跟不上。
 * 11-04
   * 用本地样式 覆盖 bootstrap样式代码：padding:0px !important;
+* 11-07
+  * bootstrap 3.2 的移动设备优先的结果就是: 很多样式移动端显示很正常，而PC端显示很异常; 
+  * 如果使用 !important 修复了 pc端的异常， 移动端显示就很异常。
 

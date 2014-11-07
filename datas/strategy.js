@@ -1480,7 +1480,7 @@ var str_datas = [{
   id:'battlefield',
   array_datas:[{
     'title':'1v1模式',
-    'content': '本文详尽阐述了三国杀online中1v1的一些思考与技巧...',
+    'content': '本文详尽阐述了三国杀online中1v1...',
     'icon_src':'images/caobei.png',
     'data': str_onevsone
   },{
@@ -1490,7 +1490,7 @@ var str_datas = [{
     'data': str_threevsthree
   },{
     'title':'身份模式',
-    'content': '如果8个玩家都是比较熟的老手，那么游戏的胜利一般取决于...',
+    'content': '如果8个玩家都是比较熟的...',
     'icon_src':'images/yuji.png',
     'data': str_status
   }]
@@ -1525,12 +1525,12 @@ var str_datas = [{
   id:'card',
   array_datas:[{
     'title':'锦囊牌',
-    'content': '如果说基本牌是游戏的基础，那么锦囊牌就...',
+    'content': '如果说基本牌是游戏的...',
     'icon_src':'images/liubei.png',
     'data': str_kit
   },{
     'title':'武器牌',
-    'content': '三国杀的武器是很有意思的。本文主要讨论各个...',
+    'content': '三国杀的武器是...',
     'icon_src':'images/liubei.png',
     'data': str_weapon
   }]
