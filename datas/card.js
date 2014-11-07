@@ -16,7 +16,7 @@ var card_kit = {
   "title":"锦囊牌",
   "imgs":card_kit_imgs,
   "type":"kit",
-  'content': '五谷丰登、万箭齐发、借刀杀人、过河拆桥...',
+  'content': '五谷丰登、万箭齐发、借刀杀人...',
   'icon_src':'images/luxun.png'
 };
 
