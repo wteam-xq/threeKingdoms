@@ -17,7 +17,7 @@ var card_kit = {
   "imgs":card_kit_imgs,
   "type":"kit",
   'content': '五谷丰登、万箭齐发、借刀杀人...',
-  'icon_src':'images/luxun.png'
+  'icon_src':'images/huangyueying.png'
 };
 
 var card_physic_imgs = ["../images/card/physic/physic_2.jpg","../images/card/physic/physic_3.jpg","../images/card/physic/physic_4.jpg",
@@ -52,7 +52,7 @@ var card_weapon = {
   "imgs":card_weapon_imgs,
   "type":"weapon",
   'content': '连弩、贯石斧、大宛、仁王盾、绝影...',
-  'icon_src':'images/zhenji.png'
+  'icon_src':'images/sunshangxiang.png'
 };
 
 var card_heros = {

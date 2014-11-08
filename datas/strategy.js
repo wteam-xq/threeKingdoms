@@ -1506,17 +1506,17 @@ var str_datas = [{
   },{
     'title':'魏国武将',
     'content': '魏武帝---曹操...',
-    'icon_src':'images/liubei.png',
+    'icon_src':'images/caocao.png',
     'data': str_wei
   },{
     'title':'吴国武将',
     'content': '年轻的贤君---孙权...',
-    'icon_src':'images/liubei.png',
+    'icon_src':'images/sunquan.png',
     'data': str_wu
   },{
     'title':'群雄武将',
     'content': '绝世的舞姬---貂蝉...',
-    'icon_src':'images/liubei.png',
+    'icon_src':'images/diaochan.png',
     'data': str_qun
   }]
 },
@@ -1526,12 +1526,12 @@ var str_datas = [{
   array_datas:[{
     'title':'锦囊牌',
     'content': '如果说基本牌是游戏的...',
-    'icon_src':'images/liubei.png',
+    'icon_src':'images/huangyueying.png',
     'data': str_kit
   },{
     'title':'武器牌',
     'content': '三国杀的武器是...',
-    'icon_src':'images/liubei.png',
+    'icon_src':'images/sunshangxiang.png',
     'data': str_weapon
   }]
 }

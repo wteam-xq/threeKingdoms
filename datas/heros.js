@@ -323,6 +323,33 @@ var three_god = [
 ]
 ];
 
+var heros_datas = [
+  {
+    'id': 'drmenu_type',
+    'title': '筛选类型',
+    'datas':[{'id':'drmenu_country', 'title': '三国鼎立'},{'id':'drmenu_package', 'title':'风火山林'}]
+  },
+  {
+    'id': 'drmenu_country',
+    'title': '筛选',
+    'datas':[{'id':'country_shu', 'title': '蜀国'},{'id':'country_wei', 'title':'魏国'},
+    {'id':'country_wu', 'title': '吴国'},{'id':'country_qun', 'title':'群雄'},
+    {'id':'country_shen', 'title': '神'},{'id':'country_all', 'title':'全部'}
+    ]
+  }
+];
+var drMenu_type_datas = {
+  'country':[{'id':'country_shu', 'title': '蜀国'},{'id':'country_wei', 'title':'魏国'},
+    {'id':'country_wu', 'title': '吴国'},{'id':'country_qun', 'title':'群雄'},
+    {'id':'country_shen', 'title': '神'},{'id':'country_all', 'title':'全部'}
+    ],
+  'package':[{'id':'package_standard', 'title': '标准包'},{'id':'package_wind', 'title':'其疾如风'},
+    {'id':'package_fire', 'title': '侵略如火'},{'id':'package_moutain', 'title':'不动如山'},
+    {'id':'package_forest', 'title': '其徐如林'},{'id':'package_sp', 'title':'SP系列'},
+    {'id':'package_famous', 'title': '一将成名'},{'id':'package_all', 'title':'全部'}
+    ]
+}
+
 function start(){
    var ranNum = Math.random();
     if(ranNum < 0.25){
@@ -342,43 +369,7 @@ function start(){
     //判断localStorage中有没有存储json对象
     if(storage_three_all){
       window.setTimeout("window.location.href='mainmenu.html'", 700);
-      /*message_json = "localStorage中已经存储了json";
-      alert(message_json);
-      //清空所有的localStorage
-      storage.clear();
-      alert("清空localStorage完成！");
-      
-      storage.removeItem("storage_three_all");
-      storage.removeItem("storage_three_shu");
-      storage.removeItem("storage_three_wei");
-      storage.removeItem("storage_three_wu");
-      storage.removeItem("storage_three_heros");
-      storage.removeItem("storage_three_god");*/
     }else{
-      /*message_json = "localStorage中没有存储json，现在从异步获取json！";
-      alert(message_json);
-      
-      //后台异步处理json数据
-       //WEB页主线程  
-       if(typeof Worker == 'undefined'){
-        alert("你正在使用的浏览器暂时还不支持WEB Workers!");
-         return;
-         } 
-       var worker = new Worker('js/webWorker.js'); //创建一个Worker对象并向它传递将在新线程中执行的脚本的URL  
-       worker.postMessage("init_json");     //向worker发送数据  
-       worker.onmessage = function(event){     //接收worker传过来的数据函数  
-        alert(event.data);
-        for(var i = 0; i < event.data.length; i++){
-          three_json_data[i] = event.data[i];
-          //alert(three_json_data[i][1][0].name);
-        }
-        alert("接收数据成功！");
-       }
-       worker.onerror = function(event){   
-          alert("于第["+ event.lineno +"]行发生错误 : " + event.message); //显示错误讯息   
-        }  */
-        
-      
       //将json数据存入
       storage.setItem("storage_three_all",JSON.stringify(three_all));
       storage.setItem("storage_three_shu",JSON.stringify(three_shu));
@@ -394,15 +385,3 @@ function start(){
   }
 
 }
-
-// onmessage = function (event){
-// var three_json_data = new Array(three_all,three_shu,three_wei,three_wu,three_heros,three_god);
-
-// 	var d = event.data;//通过evt.data获得发送来的数据
-	
-// 	//准备加载或创建json数据
-// 	if(d == "init_json"){
-// 		postMessage(three_json_data);//将获取到的数据发送会主线程
-// 	}
-	
-// }
