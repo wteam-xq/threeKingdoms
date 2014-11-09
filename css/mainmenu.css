@@ -119,3 +119,14 @@ html,canvas,body{
 .tkd-navbar .navbar{
   margin-bottom: 0px !important;
 }
+#noCanvasTips{
+  display: none;
+}
+.tkd-thumbnail{
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+}

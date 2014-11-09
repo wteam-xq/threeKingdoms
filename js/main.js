@@ -1,22 +1,45 @@
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
+
+  var $heros = $('#heros');
   
   // 插件进度条初始化
   function pProgressInit(){
+    $('body').css({'background-color':'#000'});
     // 进图条插件
     var options = {
        speed: 20,
        limit: 100,
-       onComplete: function(pro_val){
-        // console.log(pro_val); pro_val：进度值
-        $("#progress").hide();
+       onComplete: function(){
+        // 隐藏进度条，背景颜色变更
+        $('body').css({'background-color':'#fff'});
+        $('#progress').hide();
+
         $('#mainmenu').show();
+        createGroupItem(rule_datas, $('#rule') );
+        createGroupItem(card_datas, $('#card') );
+        createToggleBtn(str_datas, $('#strategy') );
+        createDropdownMenu(heros_datas, $heros);
        }
     };
     var myplugin = $('#progress').cprogress(options);
     myplugin.start();
   }
-  // pProgressInit();
+  
+  try{
+    document.createElement('canvas').getContext('2d');
+    // pProgressInit();
+    $('#progress').hide();
+    $('#mainmenu').show();
+    createGroupItem(rule_datas, $('#rule') );
+    createGroupItem(card_datas, $('#card') );
+    createToggleBtn(str_datas, $('#strategy') );
+    createDropdownMenu(heros_datas, $heros);
+  }catch(e){
+    $('#progress').hide();
+    $('#noCanvasTips').show();
+  }
+  
 
   // 主菜单列表html生成
   function createGroupItem(datas, $target_dom){
@@ -201,12 +224,4 @@ $(document).ready(function(){
     console.log('countryEvent');
   }
 
-  var $heros = $('#heros');
-  $("#start").hide();
-  $('#mainmenu').show();
-  createGroupItem(rule_datas, $('#rule') );
-  createGroupItem(card_datas, $('#card') );
-  createToggleBtn(str_datas, $('#strategy') );
-  createDropdownMenu(heros_datas, $heros)
-  
 });
