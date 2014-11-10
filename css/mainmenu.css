@@ -95,7 +95,7 @@ html,canvas,body{
 .tkd-dropdown-menu a{
   padding: 10px 16px !important;
 }
-.mainmenu .navbar-form{
+.mainmenu .navbar-form, .person-info .navbar-form{
   border-width: 0px;
   margin-right: -15px !important;
   /*padding-right: 0px !important;*/
@@ -129,4 +129,7 @@ html,canvas,body{
   background-color: #fff;
   border: 1px solid #ddd;
   text-align: center;
+}
+.person-info{
+  display: none;
 }

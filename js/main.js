@@ -26,20 +26,36 @@ $(document).ready(function(){
     myplugin.start();
   }
   
+  // pProgressInit();
   try{
     document.createElement('canvas').getContext('2d');
-    // pProgressInit();
+    
     $('#progress').hide();
     $('#mainmenu').show();
     createGroupItem(rule_datas, $('#rule') );
     createGroupItem(card_datas, $('#card') );
     createToggleBtn(str_datas, $('#strategy') );
     createDropdownMenu(heros_datas, $heros);
+
+    // 定义基本事件
+    $('#mainmenu').find('#to-person-info').on('click',logoEvent);
+    $('#person-info').find('#back-index').on('click', backIndexEvent);
   }catch(e){
     $('#progress').hide();
     $('#noCanvasTips').show();
   }
-  
+  // logo点击事件
+  function logoEvent(){
+    $('#mainmenu').fadeOut(500, function(){
+      $('#person-info').fadeIn(500);
+    });
+  }
+  // 返回首页
+  function backIndexEvent(){
+    $('#person-info').fadeOut(500, function(){
+      $('#mainmenu').fadeIn(500);
+    });
+  }
 
   // 主菜单列表html生成
   function createGroupItem(datas, $target_dom){

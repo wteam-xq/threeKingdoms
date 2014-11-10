@@ -17,12 +17,6 @@
 <!-- 导入bootstrap -->
 <script src="components/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="components/bootstrap.min.css">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 <link rel="icon" href="favicon.ico">
 <script type="text/javascript">
 
@@ -39,7 +33,7 @@
     <div class="tkd-navbar">
       <div class="navbar navbar-default row" role="navigation">
       　<div class="navbar-header col-xs-3 col-md-3 pull-left">
-      　    <a href="##" class="navbar-brand logo-brand">
+      　    <a href="##" class="navbar-brand logo-brand" id='to-person-info'>
               <img src="images/logo.png" class="logo" alt="logo">
             </a>
       　</div>
@@ -80,6 +74,7 @@
     </div>
   </div>
   
+  <!-- 不兼容浏览器显示效果 -->
   <div class="container" id="noCanvasTips">
     <div class="alert alert-danger">
       <strong>您正在使用低版本浏览器，</strong> 本页面无法显示,
@@ -95,7 +90,35 @@
     <div class="tkd-thumbnail">
       <img src="images/404.jpg" alt="404">
     </div>
-    
+  </div>
+  
+  <!-- 应用个人信息添加 -->
+  <div class="tkd-navbar person-info" id="person-info">
+    <div class="navbar navbar-default row" role="navigation">
+    　<div class="navbar-header col-xs-3 col-md-3 pull-left">
+    　    <a href="##" class="navbar-brand logo-brand" id="back-index">
+            <img src="images/logo.png" class="logo" alt="logo">
+          </a>
+    　</div>
+      <form class="navbar-form navbar-right col-xs-9 col-md-4 row" role="search">
+        <div class="form-group pull-left col-xs-9">
+          <input type="text" class="form-control pull-right" placeholder="请输入关键字">
+        </div>
+        <button type="submit" class="btn btn-default col-xs-3">查询</button>
+      </form>
+    </div>
+      
+    <div class="panel panel-warning">
+      <div class="panel-heading">应用信息</div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <li><strong>作者:</strong><span>wteam-xq</span></li>
+          <li><strong>邮箱:</strong><span>857609086@qq.com</span></li>
+          <li><strong>QQ:</strong><span>857609086</span></li>
+          <li><strong>github:</strong><span> https://github.com/wteam-xq</span></li>
+        </ul>
+      </div>
+    </div>
   </div>
 
 </body>
