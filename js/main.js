@@ -46,15 +46,36 @@ $(document).ready(function(){
   }
   // logo点击事件
   function logoEvent(){
-    $('#mainmenu').fadeOut(500, function(){
-      $('#person-info').fadeIn(500);
+    var $index_dom = $('#mainmenu'); 
+    var $target_dom = $('#person-info');
+
+    $index_dom.animate({'margin-left': '-' + $index_dom.css('width')}, 500, function(){
+      var $this = $(this);
+      $this.hide();
+      $this.css('margin-left', '0px');
     });
+
+    $target_dom.css('margin-left', $target_dom.css('width'));
+    $target_dom.show();
+    $target_dom.animate({'margin-left':'0px'}, 500, function(){
+    });
+    
   }
   // 返回首页
   function backIndexEvent(){
-    $('#person-info').fadeOut(500, function(){
-      $('#mainmenu').fadeIn(500);
+    var $target_dom = $('#mainmenu');
+    var $child_dom = $('#person-info');
+    
+    $target_dom.css('margin-left', $target_dom.css('width'));
+    $target_dom.show();
+    $target_dom.animate({'margin-left':'0px'}, 500, function(){
     });
+    $child_dom.animate({'margin-left': $child_dom.css('width')}, 500, function(){
+      var $this = $(this);
+      $this.hide();
+      $this.css('margin-left', '0px');
+    });
+    
   }
 
   // 主菜单列表html生成

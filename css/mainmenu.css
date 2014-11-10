@@ -100,7 +100,7 @@ html,canvas,body{
   margin-right: -15px !important;
   /*padding-right: 0px !important;*/
 }
-.mainmenu .navbar-header{
+.mainmenu .navbar-header, .person-info .navbar-header{
   padding-left: 15px;
   margin-right: 15px;
 }
@@ -132,4 +132,32 @@ html,canvas,body{
 }
 .person-info{
   display: none;
+}
+/*置顶小按钮*/
+#backtotop{
+  cursor: pointer;
+  height: 50px;
+  position: fixed;
+  bottom: 55px;
+  right: -60px;
+  z-index: 9999;
+  -moz-transition: all 1s ease;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+#backtotop.showme{
+  right: 12px;
+  -moz-transform: scale(1) rotate(-360deg) translate(0px);
+  -webkit-transform: scale(1) rotate(-360deg) translate(0px);
+  -o-transform: scale(1) rotate(-360deg) translate(0px);
+  transform: scale(1) rotate(-360deg) translate(0px);
+}
+#backtotop .bttbg{
+  width: 50px;
+  height: 50px;
+  background: url(../images/top_button.png) no-repeat 0 0;
+}
+#backtotop .bttbg:hover{
+  background-position: left bottom;
 }
