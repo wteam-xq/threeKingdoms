@@ -55,15 +55,6 @@ html,canvas,body{
 .list-item-img{
   margin-right: 5px;
 }
-.logo-brand{
-  padding: 0px !important;
-}
-.logo{
-  width:100px;
-  height:40px;
-  position: relative;
-  bottom: 5px;
-}
 
 .dropup .list-group{
   margin-bottom: 0px !important;
@@ -74,10 +65,7 @@ html,canvas,body{
 .dropup.str-btn{
   border-bottom: 0px solid #ccc !important;
 }
-#strategy{
-  /*overflow-y: auto;*/
-  /*height:500px;*/
-}
+
 .btn-pairs{
   width: 100% !important;
   border-bottom: 1px solid #ccc !important;
@@ -95,14 +83,31 @@ html,canvas,body{
 .tkd-dropdown-menu a{
   padding: 10px 16px !important;
 }
+
+.mainmenu .logo-brand{
+  padding: 18px 0px 0px 0px !important;
+}
+.person-info .logo-brand{
+  padding: 0px !important;
+}
+.logo{
+  width:90px;
+  height:35px;
+}
 .mainmenu .navbar-form, .person-info .navbar-form{
   border-width: 0px;
   margin-right: -15px !important;
-  /*padding-right: 0px !important;*/
+  padding: 10px 5px !important;
 }
-.mainmenu .navbar-header, .person-info .navbar-header{
-  padding-left: 15px;
-  margin-right: 15px;
+.person-info .navbar-form{
+  padding:0px 5px !important;
+}
+.mainmenu .navbar-form .form-group, .person-info .navbar-form .form-group{
+  padding: 0px !important;
+}
+.mainmenu .navbar-header{
+  padding: 0px 10px;
+  height:77px;
 }
 
 .tkd-navbar{
@@ -160,4 +165,14 @@ html,canvas,body{
 }
 #backtotop .bttbg:hover{
   background-position: left bottom;
+}
+.tkd-search{
+  position: absolute !important;
+  top: 10px !important;
+  right: 20px !important;
+}
+.back-ico{
+  line-height: 50px !important;
+  font-size: 1.4em;
+  margin-left: 10px !important;
 }
