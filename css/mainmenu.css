@@ -35,12 +35,16 @@ html,canvas,body{
 	width:100%;
 }
 #mainmenu{
-  display: none;
   padding-top: 119px;
   width: 100%;
-  /*background-color: #666;*/
   background-color: #CFBAAA;
 }
+
+.mainmenu, .person-info, .search-info, .showme, .noCanvasTips{
+  display: none;
+  position: relative;
+}
+
 .menu-nav{
   width:100%;
   margin: 0px 0px 0px !important;
@@ -98,16 +102,14 @@ html,canvas,body{
 
 .mainmenu .navbar-form, .person-info .navbar-form{
   border-width: 0px;
-  /*margin: 8px 0px !important;*/
   padding: 10px 5px !important;
 }
-
 .mainmenu .navbar-form .form-group, .person-info .navbar-form .form-group{
   padding: 0px !important;
 }
+
 .navbar .navbar-header{
   padding: 10px 10px;
-  /*height:77px;*/
 }
 
 .tkd-navbar{
@@ -124,9 +126,6 @@ html,canvas,body{
 .tkd-navbar .navbar{
   margin-bottom: 0px !important;
 }
-#noCanvasTips{
-  display: none;
-}
 .tkd-thumbnail{
   display: block;
   padding: 4px;
@@ -135,9 +134,7 @@ html,canvas,body{
   border: 1px solid #ddd;
   text-align: center;
 }
-.person-info{
-  display: none;
-}
+
 /*置顶小按钮*/
 #backtotop{
   cursor: pointer;
@@ -175,4 +172,24 @@ html,canvas,body{
   line-height: 50px !important;
   font-size: 1.4em;
   margin-left: 10px !important;
+}
+.search-cancel{
+  font-weight: bold;
+  text-align: center;
+  color:#FD6D9E;
+  line-height: 50px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-right:5px;
+}
+.search-info .form-group{
+  margin: 8px 5px !important;
+}
+.search-info input{
+  padding-left: 25px !important;
+}
+.search-info .search-ico{
+  position: absolute !important;
+  top: 10px !important;
+  left: 20px !important;
 }

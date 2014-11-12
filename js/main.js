@@ -100,7 +100,7 @@ $(document).ready(function(){
     if ($target == null || $main == null){
       return false;
     }
-    $main.css('margin-left', $main.css('width'));
+    $main.css('margin-left', '-' + $main.css('width'));
     $main.show();
     $main.animate({'margin-left':'0px'}, 500, function(){
     });

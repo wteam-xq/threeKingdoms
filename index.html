@@ -32,12 +32,12 @@
 
     <div class="tkd-navbar">
       <div class="navbar navbar-default row" role="navigation">
-      　<div class="navbar-header col-xs-5 col-md-3 pull-left">
+      　<div class="navbar-header col-xs-5 col-lg-5 pull-left">
       　    <a href="##" class="navbar-brand logo-brand" id='to-person-info'>
               <img src="images/logo.png" class="logo" alt="logo">
             </a>
       　</div>
-        <form class="navbar-form navbar-right col-xs-7 col-md-4 row" role="search">
+        <form class="navbar-form navbar-right col-xs-7 col-lg-7 row" role="search">
           <div class="form-group pull-left col-xs-12">
             <span class="glyphicon glyphicon-search tkd-search"></span>
             <input data-parentId="mainmenu" type="text" class="form-control pull-right input-search" placeholder="搜索武将、攻略、规则">
@@ -75,7 +75,7 @@
   </div>
   
   <!-- 不兼容浏览器显示效果 -->
-  <div class="container" id="noCanvasTips">
+  <div class="container noCanvasTips" id="noCanvasTips">
     <div class="alert alert-danger">
       <strong>您正在使用低版本浏览器，</strong> 本页面无法显示,
       建议您升级到
@@ -121,19 +121,17 @@
   </div>
 
   <!-- 搜索页面 -->
-  <div class="tkd-navbar person-info" id="search-info">
+  <div class="tkd-navbar search-info" id="search-info">
     <div class="navbar navbar-default row" role="navigation">
-    　<div class="navbar-header col-xs-5 col-md-3 pull-left">
-    　    <a href="##" class="navbar-brand logo-brand" >
-            <span class="glyphicon glyphicon-chevron-left back-ico" id="back-index"></span>
-          </a>
-    　</div>
-      <form class="navbar-form navbar-right col-xs-7 col-md-4 row" role="search">
-        <div class="form-group pull-left col-xs-12">
-          <span class="glyphicon glyphicon-search tkd-search"></span>
-          <input type="text" class="form-control pull-right" placeholder="搜索武将、攻略、规则">
-        </div>
-      </form>
+      
+      <div class="form-group col-xs-9 col-md-9">
+        <span class="glyphicon glyphicon-search search-ico"></span>
+        <input type="text" class="form-control pull-right" placeholder="搜索武将、攻略、规则">
+      </div>
+     
+      <div class="col-xs-2 col-md-2 search-cancel pull-right" id="back-index">
+        取消
+      </div>
     </div>
       
     <div class="panel panel-warning">
