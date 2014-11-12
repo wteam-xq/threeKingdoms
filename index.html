@@ -32,17 +32,16 @@
 
     <div class="tkd-navbar">
       <div class="navbar navbar-default row" role="navigation">
-      　<div class="navbar-header col-xs-4 col-md-3 pull-left">
+      　<div class="navbar-header col-xs-5 col-md-3 pull-left">
       　    <a href="##" class="navbar-brand logo-brand" id='to-person-info'>
               <img src="images/logo.png" class="logo" alt="logo">
             </a>
       　</div>
-        <form class="navbar-form navbar-right col-xs-8 col-md-4 row" role="search">
+        <form class="navbar-form navbar-right col-xs-7 col-md-4 row" role="search">
           <div class="form-group pull-left col-xs-12">
             <span class="glyphicon glyphicon-search tkd-search"></span>
-            <input type="text" class="form-control pull-right" placeholder="搜索武将、攻略、规则">
+            <input data-parentId="mainmenu" type="text" class="form-control pull-right input-search" placeholder="搜索武将、攻略、规则">
           </div>
-          <!-- <button type="submit" class="btn btn-default col-xs-3">查询</button> -->
         </form>
       </div>
       
@@ -96,15 +95,15 @@
   <!-- 应用个人信息添加 -->
   <div class="tkd-navbar person-info" id="person-info">
     <div class="navbar navbar-default row" role="navigation">
-    　<div class="navbar-header col-xs-3 col-md-3 pull-left">
+    　<div class="navbar-header col-xs-5 col-md-3 pull-left">
     　    <a href="##" class="navbar-brand logo-brand" >
             <span class="glyphicon glyphicon-chevron-left back-ico" id="back-index"></span>
           </a>
     　</div>
-      <form class="navbar-form navbar-right col-xs-9 col-md-4 row" role="search">
+      <form class="navbar-form navbar-right col-xs-7 col-md-4 row" role="search">
         <div class="form-group pull-left col-xs-12">
           <span class="glyphicon glyphicon-search tkd-search"></span>
-          <input type="text" class="form-control pull-right" placeholder="搜索武将、攻略、规则">
+          <input type="text" data-parentId="person-info" class="form-control pull-right input-search" placeholder="搜索武将、攻略、规则">
         </div>
         <!-- <button type="submit" class="btn btn-default col-xs-3">查询</button> -->
       </form>
@@ -112,17 +111,36 @@
       
     <div class="panel panel-warning">
       <div class="panel-heading">应用信息</div>
-      <div class="panel-body">
-        <ul class="list-unstyled">
-          <li><strong>作者:</strong><span>wteam-xq</span></li>
-          <li><strong>邮箱:</strong><span>857609086@qq.com</span></li>
-          <li><strong>QQ:</strong><span>857609086</span></li>
-          <li><strong>github:</strong><span> https://github.com/wteam-xq</span></li>
-        </ul>
-      </div>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>作者: &nbsp;</strong><span>wteam-xq</span></li>
+        <li class="list-group-item"><strong>邮箱: &nbsp;</strong><span>857609086@qq.com</span></li>
+        <li class="list-group-item"><strong>QQ: &nbsp;</strong><span>857609086</span></li>
+        <li class="list-group-item"><strong>github: &nbsp;</strong><span> https://github.com/wteam-xq</span></li>
+      </ul>
     </div>
   </div>
-  
+
+  <!-- 搜索页面 -->
+  <div class="tkd-navbar person-info" id="search-info">
+    <div class="navbar navbar-default row" role="navigation">
+    　<div class="navbar-header col-xs-5 col-md-3 pull-left">
+    　    <a href="##" class="navbar-brand logo-brand" >
+            <span class="glyphicon glyphicon-chevron-left back-ico" id="back-index"></span>
+          </a>
+    　</div>
+      <form class="navbar-form navbar-right col-xs-7 col-md-4 row" role="search">
+        <div class="form-group pull-left col-xs-12">
+          <span class="glyphicon glyphicon-search tkd-search"></span>
+          <input type="text" class="form-control pull-right" placeholder="搜索武将、攻略、规则">
+        </div>
+      </form>
+    </div>
+      
+    <div class="panel panel-warning">
+        搜索内容
+    </div>
+  </div>
+
   <!-- 置顶小按钮 -->
   <div id="backtotop" class="showme">
     <div class="bttbg"></div>

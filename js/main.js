@@ -39,44 +39,78 @@ $(document).ready(function(){
 
     // 定义基本事件
     $('#mainmenu').find('#to-person-info').on('click',logoEvent);
-    $('#person-info').find('#back-index').on('click', backIndexEvent);
+    $('input.input-search').on('focus', toSearchEvent);
+
   }catch(e){
     $('#progress').hide();
     $('#noCanvasTips').show();
   }
   // logo点击事件
   function logoEvent(){
-    var $index_dom = $('#mainmenu'); 
-    var $target_dom = $('#person-info');
+    var $main = $('#mainmenu'); 
+    var $target = $('#person-info');
+    gotoPage($target, $main);
+  }
+  // 进入搜索页面
+  function toSearchEvent(){
+    var $target = $('#search-info');
+    var $this = $(this);
+    var parent_id = $this.attr('data-parentId');
+    var $main = $('#' + parent_id);
+    gotoPage($target, $main);
+  }
 
-    $index_dom.animate({'margin-left': '-' + $index_dom.css('width')}, 500, function(){
+  // 公用滑屏事件 打开、关闭
+  function gotoPage($target, $main){
+    if ($target == null || $main == null){
+      return false;
+    }
+    var back_event = function(){
+      closePage($target, $main);
+    }
+    
+    var $backIco = $target.find('#back-index');
+
+    openPage($target, $main);
+    // 配置返回页面事件
+    if ( $target.attr('data-backEvent') != 'true'){
+      $backIco.on('click', back_event);
+      $target.attr('data-backEvent', 'true');
+    }else{
+      // 去除已存在的事件
+      $backIco.off('click');
+      $backIco.on('click', back_event);
+    }
+  }
+  function openPage($target, $main){
+    if ($target == null || $main == null){
+      return false;
+    }
+    $main.animate({'margin-left': '-' + $main.css('width')}, 500, function(){
       var $this = $(this);
       $this.hide();
       $this.css('margin-left', '0px');
     });
 
-    $target_dom.css('margin-left', $target_dom.css('width'));
-    $target_dom.show();
-    $target_dom.animate({'margin-left':'0px'}, 500, function(){
-    });
-    
+    $target.css('margin-left', $target.css('width'));
+    $target.show();
+    $target.animate({'margin-left':'0px'}, 500, function(){});
   }
-  // 返回首页
-  function backIndexEvent(){
-    var $target_dom = $('#mainmenu');
-    var $child_dom = $('#person-info');
-    
-    $target_dom.css('margin-left', $target_dom.css('width'));
-    $target_dom.show();
-    $target_dom.animate({'margin-left':'0px'}, 500, function(){
+  function closePage($target, $main){
+    if ($target == null || $main == null){
+      return false;
+    }
+    $main.css('margin-left', $main.css('width'));
+    $main.show();
+    $main.animate({'margin-left':'0px'}, 500, function(){
     });
-    $child_dom.animate({'margin-left': $child_dom.css('width')}, 500, function(){
+    $target.animate({'margin-left': $target.css('width')}, 500, function(){
       var $this = $(this);
       $this.hide();
       $this.css('margin-left', '0px');
     });
-    
   }
+
 
   // 主菜单列表html生成
   function createGroupItem(datas, $target_dom){
