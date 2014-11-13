@@ -1,7 +1,13 @@
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
 
+  var $window = $(window);
+  var $mainmenu = $('#mainmenu');
   var $heros = $('#heros');
+  var $rule = $('#rule');
+  var $card = $('#card');
+  var $strategy = $('#strategy');
+  var $searchInfo = $('#search-info');
   
   // 插件进度条初始化
   function pProgressInit(){
@@ -16,9 +22,9 @@ $(document).ready(function(){
         $('#progress').hide();
 
         $('#mainmenu').show();
-        createGroupItem(rule_datas, $('#rule') );
-        createGroupItem(card_datas, $('#card') );
-        createToggleBtn(str_datas, $('#strategy') );
+        createGroupItem(rule_datas, $rule );
+        createGroupItem(card_datas, $card );
+        createToggleBtn(str_datas, $strategy );
         createDropdownMenu(heros_datas, $heros);
        }
     };
@@ -26,17 +32,15 @@ $(document).ready(function(){
     myplugin.start();
   }
   
-  // pProgressInit();
+  
   try{
-    var $mainmenu = $('#mainmenu');
-    var $window = $(window);
     document.createElement('canvas').getContext('2d');
-    
+    // pProgressInit();
     $('#progress').hide();
     $mainmenu.show();
-    createGroupItem(rule_datas, $('#rule') );
-    createGroupItem(card_datas, $('#card') );
-    createToggleBtn(str_datas, $('#strategy') );
+    createGroupItem(rule_datas, $rule );
+    createGroupItem(card_datas, $card );
+    createToggleBtn(str_datas, $strategy );
     createDropdownMenu(heros_datas, $heros);
 
     // 定义基本事件
@@ -45,9 +49,49 @@ $(document).ready(function(){
     $('#backtotop').on('click', toTop);
     // 滚动监听
     $window.scroll(scrollSpyEvent);
+    //搜索框点击事件
+    $searchInfo.find('.search-close').on('click', removeSearchEvent);
+    $searchInfo.find('input').on('keyup', watchInputEvent);
+    $searchInfo.find('#back-index').on('click', searchBtnEvent);
+
   }catch(e){
     $('#progress').hide();
     $('#noCanvasTips').show();
+  }
+  // 删除搜索文字
+  function removeSearchEvent(){
+    var $this = $(this);
+    var $searchInput = $this.prev('input');
+    var $backIndex = $this.parent().next('#back-index');
+    if ($searchInput.val() == ''){
+      return false;
+    }
+    $searchInput.val('');
+    $backIndex.attr('data-btntype', 'cancel');
+    $backIndex.text('取消');
+  }
+  // 监听用户输入文字
+  function watchInputEvent(){
+    var $this = $(this);
+    var $backIndex = $this.parent().next('#back-index');
+    if ($this.val().length == 0){
+      $backIndex.attr('data-btntype', 'cancel');
+      $backIndex.text('取消');
+    }else if($backIndex.attr('data-btntype') == 'cancel'){
+      $backIndex.attr('data-btntype', 'search');
+      $backIndex.text('搜索');
+      return false;
+    }
+  }
+  //搜索页面 按钮点击
+  function searchBtnEvent(){
+    var $this = $(this);
+    var _type = $this.attr('data-btntype');
+    if (_type == 'search'){
+      console.log('搜索数据');
+    }else if (_type == 'cancel'){
+      console.log('返回上级页面');
+    }
   }
   // logo点击事件
   function logoEvent(){
@@ -120,6 +164,10 @@ $(document).ready(function(){
   }
   function closePage($target, $main){
     if ($target == null || $main == null){
+      return false;
+    }
+    var $backIco = $target.find('#back-index');
+    if ($backIco.attr('data-btntype') != 'cancel'){
       return false;
     }
     $main.css('margin-left', '-' + $main.css('width'));

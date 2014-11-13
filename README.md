@@ -6,13 +6,10 @@
 本项目是 bootstrap3.2.0 更新版（v2.0），在github上 实时更新（学习练手项目）
 
 * ps: 本项目数据信息部分已过时，更详细准确的三国杀 fap， 请访问： [三国杀fap](http://dadao.net/sgs/#) 
-* 项目中的images 文件夹对应百度网盘链接：[images](http://pan.baidu.com/s/1sjmEicd) 
-* 项目中的components 文件夹对应百度网盘链接：[components](http://pan.baidu.com/s/1i3yzO93)
-  * 1.jquery-1.10.2.min.js; 
-  * 2.bootstrap-3.2.0.min.js; 
-  * 3.bootstrap-3.2.0.min.css;
-  * 4.progress.js;
-* 开发期间 images、components文件经常变更，建议出稳定版本后下载之。（完成版本后才更新网盘内容）
+* 项目中其他文件夹对应百度网盘链接：[images](http://pan.baidu.com/s/1sjmEicd) 
+  * 包含文件夹：1.components(第三方库文件);2.fonts(bootstrap字体图标);3.images(应用图片).
+  * 将压缩包中的文件夹放置于index.html同级目录即可
+  * 开发期间 以上文件夹经常变更，建议出稳定版本后下载之。（完成版本后即更新网盘内容）
 
 
 动工前的准备：
@@ -39,7 +36,7 @@
 
 ### 开发日志：
 * 11-01：
-  * bootstrap 配合 jquery的进度条效果很不理想，3秒内完成的进度条，进度条样式跟不上。
+  * bootstrap 配合 jquery的进度条效果很不理想，5秒内完成的进度，进度条样式跟不上。
 * 11-04
   * 用本地样式 覆盖 bootstrap样式代码：padding:0px !important;
 * 11-07
