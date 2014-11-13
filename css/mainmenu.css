@@ -40,7 +40,7 @@ html,canvas,body{
   background-color: #CFBAAA;
 }
 
-.mainmenu, .person-info, .search-info, .showme, .noCanvasTips{
+.mainmenu, .person-info, .search-info, .noCanvasTips{
   display: none;
   position: relative;
 }

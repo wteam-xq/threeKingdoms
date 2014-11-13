@@ -28,19 +28,23 @@ $(document).ready(function(){
   
   // pProgressInit();
   try{
+    var $mainmenu = $('#mainmenu');
+    var $window = $(window);
     document.createElement('canvas').getContext('2d');
     
     $('#progress').hide();
-    $('#mainmenu').show();
+    $mainmenu.show();
     createGroupItem(rule_datas, $('#rule') );
     createGroupItem(card_datas, $('#card') );
     createToggleBtn(str_datas, $('#strategy') );
     createDropdownMenu(heros_datas, $heros);
 
     // 定义基本事件
-    $('#mainmenu').find('#to-person-info').on('click',logoEvent);
+    $mainmenu.find('#to-person-info').on('click',logoEvent);
     $('input.input-search').on('focus', toSearchEvent);
-
+    $('#backtotop').on('click', toTop);
+    // 滚动监听
+    $window.scroll(scrollSpyEvent);
   }catch(e){
     $('#progress').hide();
     $('#noCanvasTips').show();
@@ -59,7 +63,23 @@ $(document).ready(function(){
     var $main = $('#' + parent_id);
     gotoPage($target, $main);
   }
+  // 滚动监听
+  function scrollSpyEvent(){
+    var $body = $('body');
+    var $toTop = $body.find('#backtotop');
 
+    if ($body.scrollTop() >= 150){
+      // $toTop.show();
+      $toTop.addClass('showme');
+    }else{
+      // $toTop.hide();
+      $toTop.removeClass('showme');
+    }
+  }
+  // 滚动条置顶
+  function toTop(){
+    window.scrollTo(0,0);
+  }
   // 公用滑屏事件 打开、关闭
   function gotoPage($target, $main){
     if ($target == null || $main == null){

@@ -339,14 +339,14 @@ var heros_datas = [
   }
 ];
 var drMenu_type_datas = {
-  'country':[{'id':'country_shu', 'title': '蜀国'},{'id':'country_wei', 'title':'魏国'},
+  'country':[{'id':'country_all', 'title':'全部'}, {'id':'country_shu', 'title': '蜀国'}, {'id':'country_wei', 'title':'魏国'},
     {'id':'country_wu', 'title': '吴国'},{'id':'country_qun', 'title':'群雄'},
-    {'id':'country_shen', 'title': '神'},{'id':'country_all', 'title':'全部'}
+    {'id':'country_shen', 'title': '神'}
     ],
-  'package':[{'id':'package_standard', 'title': '标准包'},{'id':'package_wind', 'title':'其疾如风'},
+  'package':[{'id':'package_all', 'title':'全部'}, {'id':'package_standard', 'title': '标准包'},{'id':'package_wind', 'title':'其疾如风'},
     {'id':'package_fire', 'title': '侵略如火'},{'id':'package_moutain', 'title':'不动如山'},
     {'id':'package_forest', 'title': '其徐如林'},{'id':'package_sp', 'title':'SP系列'},
-    {'id':'package_famous', 'title': '一将成名'},{'id':'package_all', 'title':'全部'}
+    {'id':'package_famous', 'title': '一将成名'}
     ]
 }
 
