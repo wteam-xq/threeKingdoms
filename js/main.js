@@ -41,7 +41,7 @@ $(document).ready(function(){
     createGroupItem(rule_datas, $rule );
     createGroupItem(card_datas, $card );
     createToggleBtn(str_datas, $strategy );
-    createDropdownMenu(heros_datas, $heros);
+    // createDropdownMenu(heros_datas, $heros);
 
     // 定义基本事件
     $mainmenu.find('#to-person-info').on('click',logoEvent);

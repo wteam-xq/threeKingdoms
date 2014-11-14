@@ -332,9 +332,9 @@ var heros_datas = [
   {
     'id': 'drmenu_country',
     'title': '筛选',
-    'datas':[{'id':'country_shu', 'title': '蜀国'},{'id':'country_wei', 'title':'魏国'},
+    'datas':[{'id':'country_all', 'title':'全部'}, {'id':'country_shu', 'title': '蜀国'},{'id':'country_wei', 'title':'魏国'},
     {'id':'country_wu', 'title': '吴国'},{'id':'country_qun', 'title':'群雄'},
-    {'id':'country_shen', 'title': '神'},{'id':'country_all', 'title':'全部'}
+    {'id':'country_shen', 'title': '神'}
     ]
   }
 ];
