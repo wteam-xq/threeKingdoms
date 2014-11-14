@@ -41,6 +41,7 @@ $(document).ready(function(){
     createGroupItem(rule_datas, $rule );
     createGroupItem(card_datas, $card );
     createToggleBtn(str_datas, $strategy );
+    createToggleBtn(heros_test_datas, $heros );
     // createDropdownMenu(heros_datas, $heros);
 
     // 定义基本事件
@@ -51,7 +52,7 @@ $(document).ready(function(){
     $window.scroll(scrollSpyEvent);
     //搜索框点击事件
     $searchInfo.find('.search-close').on('click', removeSearchEvent);
-    $searchInfo.find('input').on('keyup', watchInputEvent);
+    $searchInfo.find('input').on('input', watchInputEvent);
     $searchInfo.find('#back-index').on('click', searchBtnEvent);
 
   }catch(e){
