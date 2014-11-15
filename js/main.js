@@ -41,8 +41,8 @@ $(document).ready(function(){
     createGroupItem(rule_datas, $rule );
     createGroupItem(card_datas, $card );
     createToggleBtn(str_datas, $strategy );
-    createToggleBtn(heros_test_datas, $heros );
-    // createDropdownMenu(heros_datas, $heros);
+    createDropdownMenu(heros_datas, $heros);
+    createHerosList($heros);
 
     // 定义基本事件
     $mainmenu.find('#to-person-info').on('click',logoEvent);
@@ -59,6 +59,41 @@ $(document).ready(function(){
     $('#progress').hide();
     $('#noCanvasTips').show();
   }
+  // 生成武将列表
+  function createHerosList($target){
+    // heros_array 全局变量
+    var herosDatas = heros_array[0];
+    var herosTypes = drMenu_type_datas.package.slice(1);
+    var list_datas = getHerosGroupDatas(herosDatas, herosTypes);
+    var _html_str = '<div class="heros-list"></div>';
+    $target.append(_html_str);
+    createToggleBtn(list_datas, $target.find('.heros-list') );
+    return true;
+  }
+
+  // 获得武将列表显示数据
+  function getHerosGroupDatas(herosDatas, herosTypes){
+    var _result = [];
+    var _data_item = null;
+    var _type_item = null;
+    var _result_item = null;
+
+    if (herosDatas.length == 0 || herosTypes.length == 0 || herosDatas.length != herosTypes.length){
+      return _result;
+    }
+    for(var i = 0, len = herosDatas.length; i < len; i++){
+      _data_item = herosDatas[i];
+      _type_item = herosTypes[i];
+      _result_item = {
+        group_name: _type_item.title,
+        id: _type_item.id,
+        array_datas: _data_item
+      }
+      _result.push(_result_item);
+    }
+    return _result;
+  }
+
   // 删除搜索文字
   function removeSearchEvent(){
     var $this = $(this);
@@ -284,11 +319,16 @@ $(document).ready(function(){
     var _item_htmls = '';
     var data_item_array = [];
     var pull_left_right = 'pull-left';
+    var $dropdown_menu = null;
 
     if (datas == null || datas.length == 0){
       return $target_dom;
     }
     $target_dom.empty();
+    _item_html = '<div class="heros-dropdownmenu"></div>';
+    $target_dom.append(_item_html);
+    $dropdown_menu = $target_dom.find('.heros-dropdownmenu');
+
     for(var i = 0, len = datas.length; i < len; i++){
       data_item = datas[i];
       data_item_array = data_item.datas || [];
@@ -302,10 +342,9 @@ $(document).ready(function(){
         '</div>';
         $item_html = $(_item_html);
         createMenuUl(data_item_array, $item_html)
-        $target_dom.append($item_html);
+        $dropdown_menu.append($item_html);
       }
     }
-
     return $target_dom;
   }
   // dropdownmenu 点击事件

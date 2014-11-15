@@ -58,6 +58,8 @@ html,canvas,body{
 
 .list-item-img{
   margin-right: 5px;
+  width:65px;
+  height:50px;
 }
 
 .dropup .list-group{
@@ -200,4 +202,7 @@ html,canvas,body{
   top:3px !important;
   right: 10px !important; 
   font-size:30px !important;
+}
+.heros-dropdownmenu{
+  height: 90px;
 }
