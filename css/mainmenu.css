@@ -203,6 +203,21 @@ html,canvas,body{
   right: 10px !important; 
   font-size:30px !important;
 }
-.heros-dropdownmenu{
-  height: 90px;
+.loading-cont{
+  text-align: center;
+  background-color: #fff;
+}
+.loading-ico{
+  width: 85px;
+  height: 85px;
+  background: url(../images/loading.gif) no-repeat 0 0;
+  margin: 0 auto;
+}
+.items-type{
+  text-align: center;
+  background-color: #f8f8f8;
+  color: #FD6D9E;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
 }

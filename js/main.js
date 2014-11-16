@@ -8,6 +8,8 @@ $(document).ready(function(){
   var $card = $('#card');
   var $strategy = $('#strategy');
   var $searchInfo = $('#search-info');
+  // 武将页面最后dom 偏移值
+  var dom_off_top = 0;
   
   // 插件进度条初始化
   function pProgressInit(){
@@ -59,15 +61,47 @@ $(document).ready(function(){
     $('#progress').hide();
     $('#noCanvasTips').show();
   }
+  // 添加加载图标
+  function addLoading($target){
+    if ($target == null){
+      return false
+    }
+    var _html_str = '<div class="col-md-12 col-xs-12 loading-cont"><div class="loading-ico"></div></div>';
+    $target.append(_html_str);
+    return true;
+  }
+  // 取消加载图标
+  function removeLoading($target){
+    if ($target == null){
+      return false
+    }
+    $target.find('.loading-cont').remove();
+    return true;
+  }
   // 生成武将列表
   function createHerosList($target){
     // heros_array 全局变量
     var herosDatas = heros_array[0];
     var herosTypes = drMenu_type_datas.package.slice(1);
     var list_datas = getHerosGroupDatas(herosDatas, herosTypes);
-    var _html_str = '<div class="heros-list"></div>';
+    var _html_str = '';
+    var list_dom_datas = null;
+    //说明当前显示项
+    _html_str = '<div class="items-type col-xs-12 col-md-12">' + '蜀国' + '全部武将</div>';
     $target.append(_html_str);
+
+    _html_str = '<div class="heros-list col-xs-12 col-md-12"></div>';
+    $target.append(_html_str);
+    
     createToggleBtn(list_datas, $target.find('.heros-list') );
+
+    //按需加载变量
+    list_dom_datas = {
+      'datas': herosDatas,
+      'types': herosTypes
+    };
+    dom_off_top = $target.find('.str-btn:last').offset().top;
+    $target.find('.heros-list').data('dom-datas', list_dom_datas);
     return true;
   }
 
@@ -217,7 +251,6 @@ $(document).ready(function(){
       $this.css('margin-left', '0px');
     });
   }
-
 
   // 主菜单列表html生成
   function createGroupItem(datas, $target_dom){
