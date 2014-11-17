@@ -221,3 +221,9 @@ html,canvas,body{
   font-size: 18px;
   line-height: 1.33;
 }
+.heros-dropdownmenu.row{
+  margin: 0px !important;
+}
+.heros-dropdownmenu .dropdown{
+  padding: 0px !important;
+}

@@ -1,3 +1,5 @@
+var PACKAGE_AMOUNT = 7;
+
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
 
@@ -8,8 +10,6 @@ $(document).ready(function(){
   var $card = $('#card');
   var $strategy = $('#strategy');
   var $searchInfo = $('#search-info');
-  // 武将页面最后dom 偏移值
-  var dom_off_top = 0;
   
   // 插件进度条初始化
   function pProgressInit(){
@@ -21,13 +21,7 @@ $(document).ready(function(){
        onComplete: function(){
         // 隐藏进度条，背景颜色变更
         $('body').css({'background-color':'#fff'});
-        $('#progress').hide();
-
-        $('#mainmenu').show();
-        createGroupItem(rule_datas, $rule );
-        createGroupItem(card_datas, $card );
-        createToggleBtn(str_datas, $strategy );
-        createDropdownMenu(heros_datas, $heros);
+        // 启动函数
        }
     };
     var myplugin = $('#progress').cprogress(options);
@@ -42,7 +36,7 @@ $(document).ready(function(){
     $mainmenu.show();
     createGroupItem(rule_datas, $rule );
     createGroupItem(card_datas, $card );
-    createToggleBtn(str_datas, $strategy );
+    createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
     createDropdownMenu(heros_datas, $heros);
     createHerosList($heros);
 
@@ -57,6 +51,8 @@ $(document).ready(function(){
     $searchInfo.find('input').on('input', watchInputEvent);
     $searchInfo.find('#back-index').on('click', searchBtnEvent);
 
+    // 获得 风火山林 包 package_array(全局变量)
+    package_array = getPackagesDatas();
   }catch(e){
     $('#progress').hide();
     $('#noCanvasTips').show();
@@ -80,31 +76,34 @@ $(document).ready(function(){
   }
   // 生成武将列表
   function createHerosList($target){
-    // heros_array 全局变量
+    // heros_array drMenu_type_datas 全局变量
     var herosDatas = heros_array[0];
     var herosTypes = drMenu_type_datas.package.slice(1);
-    var list_datas = getHerosGroupDatas(herosDatas, herosTypes);
+
+    // 按需加载， 只显示一部分数据
+    var datas_len = parseInt(herosDatas.length/2);
+    var list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len));
     var _html_str = '';
     var list_dom_datas = null;
     //说明当前显示项
-    _html_str = '<div class="items-type col-xs-12 col-md-12">' + '蜀国' + '全部武将</div>';
+    _html_str = '<div class="items-type">' + '蜀国' + '全部武将</div>';
     $target.append(_html_str);
 
-    _html_str = '<div class="heros-list col-xs-12 col-md-12"></div>';
+    _html_str = '<div class="heros-list"></div>';
     $target.append(_html_str);
     
-    createToggleBtn(list_datas, $target.find('.heros-list') );
+    createToggleBtn({'datas':list_datas, '$target_dom':$target.find('.heros-list') });
 
     //按需加载变量
     list_dom_datas = {
       'datas': herosDatas,
-      'types': herosTypes
+      'types': herosTypes,
+      'allshow':false
     };
-    dom_off_top = $target.find('.str-btn:last').offset().top;
+    
     $target.find('.heros-list').data('dom-datas', list_dom_datas);
     return true;
   }
-
   // 获得武将列表显示数据
   function getHerosGroupDatas(herosDatas, herosTypes){
     var _result = [];
@@ -127,7 +126,41 @@ $(document).ready(function(){
     }
     return _result;
   }
+  // 获得“风火山林”数据
+  function getPackagesDatas(){
+    var _result = [];
+    var _three_item = [];
+    var _package_item = [];
+    // var _pacakge_standard = [];
+    // var _pacakge_wind = [];
+    // var _pacakge_fire = [];
+    // var _pacakge_moutain = [];
+    // var _pacakge_forest = [];
+    // var _pacakge_sp = [];
+    // var _pacakge_famous = [];
 
+    if (heros_array.length == 0){
+      return _result;
+    }
+    _result = new Array(7);
+
+    for(var i = 0, len = heros_array.length; i < len; i++){
+      _three_item = heros_array[i];
+      if ( _three_item.length != PACKAGE_AMOUNT ){
+        console.log('索引为' + i + '的国家包异常!');
+        continue;
+      }
+      for (var j = 0, jLen = _result.length; j < jLen; j++){
+        _package_item = _result[j];
+        if (_package_item == null || _package_item.legth == 0){
+          _package_item = [];
+        }
+        _result[j] = _package_item.concat(_three_item[j]);
+      }
+
+    }
+    return _result;
+  }
   // 删除搜索文字
   function removeSearchEvent(){
     var $this = $(this);
@@ -139,17 +172,23 @@ $(document).ready(function(){
     $searchInput.val('');
     $backIndex.attr('data-btntype', 'cancel');
     $backIndex.text('取消');
+    $this.addClass('hidden');
   }
   // 监听用户输入文字
   function watchInputEvent(){
     var $this = $(this);
+    var $closeBtn = $this.next('.search-close');
     var $backIndex = $this.parent().next('#back-index');
     if ($this.val().length == 0){
       $backIndex.attr('data-btntype', 'cancel');
       $backIndex.text('取消');
+      if (!$closeBtn.hasClass('hidden')){
+        $closeBtn.addClass('hidden');
+      }
     }else if($backIndex.attr('data-btntype') == 'cancel'){
       $backIndex.attr('data-btntype', 'search');
       $backIndex.text('搜索');
+      $closeBtn.removeClass('hidden');
       return false;
     }
   }
@@ -181,14 +220,40 @@ $(document).ready(function(){
   function scrollSpyEvent(){
     var $body = $('body');
     var $toTop = $body.find('#backtotop');
+    var $heros_list = null;
+    var _dom_datas = null;
+    var _datas_len = 0;
+    var _list_datas = [];
+    // 判断滚动条是否到达底部
+    var _scroll_bottom = false;
 
+    // 置顶图标的出现或消失
     if ($body.scrollTop() >= 150){
-      // $toTop.show();
       $toTop.addClass('showme');
     }else{
-      // $toTop.hide();
       $toTop.removeClass('showme');
     }
+
+    // 武将页面 “按需加载” 监听
+    if ( $heros.is(':visible') ){
+      $heros_list = $heros.find('div.heros-list');
+      _dom_datas = $heros_list.data('dom-datas');
+      // 滚动条到达底部
+      // alert('测试： $document.scrollTop:' + $(document).scrollTop() + '\n' + 
+      //   '$document.height: ' + $(document).height() + '\n' + 
+      //   '$window.height: ' + $(window).height() + '\n' + 
+      //   'dH - wH: ' + ($(document).height() - $(window).height()) );
+
+      _scroll_bottom = ( ($(document).scrollTop() + 50) >= $(document).height() - $(window).height() )?true:false;
+      if (_scroll_bottom && _dom_datas && !_dom_datas.allshow){
+        _datas_len = parseInt(_dom_datas.datas.length/2);
+        _list_datas = getHerosGroupDatas(_dom_datas.datas.slice(_datas_len), _dom_datas.types.slice(_datas_len));
+        // 添加新节点(添加loading 图标，延时显示 加载中效果)
+        createToggleBtn({'datas':_list_datas, '$target_dom':$heros_list, 'is_empty': false});
+        _dom_datas.allshow = true;
+      }
+    }
+
   }
   // 滚动条置顶
   function toTop(){
@@ -279,20 +344,28 @@ $(document).ready(function(){
   }
 
   // 生成toggle 面板 按钮
-  function createToggleBtn(datas, $target_dom){
-    
+  function createToggleBtn(options){
+    var setting = {
+      'datas': [],
+      '$target_dom': null,
+      'is_empty': true
+    };
     var _item_html = '';
     var $item_list = null;
     var item_data = null;
     var $app_btn = null;
+    $.extend(setting, options);
+    
 
-    if(datas == null || datas.length == 0){
-      return $target_dom;
+    if(setting.datas == null || setting.datas.length == 0){
+      return setting.$target_dom;
     }
-    $target_dom.empty();
+    if (setting.is_empty && setting.$target_dom){
+      setting.$target_dom.empty();
+    }
 
-    for(var k = 0, list_len = datas.length; k < list_len; k++){
-      item_data = datas[k];
+    for(var k = 0, list_len = setting.datas.length; k < list_len; k++){
+      item_data = setting.datas[k];
       if (item_data && item_data.array_datas){
         _item_html = '<div class="str-btn dropup">' + 
           '<div class="btn btn-block btn-lg btn-app">' + item_data.group_name + 
@@ -301,12 +374,14 @@ $(document).ready(function(){
           '<div role="tabpanel" class="list-group tab-pane fade rule active in" id="str_' + item_data.id + '"></div>' +
         '</div>';
         $item_list = $(_item_html);
-        $target_dom.append($item_list);
+        setting.$target_dom.append($item_list);
         createGroupItem( item_data.array_datas, $item_list.find('#str_' + item_data.id) );
       }
     } 
     // 生成toggle 面板 按钮
-    $app_btn = $target_dom.find('.btn-app');
+    $app_btn = setting.$target_dom.find('.btn-app');
+    // 先去除原有click事件
+    $app_btn.off('click');
 
     $app_btn.on('click', function(){
       var $this = $(this);
@@ -319,7 +394,7 @@ $(document).ready(function(){
         $parent.find('.list-group').slideDown();
       }
     });
-    return $target_dom;
+    return setting.$target_dom;
   }
 
   // 生成 dropdown-menu 的UI项
@@ -358,7 +433,7 @@ $(document).ready(function(){
       return $target_dom;
     }
     $target_dom.empty();
-    _item_html = '<div class="heros-dropdownmenu"></div>';
+    _item_html = '<div class="heros-dropdownmenu row"></div>';
     $target_dom.append(_item_html);
     $dropdown_menu = $target_dom.find('.heros-dropdownmenu');
 

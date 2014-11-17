@@ -174,7 +174,6 @@ var three_god = [
 [
 {"title":"神关羽","content":"鬼神再临","icon_src":"images/heros/head/head_le001.jpg","href":"../herosInfo/le001.html"},
 {"title":"神吕蒙","content":"圣光之国土","icon_src":"images/heros/head/head_le002.jpg","href":"../herosInfo/le002.html"}
-
 ],
 [
 {"title":"神周瑜","content":"赤壁的火神","icon_src":"images/heros/head/head_le003.jpg","href":"../herosInfo/le003.html"},
@@ -197,6 +196,8 @@ var three_god = [
 ];
 
 var heros_array = [three_shu, three_wei, three_wu, three_qun, three_god];
+var package_array = [];
+
 // var package_type = ['标准包', '其疾如风', '侵略如火', '不动如山','其徐如林','sp系列','一将成名'];
 // var country_type = ['蜀国武将', '魏国武将', '吴国武将','群雄武将', '神武将'];
 
