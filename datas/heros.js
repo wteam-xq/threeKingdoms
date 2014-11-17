@@ -198,9 +198,6 @@ var three_god = [
 var heros_array = [three_shu, three_wei, three_wu, three_qun, three_god];
 var package_array = [];
 
-// var package_type = ['标准包', '其疾如风', '侵略如火', '不动如山','其徐如林','sp系列','一将成名'];
-// var country_type = ['蜀国武将', '魏国武将', '吴国武将','群雄武将', '神武将'];
-
 var heros_datas = [
   {   
     'id': 'drmenu_type',
@@ -227,6 +224,24 @@ var drMenu_type_datas = {
     {'id':'package_famous', 'title': '一将成名'}
     ]
 }
+var country_title = {
+  'country_shu':'蜀国武将',
+  'country_wei':'魏国武将',
+  'country_wu':'吴国武将',
+  'country_qun':'群雄武将',
+  'country_shen':'神武将',
+  'country_all': '全部武将'
+};
+var package_title = {
+  'package_standard':'标准包武将',
+  'package_wind':'风包武将',
+  'package_fire':'火包武将',
+  'package_moutain':'山包武将',
+  'package_forest':'林包武将',
+  'package_sp':'SP武将',
+  'package_famous':'一将成名武将',
+  'package_all':'全部武将'
+};
 
 function start(){
    var ranNum = Math.random();

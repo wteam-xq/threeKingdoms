@@ -206,6 +206,8 @@ html,canvas,body{
 .loading-cont{
   text-align: center;
   background-color: #fff;
+  width:100%;
+  z-index: 999;
 }
 .loading-ico{
   width: 85px;

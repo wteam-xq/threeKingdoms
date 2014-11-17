@@ -45,7 +45,6 @@
 * 11-15
   * 按需加载实现原理，监听滚动条，滚动条到达底部时 解析新的dom;
   * UC 浏览器 判断滚动条到达底部时:  $(document).scrollTop() != $(document).height() - $(window).height()
-    * 解决：($(document).scrollTop() + 50) >= $(document).height() - $(window).height()
 
 ### 有待添加
 * 检测用户访问设备， 如果是PC端 弹出手机访问提示及二维码；

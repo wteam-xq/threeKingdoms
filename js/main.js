@@ -59,10 +59,10 @@ $(document).ready(function(){
   }
   // 添加加载图标
   function addLoading($target){
-    if ($target == null){
+    if ($target == null && $target.find('div.loading-cont').length > 0){
       return false
     }
-    var _html_str = '<div class="col-md-12 col-xs-12 loading-cont"><div class="loading-ico"></div></div>';
+    var _html_str = '<div class="loading-cont"><div class="loading-ico"></div></div>';
     $target.append(_html_str);
     return true;
   }
@@ -226,6 +226,7 @@ $(document).ready(function(){
     var _list_datas = [];
     // 判断滚动条是否到达底部
     var _scroll_bottom = false;
+    var _has_loading = false;
 
     // 置顶图标的出现或消失
     if ($body.scrollTop() >= 150){
@@ -245,14 +246,19 @@ $(document).ready(function(){
       //   'dH - wH: ' + ($(document).height() - $(window).height()) );
 
       _scroll_bottom = ( ($(document).scrollTop() + 50) >= $(document).height() - $(window).height() )?true:false;
-      if (_scroll_bottom && _dom_datas && !_dom_datas.allshow){
+      _has_loading = $heros_list.find('div.loading-cont').length > 0?true:false;
+      if (_scroll_bottom && _dom_datas && !_dom_datas.allshow && !_has_loading){
         _datas_len = parseInt(_dom_datas.datas.length/2);
+        addLoading($heros_list);
         _list_datas = getHerosGroupDatas(_dom_datas.datas.slice(_datas_len), _dom_datas.types.slice(_datas_len));
-        // 添加新节点(添加loading 图标，延时显示 加载中效果)
-        createToggleBtn({'datas':_list_datas, '$target_dom':$heros_list, 'is_empty': false});
-        _dom_datas.allshow = true;
+        setTimeout(function(){
+          removeLoading($heros_list);
+          createToggleBtn({'datas':_list_datas, '$target_dom':$heros_list, 'is_empty': false});
+          _dom_datas.allshow = true;
+        }, 1000);
       }
     }
+
 
   }
   // 滚动条置顶
@@ -502,16 +508,20 @@ $(document).ready(function(){
       if (current_name === drmenu_name){
         return false;
       }
+      // 更改标题名称
+      $target_dom.find('div.items-type').html('全部武将');
       $influDrmenu.find('ul').remove();
       createMenuUl(_datas, $influDrmenu);
     }
     return true;
   }
   function packageEvent(_id, $target_dom){
-    console.log('packageEvent');
+    var _title = package_title[_id];
+    $target_dom.find('div.items-type').html(_title);
   }
   function countryEvent(_id, $target_dom){
-    console.log('countryEvent');
+    var _title = country_title[_id];
+    $target_dom.find('div.items-type').html(_title);
   }
 
 });
