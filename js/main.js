@@ -28,35 +28,36 @@ $(document).ready(function(){
     myplugin.start();
   }
   
-  
   try{
     document.createElement('canvas').getContext('2d');
-    // pProgressInit();
-    $('#progress').hide();
-    $mainmenu.show();
-    createGroupItem(rule_datas, $rule );
-    createGroupItem(card_datas, $card );
-    createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
-    createDropdownMenu(heros_datas, $heros);
-    createHerosList($heros);
-
-    // 定义基本事件
-    $mainmenu.find('#to-person-info').on('click',logoEvent);
-    $('input.input-search').on('focus', toSearchEvent);
-    $('#backtotop').on('click', toTop);
-    // 滚动监听
-    $window.scroll(scrollSpyEvent);
-    //搜索框点击事件
-    $searchInfo.find('.search-close').on('click', removeSearchEvent);
-    $searchInfo.find('input').on('input', watchInputEvent);
-    $searchInfo.find('#back-index').on('click', searchBtnEvent);
-
-    // 获得 风火山林 包 package_array(全局变量)
-    package_array = getPackagesDatas();
   }catch(e){
     $('#progress').hide();
     $('#noCanvasTips').show();
+    return false;
   }
+  // pProgressInit();
+  $('#progress').hide();
+  $mainmenu.show();
+  createGroupItem(rule_datas, $rule );
+  createGroupItem(card_datas, $card );
+  createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
+  createDropdownMenu(heros_datas, $heros);
+  // 获得 风火山林 包 package_array(全局变量)
+  package_array = getPackagesDatas();
+  // 默认显示 “三国鼎立” “蜀国”
+  createHerosList('country_shu', $heros);
+
+  // 定义基本事件
+  $mainmenu.find('#to-person-info').on('click',logoEvent);
+  $('input.input-search').on('focus', toSearchEvent);
+  $('#backtotop').on('click', toTop);
+  // 滚动监听
+  $window.scroll(scrollSpyEvent);
+  //搜索框点击事件
+  $searchInfo.find('.search-close').on('click', removeSearchEvent);
+  $searchInfo.find('input').on('input', watchInputEvent);
+  $searchInfo.find('#back-index').on('click', searchBtnEvent);
+
   // 添加加载图标
   function addLoading($target){
     if ($target == null && $target.find('div.loading-cont').length > 0){
@@ -75,18 +76,61 @@ $(document).ready(function(){
     return true;
   }
   // 生成武将列表
-  function createHerosList($target){
+  function createHerosList(package_name ,$target){
     // heros_array drMenu_type_datas 全局变量
-    var herosDatas = heros_array[0];
-    var herosTypes = drMenu_type_datas.package.slice(1);
-
+    var herosDatas = [];
+    var herosTypes = [];
+    var list_datas = [];
+    var _title = '';
+    var _type = '';
     // 按需加载， 只显示一部分数据
-    var datas_len = parseInt(herosDatas.length/2);
-    var list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len));
+    var datas_len = 0;
+    var _index = 0;
     var _html_str = '';
     var list_dom_datas = null;
+
+    _type = package_name.split('_')[0];
+    switch (_type){
+      case 'package':
+        _title = package_title[package_name];
+        for(name in package_title){
+          if (package_name ==  name) {
+            break;
+          }
+          _index++;
+        }
+        if (_index == package_array.length){
+          // 合并数据
+          herosDatas = package_array;
+        }else{
+          herosDatas = package_array[_index];
+        }
+        herosTypes = drMenu_type_datas.country.slice(1);
+        break;
+      case 'country':
+        _title = country_title[package_name];
+        for(name in country_title){
+          if (package_name ==  name) {
+            break;
+          }
+          _index++;
+        }
+        if (_index == heros_array.length){
+          herosDatas = heros_array;
+        }else{
+          herosDatas = heros_array[_index];
+        }
+        herosTypes = drMenu_type_datas.package.slice(1);
+        break;
+      default:
+        _title = '莫名武将';
+        break;
+    }
+
+    datas_len = parseInt(herosDatas.length/2);
+    list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len))
     //说明当前显示项
-    _html_str = '<div class="items-type">' + '蜀国' + '全部武将</div>';
+    _html_str = '<div class="items-type" id="items-type" data-cur-name="country_shu">' + _title + '</div>';
     $target.append(_html_str);
 
     _html_str = '<div class="heros-list"></div>';
@@ -131,13 +175,6 @@ $(document).ready(function(){
     var _result = [];
     var _three_item = [];
     var _package_item = [];
-    // var _pacakge_standard = [];
-    // var _pacakge_wind = [];
-    // var _pacakge_fire = [];
-    // var _pacakge_moutain = [];
-    // var _pacakge_forest = [];
-    // var _pacakge_sp = [];
-    // var _pacakge_famous = [];
 
     if (heros_array.length == 0){
       return _result;
@@ -155,9 +192,9 @@ $(document).ready(function(){
         if (_package_item == null || _package_item.legth == 0){
           _package_item = [];
         }
-        _result[j] = _package_item.concat(_three_item[j]);
+        _package_item.push(_three_item[j]);
+        _result[j] = _package_item;
       }
-
     }
     return _result;
   }
@@ -258,8 +295,6 @@ $(document).ready(function(){
         }, 1000);
       }
     }
-
-
   }
   // 滚动条置顶
   function toTop(){
@@ -372,7 +407,7 @@ $(document).ready(function(){
 
     for(var k = 0, list_len = setting.datas.length; k < list_len; k++){
       item_data = setting.datas[k];
-      if (item_data && item_data.array_datas){
+      if (item_data && item_data.array_datas && item_data.array_datas.length > 0){
         _item_html = '<div class="str-btn dropup">' + 
           '<div class="btn btn-block btn-lg btn-app">' + item_data.group_name + 
             '<span class="caret"></span>' + 
@@ -463,9 +498,7 @@ $(document).ready(function(){
   }
   // dropdownmenu 点击事件
   function dropdownMenuEvent($target_dom){
-    
     var $li_a = $target_dom.find('li > a');
-
     $li_a.on('click', function(){
       var $this = $(this);
       var _id = this.id;
@@ -473,13 +506,13 @@ $(document).ready(function(){
       var $ul_parent = $this.parents('div.tab-pane:first');
       switch(_type){
         case 'drmenu':
-          drmenuEvent(_id, $ul_parent);
+          drmenuLeftEvent(_id, $ul_parent);
           break;
         case 'package':
-          packageEvent(_id, $ul_parent);
+          drmenuRightEvent(_id, $ul_parent, 'package');
           break;
         case 'country':
-          countryEvent(_id, $ul_parent);
+          drmenuRightEvent(_id, $ul_parent, 'country');
           break;
         default:
           return false;
@@ -489,39 +522,59 @@ $(document).ready(function(){
     return $target_dom;
   }
   // drmenu li点击事件
-  function drmenuEvent(_id, $target_dom){
+  function drmenuLeftEvent(_id, $target_dom){
     var drmenu_name = ''; 
-    var _datas = [];
-    var $influDrmenu = null;
     var current_name = '';
+    var item_title = '';
+    var $influDrmenu = null;
+    var $package_title = null;
+    var _datas = [];
 
     if (_id == null){
       return false;
     }
     drmenu_name = _id.replace('drmenu_', '');
+    item_title = drmenu_name + '_all';
     //drMenu_type_datas 为全局变量
     _datas = drMenu_type_datas[drmenu_name];
     if (_datas.length > 0){
       $influDrmenu = $target_dom.find('.dropdown:eq(1)');
-      current_name = $influDrmenu.find('a:first').attr('id').split('_')[0];
+      $package_title = $target_dom.find('#items-type');
+      current_name = $package_title.attr('data-cur-name');
       // 如果点选的为当前类型， 不切换
-      if (current_name === drmenu_name){
+      if (current_name === item_title){
         return false;
       }
       // 更改标题名称
-      $target_dom.find('div.items-type').html('全部武将');
+      $package_title.html('全部武将').attr('data-cur-name', item_title);
       $influDrmenu.find('ul').remove();
       createMenuUl(_datas, $influDrmenu);
     }
     return true;
   }
-  function packageEvent(_id, $target_dom){
-    var _title = package_title[_id];
-    $target_dom.find('div.items-type').html(_title);
-  }
-  function countryEvent(_id, $target_dom){
-    var _title = country_title[_id];
-    $target_dom.find('div.items-type').html(_title);
+  // _type 类型： 1.package 包  2. country 国家
+  function drmenuRightEvent(_id, $target_dom, _type){
+    var _title = '';
+    var $package_title = $target_dom.find('#items-type');
+    var current_name = '';
+
+    current_name = $package_title.attr('data-cur-name');
+    // 如果点选的为当前类型， 不切换
+    if (current_name === _id){
+      return false;
+    }
+    switch (_type){
+      case 'package':
+        _title = package_title[_id];
+        break;
+      case 'country':
+        _title = country_title[_id];
+        break;
+      default:
+        _title = '莫名武将';
+        break;
+    }
+    $package_title.html(_title).attr('data-cur-name', _id);
   }
 
 });

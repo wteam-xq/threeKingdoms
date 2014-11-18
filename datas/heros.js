@@ -246,13 +246,13 @@ var package_title = {
 function start(){
    var ranNum = Math.random();
     if(ranNum < 0.25){
-    $("body").css("background-image","url(images/shu.jpg)");
+      $("body").css("background-image","url(images/shu.jpg)");
     }else if(ranNum < 0.50){
-    $("body").css("background-image","url(images/wu.jpg)");
+      $("body").css("background-image","url(images/wu.jpg)");
     }else if(ranNum < 0.75){
-    $("body").css("background-image","url(images/wei.jpg)");
+      $("body").css("background-image","url(images/wei.jpg)");
     }else{
-    $("body").css("background-image","url(images/wteam-logo.png)");
+      $("body").css("background-image","url(images/wteam-logo.png)");
     }
     //判断浏览器支不支持localStorage
     if (window.localStorage) {

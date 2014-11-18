@@ -229,3 +229,6 @@ html,canvas,body{
 .heros-dropdownmenu .dropdown{
   padding: 0px !important;
 }
+.heros-list{
+  min-height: 450px;
+}
