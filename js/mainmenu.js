@@ -380,17 +380,18 @@ $(document).ready(function(){
     if ($target == null || $main == null){
       return false;
     }
-    $main.animate({'margin-left': '-' + $main.css('width')}, 200, function(){
+    $main.animate({'margin-left': '-' + $main.css('width')}, 500, function(){
       var $this = $(this);
       $this.hide();
       $this.css('margin-left', '0px');
     });
 
+    $target.css('width', $target.css('width'));
     $target.css('margin-left', $target.css('width'));
-    // $target.css({'position':'absolute', 'left': $target.css('width')});
     $target.show();
-    $target.animate({'margin-left':'0px'}, 200, function(){});
-    // $target.animate({'left':'0px'}, 500, function(){});
+    $target.animate({'margin-left':'0px'}, 500, function(){
+      $(this).css('width', '100%');
+    });
   }
   function closePage($target, $main){
     if ($target == null || $main == null){
@@ -402,13 +403,14 @@ $(document).ready(function(){
     }
     $main.css('margin-left', '-' + $main.css('width'));
     $main.show();
-    $main.animate({'margin-left':'0px'}, 200, function(){
+    $main.animate({'margin-left':'0px'}, 500, function(){
     });
 
-    $target.animate({'margin-left': $target.css('width')}, 200, function(){
+    $target.css('width', $target.css('width'));
+    $target.animate({'margin-left': $target.css('width')}, 500, function(){
       var $this = $(this);
       $this.hide();
-      $this.css('margin-left', '0px');
+      $this.css({'margin-left':'0px', 'width':'100%'});
     });
   }
 
