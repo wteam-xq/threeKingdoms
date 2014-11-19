@@ -11,6 +11,8 @@ $(document).ready(function(){
   var $strategy = $('#strategy');
   var $searchInfo = $('#search-info');
   
+  init();
+
   // 插件进度条初始化
   function pProgressInit(){
     $('body').css({'background-color':'#000'});
@@ -22,42 +24,46 @@ $(document).ready(function(){
         // 隐藏进度条，背景颜色变更
         $('body').css({'background-color':'#fff'});
         // 启动函数
+        // init();
        }
     };
     var myplugin = $('#progress').cprogress(options);
     myplugin.start();
   }
-  
-  try{
-    document.createElement('canvas').getContext('2d');
-  }catch(e){
+
+  // 初始化函数
+  function init(){
+    // 浏览器兼容处理
+    try{
+      document.createElement('canvas').getContext('2d');
+    }catch(e){
+      $('#progress').hide();
+      $('#noCanvasTips').show();
+      return false;
+    }
     $('#progress').hide();
-    $('#noCanvasTips').show();
-    return false;
+    $mainmenu.show();
+    createGroupItem(rule_datas, $rule );
+    createGroupItem(card_datas, $card );
+    createDropdownMenu(heros_datas, $heros);
+    createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
+    // 获得 风火山林 包 package_array(全局变量)
+    package_array = getPackagesDatas();
+    // 默认显示 “三国鼎立” “蜀国”
+    createHerosList('country_shu', $heros);
+
+    // 定义基本事件
+    $mainmenu.find('#to-person-info').on('click',logoEvent);
+    $('input.input-search').on('focus', toSearchEvent);
+    $('#backtotop').on('click', toTop);
+    // 滚动监听
+    $window.scroll(watchScrollEvent);
+    //搜索框点击事件
+    $searchInfo.find('.search-close').on('click', removeSearchEvent);
+    $searchInfo.find('input').on('input', watchInputEvent);
+    $searchInfo.find('#back-index').on('click', searchBtnEvent);
   }
-  // pProgressInit();
-  $('#progress').hide();
-  $mainmenu.show();
-  createGroupItem(rule_datas, $rule );
-  createGroupItem(card_datas, $card );
-  createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
-  createDropdownMenu(heros_datas, $heros);
-  // 获得 风火山林 包 package_array(全局变量)
-  package_array = getPackagesDatas();
-  // 默认显示 “三国鼎立” “蜀国”
-  createHerosList('country_shu', $heros);
-
-  // 定义基本事件
-  $mainmenu.find('#to-person-info').on('click',logoEvent);
-  $('input.input-search').on('focus', toSearchEvent);
-  $('#backtotop').on('click', toTop);
-  // 滚动监听
-  $window.scroll(scrollSpyEvent);
-  //搜索框点击事件
-  $searchInfo.find('.search-close').on('click', removeSearchEvent);
-  $searchInfo.find('input').on('input', watchInputEvent);
-  $searchInfo.find('#back-index').on('click', searchBtnEvent);
-
+  
   // 添加加载图标
   function addLoading($target){
     if ($target == null && $target.find('div.loading-cont').length > 0){
@@ -75,20 +81,20 @@ $(document).ready(function(){
     $target.find('.loading-cont').remove();
     return true;
   }
-  // 生成武将列表
-  function createHerosList(package_name ,$target){
-    // heros_array drMenu_type_datas 全局变量
-    var herosDatas = [];
-    var herosTypes = [];
-    var list_datas = [];
-    var _title = '';
+  //根据包名获得武将数据
+  function getHerosDatasByName(package_name){
+    var _result = null;
+    var _herosDatas = [];
+    var _herosTypes = [];
     var _type = '';
-    // 按需加载， 只显示一部分数据
-    var datas_len = 0;
+    var _title = '';
     var _index = 0;
-    var _html_str = '';
-    var list_dom_datas = null;
 
+    if (package_name == null || package_name == ''){
+      return _result;
+    }
+
+    // package_title country_title package_array heros_array drMenu_type_datas全局变量
     _type = package_name.split('_')[0];
     switch (_type){
       case 'package':
@@ -100,12 +106,12 @@ $(document).ready(function(){
           _index++;
         }
         if (_index == package_array.length){
-          // 合并数据
-          herosDatas = package_array;
+          // 数组降维
+          _herosDatas = arrayReDimensions(package_array);
         }else{
-          herosDatas = package_array[_index];
+          _herosDatas = package_array[_index];
         }
-        herosTypes = drMenu_type_datas.country.slice(1);
+        _herosTypes = drMenu_type_datas.country.slice(1);
         break;
       case 'country':
         _title = country_title[package_name];
@@ -116,21 +122,51 @@ $(document).ready(function(){
           _index++;
         }
         if (_index == heros_array.length){
-          herosDatas = heros_array;
+          _herosDatas = arrayReDimensions(heros_array);
         }else{
-          herosDatas = heros_array[_index];
+          _herosDatas = heros_array[_index];
         }
-        herosTypes = drMenu_type_datas.package.slice(1);
+        _herosTypes = drMenu_type_datas.package.slice(1);
         break;
       default:
         _title = '莫名武将';
         break;
     }
+    if (_herosDatas.length > 0 ){
+      _result = {
+        'title': _title,
+        'herosDatas': _herosDatas,
+        'herosTypes': _herosTypes
+      }
+    }
+    return _result;
+  }
+
+  // 生成武将列表
+  function createHerosList(package_name ,$target){
+    // heros_array drMenu_type_datas 全局变量
+    var herosDatas = [];
+    var herosTypes = [];
+    var list_datas = [];
+    var title = '';
+    // 按需加载， 只显示一部分数据
+    var datas_len = 0;
+    var _html_str = '';
+    var list_dom_datas = null;
+    var package_heros_datas = null;
+
+    package_heros_datas = getHerosDatasByName(package_name);
+    if (package_heros_datas == null){
+      return false;
+    }
+    title = package_heros_datas.title;
+    herosDatas = package_heros_datas.herosDatas;
+    herosTypes = package_heros_datas.herosTypes;
 
     datas_len = parseInt(herosDatas.length/2);
-    list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len))
+    list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len));
     //说明当前显示项
-    _html_str = '<div class="items-type" id="items-type" data-cur-name="country_shu">' + _title + '</div>';
+    _html_str = '<div class="items-type" id="items-type" data-cur-name="' + package_name + '">' + title + '</div>';
     $target.append(_html_str);
 
     _html_str = '<div class="heros-list"></div>';
@@ -147,6 +183,24 @@ $(document).ready(function(){
     
     $target.find('.heros-list').data('dom-datas', list_dom_datas);
     return true;
+  }
+  // 数组降维(只适用于维度2+以上的数组)
+  function arrayReDimensions(array){
+    var _result = [];
+    var _array_item = [];
+
+    if (array == null || array.length == 0){
+      return _result;
+    }
+
+    _result = array[0].slice(0);
+    for (var i = 1, len = array.length; i < len; i++){
+      _array_item = array[i];
+      for (var j = 0, jLen = _array_item.length; j < jLen; j++){
+        _result[j] = _result[j].concat(_array_item[j]);
+      }
+    }
+    return _result;
   }
   // 获得武将列表显示数据
   function getHerosGroupDatas(herosDatas, herosTypes){
@@ -254,7 +308,7 @@ $(document).ready(function(){
     gotoPage($target, $main);
   }
   // 滚动监听
-  function scrollSpyEvent(){
+  function watchScrollEvent(){
     var $body = $('body');
     var $toTop = $body.find('#backtotop');
     var $heros_list = null;
@@ -509,10 +563,8 @@ $(document).ready(function(){
           drmenuLeftEvent(_id, $ul_parent);
           break;
         case 'package':
-          drmenuRightEvent(_id, $ul_parent, 'package');
-          break;
         case 'country':
-          drmenuRightEvent(_id, $ul_parent, 'country');
+          drmenuRightEvent(_id, $ul_parent);
           break;
         default:
           return false;
@@ -546,35 +598,61 @@ $(document).ready(function(){
         return false;
       }
       // 更改标题名称
-      $package_title.html('全部武将').attr('data-cur-name', item_title);
       $influDrmenu.find('ul').remove();
       createMenuUl(_datas, $influDrmenu);
+
+      // $package_title.html('全部武将').attr('data-cur-name', item_title);
+      drmenuRightEvent(item_title, $target_dom);
     }
     return true;
   }
-  // _type 类型： 1.package 包  2. country 国家
-  function drmenuRightEvent(_id, $target_dom, _type){
-    var _title = '';
-    var $package_title = $target_dom.find('#items-type');
+  // drmenu li点击事件
+  function drmenuRightEvent(_id, $target_dom){
+    var title = '';
     var current_name = '';
+    var pacakge_heros_datas = null;
+    var list_dom_datas = null;
+    var $package_title = $target_dom.find('#items-type');
+    var $heros_list = $target_dom.find('div.heros-list');
+    var list_datas = [];
+    var herosDatas = [];
+    var herosTypes = [];
+    var datas_len = 0;
 
     current_name = $package_title.attr('data-cur-name');
     // 如果点选的为当前类型， 不切换
     if (current_name === _id){
       return false;
     }
-    switch (_type){
-      case 'package':
-        _title = package_title[_id];
-        break;
-      case 'country':
-        _title = country_title[_id];
-        break;
-      default:
-        _title = '莫名武将';
-        break;
+    pacakge_heros_datas = getHerosDatasByName(_id);
+    if (pacakge_heros_datas == null){
+      return false;
     }
-    $package_title.html(_title).attr('data-cur-name', _id);
+
+    title = pacakge_heros_datas.title;
+    herosDatas = pacakge_heros_datas.herosDatas;
+    herosTypes = pacakge_heros_datas.herosTypes;
+    $package_title.html(title).attr('data-cur-name', _id);
+
+    // 更新列表
+    _has_loading = $heros_list.find('div.loading-cont').length > 0?true:false;
+    //按需加载变量
+    list_dom_datas = {
+      'datas': herosDatas,
+      'types': herosTypes,
+      'allshow':false
+    };
+    if (!_has_loading){
+      $heros_list.empty();
+      addLoading($heros_list);
+      datas_len = parseInt(herosDatas.length/2);
+      list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len));
+      setTimeout(function(){
+        removeLoading($heros_list);
+        createToggleBtn({'datas':list_datas, '$target_dom':$heros_list, 'is_empty': true});
+        $heros_list.data('dom-datas', list_dom_datas);
+      }, 1000);
+    }
   }
 
 });
