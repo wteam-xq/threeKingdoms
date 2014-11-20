@@ -176,7 +176,7 @@ html,canvas,body{
   line-height: 50px !important;
   font-size: 1.4em;
 }
-.search-cancel{
+.search-cancel, .search-submit{
   font-weight: bold;
   text-align: center;
   color:#FD6D9E;
@@ -184,6 +184,9 @@ html,canvas,body{
   font-size: 1.2em;
   cursor: pointer;
   padding-left: 0px !important;
+}
+.search-submit{
+  display: none;
 }
 .search-info .form-group{
   margin: 8px 0px !important;
@@ -231,4 +234,7 @@ html,canvas,body{
 }
 .heros-list{
   min-height: 450px;
+}
+.search-tips{
+  text-align: center;
 }

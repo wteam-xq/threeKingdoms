@@ -1,4 +1,4 @@
-// 加入时间戳
+// 加入时间戳(手机调试无缓存加载)
 var time_stamp = new Date().getTime();
 
 document.writeln('<script type="text/javascript" src="datas/heros.js?v=' + time_stamp + '"></script>');

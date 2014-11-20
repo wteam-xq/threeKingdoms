@@ -1,4 +1,6 @@
 var PACKAGE_AMOUNT = 7;
+// 搜索内容
+var search_array = [{'key':'应用信息','type':'appInfo','id':'author'},{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
 
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
@@ -10,7 +12,7 @@ $(document).ready(function(){
   var $card = $('#card');
   var $strategy = $('#strategy');
   var $searchInfo = $('#search-info');
-  
+
   init();
 
   // 插件进度条初始化
@@ -61,7 +63,7 @@ $(document).ready(function(){
     //搜索框点击事件
     $searchInfo.find('.search-close').on('click', removeSearchEvent);
     $searchInfo.find('input').on('input', watchInputEvent);
-    $searchInfo.find('#back-index').on('click', searchBtnEvent);
+    $searchInfo.find('#search-submit').on('click', searchBtnEvent);
   }
   
   // 添加加载图标
@@ -256,29 +258,32 @@ $(document).ready(function(){
   function removeSearchEvent(){
     var $this = $(this);
     var $searchInput = $this.prev('input');
-    var $backIndex = $this.parent().next('#back-index');
+    var $backIndex = $this.parents('.navbar').find('#back-index');
+    var $searchSubmit = $this.parents('.navbar').find('#search-submit');
     if ($searchInput.val() == ''){
       return false;
     }
     $searchInput.val('');
-    $backIndex.attr('data-btntype', 'cancel');
-    $backIndex.text('取消');
+    $backIndex.show();
+    $searchSubmit.hide();
     $this.addClass('hidden');
   }
   // 监听用户输入文字
   function watchInputEvent(){
     var $this = $(this);
     var $closeBtn = $this.next('.search-close');
-    var $backIndex = $this.parent().next('#back-index');
+    var $backIndex = $this.parents('.navbar').find('#back-index');
+    var $searchSubmit = $this.parents('.navbar').find('#search-submit');
+
     if ($this.val().length == 0){
-      $backIndex.attr('data-btntype', 'cancel');
-      $backIndex.text('取消');
+      $backIndex.show();
+      $searchSubmit.hide();
       if (!$closeBtn.hasClass('hidden')){
         $closeBtn.addClass('hidden');
       }
-    }else if($backIndex.attr('data-btntype') == 'cancel'){
-      $backIndex.attr('data-btntype', 'search');
-      $backIndex.text('搜索');
+    }else if( $backIndex.is(':visible') ){
+      $backIndex.hide();
+      $searchSubmit.show();
       $closeBtn.removeClass('hidden');
       return false;
     }
@@ -286,13 +291,58 @@ $(document).ready(function(){
   //搜索页面 按钮点击
   function searchBtnEvent(){
     var $this = $(this);
-    var _type = $this.attr('data-btntype');
-    if (_type == 'search'){
-      console.log('搜索数据');
-    }else if (_type == 'cancel'){
-      console.log('返回上级页面');
-    }
+    var val = '';
+
+    val = $this.prevAll('.form-group').find('input').val();
+    searchEvent(val);
   }
+  // 点击搜索按钮 事件
+  function searchEvent(val){
+    var filter_array = [];
+    var search_item = null;
+    var $searchList = $('#search-info').find('div.search-list');
+    var _has_loading = false;
+    var _old_key = '';
+
+    if (val == null || val == ''){
+      return false;
+    }
+    _old_key = $searchList.data('old-key');
+    if (_old_key == val){
+      return false;
+    }
+    //  search_array 为全局变量
+    for (var i = 0, len = search_array.length; i < len; i++){
+      search_item = search_array[i];
+      if ( search_item.key.search(new RegExp(val,"i")) != -1){
+        filter_array.push(search_item);
+      }
+    }
+
+    _has_loading = $searchList.find('div.loading-cont').length > 0?true:false;
+    if (!_has_loading){
+      $searchList.data('old-key', val);
+      $searchList.empty();
+      addLoading($searchList);
+
+      if (filter_array.length > 0){
+        setTimeout(function(){
+          removeLoading($searchList);
+          createListGroup(filter_array, $searchList);
+        }, 500);
+      }else{
+        setTimeout(function(){
+          removeLoading($searchList);
+          $searchList.empty();
+          $searchList.append('<div class="search-tips"><strong>所搜内容为空！</strong></div>');
+        }, 500);
+      }
+    }
+    return true;
+  }
+  
+  
+
   // logo点击事件
   function logoEvent(){
     var $main = $('#mainmenu'); 
@@ -398,14 +448,11 @@ $(document).ready(function(){
       return false;
     }
     var $backIco = $target.find('#back-index');
-    if ($backIco.attr('data-btntype') != 'cancel'){
-      return false;
-    }
+    
     $main.css('margin-left', '-' + $main.css('width'));
     $main.show();
     $main.animate({'margin-left':'0px'}, 500, function(){
     });
-
     $target.css('width', $target.css('width'));
     $target.animate({'margin-left': $target.css('width')}, 500, function(){
       var $this = $(this);
@@ -438,6 +485,47 @@ $(document).ready(function(){
       $target_dom.html('数据异常！');
       return $target_dom;
     }
+  }
+  // 普通列表HTML生成(带点击事件)
+  function createListGroup(datas, $target_dom){
+    if (datas == null || $target_dom == null){
+      return false;
+    }
+    var _item_htmls = '';
+    var _item_html = '';
+    var item_data = null;
+
+    $target_dom.empty();
+    if(datas && datas.length > 0){
+      // 加载 规则菜单 dom
+      _item_htmls = '<div class="list-group">';
+      for(var i = 0, len = datas.length; i < len; i++){
+        item_data = datas[i];
+        _item_html = '<a href="##" data-type="'+ item_data.type +'" data-id="'+ item_data.id +'" class="list-group-item list-group-item-warning">' + 
+          item_data.key +
+        '</a>';
+        _item_htmls += _item_html;
+      }
+      _item_htmls += '</div>';
+
+      $target_dom.append(_item_htmls);
+      $target_dom.find('a').on('click', listClickEvent);
+      return $target_dom;
+    }else{
+      $target_dom.html('数据异常！');
+      return $target_dom;
+    }
+
+    function listClickEvent(){
+      var $this = $(this);
+      var _type = $this.attr('data-type');
+      var _id = $this.attr('data-id');
+      //对应处理
+      console.log('data-type: ' + _type + '\n' +
+        'data-id: ' + _id + '\n'
+      );
+    }
+
   }
 
   // 生成toggle 面板 按钮
@@ -653,7 +741,7 @@ $(document).ready(function(){
         removeLoading($heros_list);
         createToggleBtn({'datas':list_datas, '$target_dom':$heros_list, 'is_empty': true});
         $heros_list.data('dom-datas', list_dom_datas);
-      }, 1000);
+      }, 200);
     }
   }
 
