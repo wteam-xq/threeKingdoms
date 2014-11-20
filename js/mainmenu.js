@@ -1,6 +1,70 @@
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
-var search_array = [{'key':'应用信息','type':'appInfo','id':'author'},{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
+var search_array = [{
+    'key': '应用信息',
+    'type': 'appInfo',
+    'id': 'author'
+},
+{
+    'key': '1V1规则',
+    'type': 'rule',
+    'id': 'onevone'
+},
+{
+    'key': '3V3规则',
+    'type': 'rule',
+    'id': 'threevthree'
+},
+{
+    'key': '身份局规则',
+    'type': 'rule',
+    'id': 'status'
+},
+{
+    'key': '国战规则',
+    'type': 'rule',
+    'id': 'royal'
+},
+{
+    'key': '虎牢关规则',
+    'type': 'rule',
+    'id': 'hlg'
+},
+{
+    'key': '转世规则',
+    'type': 'rule',
+    'id': 'relive'
+},
+{
+    'key': '基本牌',
+    'type': 'card',
+    'id': 'basic'
+},
+{
+    'key': '锦囊牌',
+    'type': 'card',
+    'id': 'kit'
+},
+{
+    'key': '体力牌',
+    'type': 'card',
+    'id': 'physic'
+},
+{
+    'key': '身份牌',
+    'type': 'card',
+    'id': 'status'
+},
+{
+    'key': '装备牌',
+    'type': 'card',
+    'id': 'weapon'
+},
+{
+    'key': '武将牌',
+    'type': 'card',
+    'id': 'heros'
+}];
 
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
@@ -45,8 +109,8 @@ $(document).ready(function(){
     }
     $('#progress').hide();
     $mainmenu.show();
-    createGroupItem(rule_datas, $rule );
-    createGroupItem(card_datas, $card );
+    createGroupItem({'datas': rule_datas, '$target_dom': $rule});
+    createGroupItem({'datas': card_datas, '$target_dom': $card});
     createDropdownMenu(heros_datas, $heros);
     createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
     // 获得 风火山林 包 package_array(全局变量)
@@ -65,6 +129,18 @@ $(document).ready(function(){
     $searchInfo.find('input').on('input', watchInputEvent);
     $searchInfo.find('#search-submit').on('click', searchBtnEvent);
   }
+  
+  //rule 页面点击事件
+  function ruleItemClickEvent(){
+    var $this = $(this);
+    var _datas = [];
+
+    _datas = $this.data('item-data');
+    if (_datas == null || _datas.length == 0){
+      return false;
+    }
+
+  } 
   
   // 添加加载图标
   function addLoading($target){
@@ -381,11 +457,6 @@ $(document).ready(function(){
       $heros_list = $heros.find('div.heros-list');
       _dom_datas = $heros_list.data('dom-datas');
       // 滚动条到达底部
-      // alert('测试： $document.scrollTop:' + $(document).scrollTop() + '\n' + 
-      //   '$document.height: ' + $(document).height() + '\n' + 
-      //   '$window.height: ' + $(window).height() + '\n' + 
-      //   'dH - wH: ' + ($(document).height() - $(window).height()) );
-
       _scroll_bottom = ( ($(document).scrollTop() + 50) >= $(document).height() - $(window).height() )?true:false;
       _has_loading = $heros_list.find('div.loading-cont').length > 0?true:false;
       if (_scroll_bottom && _dom_datas && !_dom_datas.allshow && !_has_loading){
@@ -462,10 +533,23 @@ $(document).ready(function(){
   }
 
   // 主菜单列表html生成
-  function createGroupItem(datas, $target_dom){
+  function createGroupItem(options){
     var _item_htmls = '';
     var _item_html = '';
     var item_data = null;
+    var $target_dom = null;
+    var click_fn = null;
+    var datas = [];
+    var setting = {
+      'datas': [],
+      '$target_dom': null,
+      'click_fn': null
+    };
+    $.extend(setting, options);
+
+    datas = setting.datas;
+    $target_dom = setting.$target_dom;
+    click_fn = setting.click_fn;
 
     $target_dom.empty();
     if(datas && datas.length > 0){
@@ -480,12 +564,24 @@ $(document).ready(function(){
         _item_htmls += _item_html;
       }
       $target_dom.append(_item_htmls);
+
+      // 点击事件添加
+      if (click_fn != null){
+        // 添加数据
+        $target_dom.find('a.list-group-item').each(function(i){
+          var $this = $(this);
+          var dataObj = datas[i].data;
+          $this.data('item-data', data);
+          $this.on('click', click_fn);
+        });
+      }
       return $target_dom;
     }else{
       $target_dom.html('数据异常！');
       return $target_dom;
     }
   }
+  
   // 普通列表HTML生成(带点击事件)
   function createListGroup(datas, $target_dom){
     if (datas == null || $target_dom == null){
@@ -560,7 +656,7 @@ $(document).ready(function(){
         '</div>';
         $item_list = $(_item_html);
         setting.$target_dom.append($item_list);
-        createGroupItem( item_data.array_datas, $item_list.find('#str_' + item_data.id) );
+        createGroupItem( {'datas': item_data.array_datas, '$target_dom': $item_list.find('#str_' + item_data.id)} );
       }
     } 
     // 生成toggle 面板 按钮
