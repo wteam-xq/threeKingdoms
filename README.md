@@ -16,7 +16,7 @@
 * 1.完成手绘UI图;
 * 2.阅读、理解完bootstrap教程;（[慕课网](http://www.imooc.com/learn/141) 、[官网教程](http://v3.bootcss.com/)）
 * 3.设计代码文件结构图;
-* 4.photoshop完成UI图.
+* 4.photoshop 完成 UI图对应 素材.
 
 完工后的准备：
 * 使用 node.js grunt 混淆、压缩代码;

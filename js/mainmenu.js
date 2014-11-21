@@ -48,7 +48,7 @@ $(document).ready(function(){
     $('#progress').hide();
     $mainmenu.show();
     createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});
-    createGroupItem({'datas': card_datas, '$target_dom': $card});
+    createGroupItem({'datas': card_datas, '$target_dom': $card, 'click_fn': showCardTypes});
     createDropdownMenu(heros_datas, $heros);
     createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
     // 获得 风火山林 包 package_array(全局变量)
@@ -67,7 +67,28 @@ $(document).ready(function(){
     $searchInfo.find('input').on('input', watchInputEvent);
     $searchInfo.find('#search-submit').on('click', searchBtnEvent);
   }
-  
+  // 设计卡牌信息
+  function showCardTypes(){
+    var $this = $(this);
+    var $detailPanel = null;
+    var $main = null;
+    var _datas = [];
+    var _parent_id = '';
+    var _detail_id = '';
+
+    _datas = $this.data('item-data');
+    if (_datas == null || _datas.length == 0){
+      return false;
+    }
+    _parent_id = $this.parents('div.tab-pane').attr('id');
+    _detail_id = _parent_id + '-types';
+    $detailPanel = $('#' + _detail_id);
+    $main = $this.parents('div.main-panel');
+    createAppHead($detailPanel);
+
+    gotoPage($detailPanel, $main);
+  }
+
   //rule 页面点击事件
   function showDetail(){
     var $this = $(this);
@@ -537,7 +558,7 @@ $(document).ready(function(){
       // 加载 规则菜单 dom
       for(var i = 0, len = datas.length; i < len; i++){
         item_data = datas[i];
-        _item_html = '<a href="##" class="list-group-item list-group-item-warning">' + 
+        _item_html = '<a href="##" class="list-group-item list-group-item-warning" id="'+ item_data.id +'">' + 
           '<img class="pull-left list-item-img" src="' + item_data.icon_src + '" alt="' + item_data.title + '" >' + 
           '<h3 class="list-group-item-heading">' + item_data.title + '</h3>' + 
           '<p class="list-group-item-text">' + item_data.content + '</p>' + 
@@ -552,7 +573,9 @@ $(document).ready(function(){
         $target_dom.find('a.list-group-item').each(function(i){
           var $this = $(this);
           var dataObj = datas[i].data;
-          $this.data('item-data', dataObj);
+          if (dataObj){
+            $this.data('item-data', dataObj);
+          }
           $this.on('click', click_fn);
         });
       }

@@ -2,8 +2,8 @@ var card_basic_imgs = ["../images/card/basic/analeptic.jpg","../images/card/basi
 "../images/card/basic/peach.jpg","../images/card/basic/slash.jpg","../images/card/basic/thunder_slash.jpg"];
 var card_basic = {
   "title":"基本牌",
-  "imgs":card_basic_imgs,
-  "type":"basic", 
+  "data":card_basic_imgs,
+  "id":"basic", 
   'content': '酒、火杀、闪、桃、普通杀、雷杀...',
   'icon_src':'images/ganning.png'
 };
@@ -14,8 +14,8 @@ var card_kit_imgs = ["../images/card/kit/amazing_grace.jpg","../images/card/kit/
 "../images/card/kit/nullification.jpg","../images/card/kit/snatch.jpg","../images/card/kit/supply_shortage.jpg"];
 var card_kit = {
   "title":"锦囊牌",
-  "imgs":card_kit_imgs,
-  "type":"kit",
+  "data":card_kit_imgs,
+  "id":"kit",
   'content': '五谷丰登、万箭齐发、借刀杀人...',
   'icon_src':'images/huangyueying.png'
 };
@@ -24,8 +24,8 @@ var card_physic_imgs = ["../images/card/physic/physic_2.jpg","../images/card/phy
 "../images/card/physic/physic_5.jpg"];
 var card_physic = {
   "title":"体力牌",
-  "imgs":card_physic_imgs,
-  "type":"physic",
+  "data":card_physic_imgs,
+  "id":"physic",
   'content': '2勾玉、3勾玉、4勾玉、5勾玉...',
   'icon_src':'images/xiaoqiao.png'
 };
@@ -34,8 +34,8 @@ var card_status_imgs = ["../images/card/status/juese_fanzei.jpg","../images/card
 "../images/card/status/juese_zhugong.jpg"];
 var card_status = {
   "title":"身份牌",
-  "imgs":card_status_imgs,
-  "type":"status",
+  "data":card_status_imgs,
+  "id":"status",
   'content': '反贼、内奸、忠臣、主公...',
   'icon_src':'images/zhaoyun.png'
 };
@@ -49,16 +49,16 @@ var card_weapon_imgs = ["../images/card/weapon/axe.jpg","../images/card/weapon/b
 ];
 var card_weapon = {
   "title":"装备牌",
-  "imgs":card_weapon_imgs,
-  "type":"weapon",
+  "data":card_weapon_imgs,
+  "id":"weapon",
   'content': '连弩、贯石斧、大宛、仁王盾、绝影...',
   'icon_src':'images/sunshangxiang.png'
 };
 
 var card_heros = {
   "title":"武将牌",
-  "imgs":[],
-  "type":"heros",
+  "data":[],
+  "id":"heros",
   'content': '刘备、曹操、孙权、董卓...',
   'icon_src':'images/zhouyu.png'
 };
