@@ -40,7 +40,7 @@ html,canvas,body{
   background-color: #CFBAAA;
 }
 
-.mainmenu, .person-info, .search-info, .noCanvasTips{
+.mainmenu, .person-info, .search-info, .noCanvasTips, .rule-detail{
   display: none;
   position: relative;
 }
@@ -94,19 +94,18 @@ html,canvas,body{
   padding: 0px !important;
   line-height: 50px !important;
 }
-.person-info .logo-brand{
-  padding: 0px !important;
-}
 .logo{
   width:90px;
   height:35px;
 }
-
-.mainmenu .navbar-form, .person-info .navbar-form{
+.logo-brand{
+  padding: 0px !important;
+}
+.navbar-form{
   border-width: 0px;
   padding: 10px 5px !important;
 }
-.mainmenu .navbar-form .form-group, .person-info .navbar-form .form-group{
+.navbar-form .form-group{
   padding: 0px !important;
 }
 
@@ -125,7 +124,7 @@ html,canvas,body{
   -o-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
 }
-.tkd-navbar .navbar{
+.navbar{
   /*margin-bottom: 0px !important;*/
   margin:0px auto !important;
   width:100%;
@@ -237,4 +236,16 @@ html,canvas,body{
 }
 .search-tips{
   text-align: center;
+}
+.rule-detail{
+  text-align: left;
+}
+.rule-detail{
+  font-size: 18px !important;
+}
+.panel-body div{
+  line-height: 1.8em;
+}
+.panel-body .thumbnail{
+  line-height: 1em;
 }

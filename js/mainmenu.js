@@ -1,82 +1,19 @@
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
-var search_array = [{
-    'key': '应用信息',
-    'type': 'appInfo',
-    'id': 'author'
-},
-{
-    'key': '1V1规则',
-    'type': 'rule',
-    'id': 'onevone'
-},
-{
-    'key': '3V3规则',
-    'type': 'rule',
-    'id': 'threevthree'
-},
-{
-    'key': '身份局规则',
-    'type': 'rule',
-    'id': 'status'
-},
-{
-    'key': '国战规则',
-    'type': 'rule',
-    'id': 'royal'
-},
-{
-    'key': '虎牢关规则',
-    'type': 'rule',
-    'id': 'hlg'
-},
-{
-    'key': '转世规则',
-    'type': 'rule',
-    'id': 'relive'
-},
-{
-    'key': '基本牌',
-    'type': 'card',
-    'id': 'basic'
-},
-{
-    'key': '锦囊牌',
-    'type': 'card',
-    'id': 'kit'
-},
-{
-    'key': '体力牌',
-    'type': 'card',
-    'id': 'physic'
-},
-{
-    'key': '身份牌',
-    'type': 'card',
-    'id': 'status'
-},
-{
-    'key': '装备牌',
-    'type': 'card',
-    'id': 'weapon'
-},
-{
-    'key': '武将牌',
-    'type': 'card',
-    'id': 'heros'
-}];
+var search_array = [{'key':'应用信息','type':'appInfo','id':'author'},{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
 
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
 
   var $window = $(window);
+  var $body = $('body');
   var $mainmenu = $('#mainmenu');
   var $heros = $('#heros');
   var $rule = $('#rule');
   var $card = $('#card');
   var $strategy = $('#strategy');
   var $searchInfo = $('#search-info');
-
+  
   init();
 
   // 插件进度条初始化
@@ -107,9 +44,10 @@ $(document).ready(function(){
       $('#noCanvasTips').show();
       return false;
     }
+
     $('#progress').hide();
     $mainmenu.show();
-    createGroupItem({'datas': rule_datas, '$target_dom': $rule});
+    createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});
     createGroupItem({'datas': card_datas, '$target_dom': $card});
     createDropdownMenu(heros_datas, $heros);
     createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
@@ -117,10 +55,10 @@ $(document).ready(function(){
     package_array = getPackagesDatas();
     // 默认显示 “三国鼎立” “蜀国”
     createHerosList('country_shu', $heros);
-
     // 定义基本事件
     $mainmenu.find('#to-person-info').on('click',logoEvent);
-    $('input.input-search').on('focus', toSearchEvent);
+    // 用on 代替 live 
+    $body.on('focus', 'input.input-search', toSearchEvent);
     $('#backtotop').on('click', toTop);
     // 滚动监听
     $window.scroll(watchScrollEvent);
@@ -131,15 +69,60 @@ $(document).ready(function(){
   }
   
   //rule 页面点击事件
-  function ruleItemClickEvent(){
+  function showDetail(){
     var $this = $(this);
+    var $detailPanel = null;
+    var $main = null;
     var _datas = [];
+    var _parent_id = '';
+    var _detail_id = '';
+    var _html = '';
+    var _data_item = null;
 
     _datas = $this.data('item-data');
     if (_datas == null || _datas.length == 0){
       return false;
     }
+    _parent_id = $this.parents('div.tab-pane').attr('id');
+    _detail_id = _parent_id + '-detail';
+    $detailPanel = $('#' + _detail_id);
+    $main = $this.parents('div.main-panel');
+    createAppHead($detailPanel);
 
+    _html = '<div class="panel panel-warning"><div class="panel-heading"></div><div class="panel-body"></div></div>';
+    $detailPanel.append(_html);
+
+    _html = '';
+    for (var i = 0, len = _datas.length; i < len; i++){
+      _data_item = _datas[i];
+      if (i == 0){
+        $detailPanel.find('div.panel-heading').html(_data_item.p);
+        continue;
+      }
+      if (_data_item.img){
+        _html += '<div class="thumbnail"><img src="' + _data_item.img + '" alt="..."></div>';
+        continue;
+      }
+      _html += '<div>' + _data_item.p +'</div>';
+    }
+    $detailPanel.find('div.panel-body').append(_html);
+    // $detailPanel.css('height', $window.height() + 'px');
+    gotoPage($detailPanel, $main);
+    $detailPanel.css('padding-top', $detailPanel.find('div.tkd-navbar').css('height') );
+  }  
+  //生成 次级页面 头部html
+  function createAppHead($target_dom){
+    var p_id = '';
+    var _html = '';
+
+    if ($target_dom == null){
+      return false;
+    }
+    p_id = $target_dom.attr('id');
+    _html = '<div class="tkd-navbar navbar navbar-default row"role="navigation"><div class="navbar-header col-xs-5 col-md-3 pull-left"><a href="##"class="navbar-brand logo-brand"><span class="glyphicon glyphicon-chevron-left back-ico"data-btntype="cancel"id="back-index"></span></a></div><form class="navbar-form navbar-right col-xs-7 col-md-4 row"role="search"><div class="form-group pull-left col-xs-12"><span class="glyphicon glyphicon-search tkd-search"></span><input type="text"data-parentId="'+ p_id +'"class="form-control pull-right input-search"placeholder="搜索卡牌、攻略、规则"></div></form></div>';
+    $target_dom.empty();
+    $target_dom.append(_html);
+    return $target_dom;
   } 
   
   // 添加加载图标
@@ -416,8 +399,6 @@ $(document).ready(function(){
     }
     return true;
   }
-  
-  
 
   // logo点击事件
   function logoEvent(){
@@ -571,7 +552,7 @@ $(document).ready(function(){
         $target_dom.find('a.list-group-item').each(function(i){
           var $this = $(this);
           var dataObj = datas[i].data;
-          $this.data('item-data', data);
+          $this.data('item-data', dataObj);
           $this.on('click', click_fn);
         });
       }
@@ -621,7 +602,6 @@ $(document).ready(function(){
         'data-id: ' + _id + '\n'
       );
     }
-
   }
 
   // 生成toggle 面板 按钮

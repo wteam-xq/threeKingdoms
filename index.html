@@ -27,8 +27,24 @@
 
   <div class="container" id="progress">
   </div>
-
-  <div class="mainmenu" id="mainmenu">
+  <!-- 不兼容浏览器显示效果 -->
+  <div class="container noCanvasTips" id="noCanvasTips">
+    <div class="alert alert-danger">
+      <strong>您正在使用低版本浏览器，</strong> 本页面无法显示,
+      建议您升级到
+      <a href="http://www.google.cn/intl/zh-CN/chrome/" target="_blank">Chrome</a>
+      或以下浏览器：
+      <a href="http://www.mozilla.org/en-US/firefox" target="_blank">Firefox</a> /
+      <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> /
+      <a href="http://www.opera.com/" target="_blank">Opera</a> /
+      <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
+      Internet Explorer 10</a>
+    </div>
+    <div class="tkd-thumbnail">
+      <img src="images/404.jpg" alt="404">
+    </div>
+  </div>
+  <div class="mainmenu main-panel" id="mainmenu">
 
     <div class="tkd-navbar">
       <div class="navbar navbar-default row" role="navigation">
@@ -74,24 +90,6 @@
     </div>
   </div>
   
-  <!-- 不兼容浏览器显示效果 -->
-  <div class="container noCanvasTips" id="noCanvasTips">
-    <div class="alert alert-danger">
-      <strong>您正在使用低版本浏览器，</strong> 本页面无法显示,
-      建议您升级到
-      <a href="http://www.google.cn/intl/zh-CN/chrome/" target="_blank">Chrome</a>
-      或以下浏览器：
-      <a href="http://www.mozilla.org/en-US/firefox" target="_blank">Firefox</a> /
-      <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> /
-      <a href="http://www.opera.com/" target="_blank">Opera</a> /
-      <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
-      Internet Explorer 10</a>
-    </div>
-    <div class="tkd-thumbnail">
-      <img src="images/404.jpg" alt="404">
-    </div>
-  </div>
-  
   <!-- 应用个人信息添加 -->
   <div class="tkd-navbar person-info" id="person-info">
     <div class="navbar navbar-default row" role="navigation">
@@ -105,7 +103,6 @@
           <span class="glyphicon glyphicon-search tkd-search"></span>
           <input type="text" data-parentId="person-info" class="form-control pull-right input-search" placeholder="搜索卡牌、攻略、规则">
         </div>
-        <!-- <button type="submit" class="btn btn-default col-xs-3">查询</button> -->
       </form>
     </div>
       
@@ -151,6 +148,11 @@
   <!-- 置顶小按钮 -->
   <div id="backtotop">
     <div class="bttbg"></div>
+  </div>
+
+  <!-- 规则详情页 -->
+  <div class="rule-detail" id="rule-detail">
+    <div class="panel panel-warning">规则详情页</div>>
   </div>
   
 </body>
