@@ -1,70 +1,3 @@
-var card_basic_imgs = ["../images/card/basic/analeptic.jpg","../images/card/basic/fire_slash.jpg","../images/card/basic/jink.jpg",
-"../images/card/basic/peach.jpg","../images/card/basic/slash.jpg","../images/card/basic/thunder_slash.jpg"];
-var card_basic = {
-  "title":"基本牌",
-  "data":card_basic_imgs,
-  "id":"basic", 
-  'content': '酒、火杀、闪、桃、普通杀、雷杀...',
-  'icon_src':'images/ganning.png'
-};
-
-var card_kit_imgs = ["../images/card/kit/amazing_grace.jpg","../images/card/kit/archery_attack.jpg","../images/card/kit/collateral.jpg",
-"../images/card/kit/dismantlement.jpg","../images/card/kit/duel.jpg","../images/card/kit/ex_nihilo.jpg","../images/card/kit/fire_attack.jpg",
-"../images/card/kit/god_salvation.jpg","../images/card/kit/indulgence.jpg","../images/card/kit/iron_chain.jpg","../images/card/kit/lightning.jpg",
-"../images/card/kit/nullification.jpg","../images/card/kit/snatch.jpg","../images/card/kit/supply_shortage.jpg"];
-var card_kit = {
-  "title":"锦囊牌",
-  "data":card_kit_imgs,
-  "id":"kit",
-  'content': '五谷丰登、万箭齐发、借刀杀人...',
-  'icon_src':'images/huangyueying.png'
-};
-
-var card_physic_imgs = ["../images/card/physic/physic_2.jpg","../images/card/physic/physic_3.jpg","../images/card/physic/physic_4.jpg",
-"../images/card/physic/physic_5.jpg"];
-var card_physic = {
-  "title":"体力牌",
-  "data":card_physic_imgs,
-  "id":"physic",
-  'content': '2勾玉、3勾玉、4勾玉、5勾玉...',
-  'icon_src':'images/xiaoqiao.png'
-};
-
-var card_status_imgs = ["../images/card/status/juese_fanzei.jpg","../images/card/status/juese_neijian.jpg","../images/card/status/juese_zhongcheng.jpg",
-"../images/card/status/juese_zhugong.jpg"];
-var card_status = {
-  "title":"身份牌",
-  "data":card_status_imgs,
-  "id":"status",
-  'content': '反贼、内奸、忠臣、主公...',
-  'icon_src':'images/zhaoyun.png'
-};
-
-var card_weapon_imgs = ["../images/card/weapon/axe.jpg","../images/card/weapon/blade.jpg","../images/card/weapon/chitu.jpg",
-"../images/card/weapon/crossbow.jpg","../images/card/weapon/dayuan.jpg","../images/card/weapon/dilu.jpg","../images/card/weapon/double_sword.jpg",
-"../images/card/weapon/eight_diagram.jpg","../images/card/weapon/fan.jpg","../images/card/weapon/guding_blade.jpg","../images/card/weapon/halberd.jpg",
-"../images/card/weapon/hualiu.jpg","../images/card/weapon/ice_sword.jpg","../images/card/weapon/jueying.jpg","../images/card/weapon/kylin_bow.jpg",
-"../images/card/weapon/moon_spear.jpg","../images/card/weapon/qinggang_sword.jpg","../images/card/weapon/renwang_shield.jpg","../images/card/weapon/silver_lion.jpg",
-"../images/card/weapon/spear.jpg","../images/card/weapon/vine.jpg","../images/card/weapon/zhuahuangfeidian.jpg","../images/card/weapon/zixing.jpg",
-];
-var card_weapon = {
-  "title":"装备牌",
-  "data":card_weapon_imgs,
-  "id":"weapon",
-  'content': '连弩、贯石斧、大宛、仁王盾、绝影...',
-  'icon_src':'images/sunshangxiang.png'
-};
-
-var card_heros = {
-  "title":"武将牌",
-  "data":[],
-  "id":"heros",
-  'content': '刘备、曹操、孙权、董卓...',
-  'icon_src':'images/zhouyu.png'
-};
-
-var card_datas = [card_basic, card_kit, card_physic, card_status, card_weapon, card_heros];
-
 var axe = [{"p":"装备牌*贯石斧"},
 {"img":"../images/card/weapon/axe.jpg"},
 {"p":"数量：1张"},
@@ -938,3 +871,71 @@ var slash = [{"p":"基本牌*杀"},
 {"p":"[A]不能。"},
 {"p":"[Q]普杀与火杀、雷杀有什么区别？"},
 {"p":"[A]在作为响应锦囊结算打出时，所有的杀都具有同样的效果，例如在结算南蛮入侵或者决斗时。但在使用杀造成伤害时，火杀与雷杀分别能造成火焰和雷电伤害。"}];
+
+
+var card_basic_imgs = ["../images/card/basic/analeptic.jpg","../images/card/basic/fire_slash.jpg","../images/card/basic/jink.jpg",
+"../images/card/basic/peach.jpg","../images/card/basic/slash.jpg","../images/card/basic/thunder_slash.jpg"];
+var card_basic = {
+  "title":"基本牌",
+  "data":card_basic_imgs,
+  "id":"card_basic", 
+  'content': '酒、火杀、闪、桃、普通杀、雷杀...',
+  'icon_src':'images/ganning.png'
+};
+
+var card_kit_imgs = ["../images/card/kit/amazing_grace.jpg","../images/card/kit/archery_attack.jpg","../images/card/kit/collateral.jpg",
+"../images/card/kit/dismantlement.jpg","../images/card/kit/duel.jpg","../images/card/kit/ex_nihilo.jpg","../images/card/kit/fire_attack.jpg",
+"../images/card/kit/god_salvation.jpg","../images/card/kit/indulgence.jpg","../images/card/kit/iron_chain.jpg","../images/card/kit/lightning.jpg",
+"../images/card/kit/nullification.jpg","../images/card/kit/snatch.jpg","../images/card/kit/supply_shortage.jpg"];
+var card_kit = {
+  "title":"锦囊牌",
+  "data":card_kit_imgs,
+  "id":"card_kit",
+  'content': '五谷丰登、万箭齐发、借刀杀人...',
+  'icon_src':'images/huangyueying.png'
+};
+
+var card_physic_imgs = ["../images/card/physic/physic_2.jpg","../images/card/physic/physic_3.jpg","../images/card/physic/physic_4.jpg",
+"../images/card/physic/physic_5.jpg"];
+var card_physic = {
+  "title":"体力牌",
+  "data":card_physic_imgs,
+  "id":"card_physic",
+  'content': '2勾玉、3勾玉、4勾玉、5勾玉...',
+  'icon_src':'images/xiaoqiao.png'
+};
+
+var card_status_imgs = ["../images/card/status/juese_fanzei.jpg","../images/card/status/juese_neijian.jpg","../images/card/status/juese_zhongcheng.jpg",
+"../images/card/status/juese_zhugong.jpg"];
+var card_status = {
+  "title":"身份牌",
+  "data":card_status_imgs,
+  "id":"card_status",
+  'content': '反贼、内奸、忠臣、主公...',
+  'icon_src':'images/zhaoyun.png'
+};
+
+var card_weapon_imgs = ["../images/card/weapon/axe.jpg","../images/card/weapon/blade.jpg","../images/card/weapon/chitu.jpg",
+"../images/card/weapon/crossbow.jpg","../images/card/weapon/dayuan.jpg","../images/card/weapon/dilu.jpg","../images/card/weapon/double_sword.jpg",
+"../images/card/weapon/eight_diagram.jpg","../images/card/weapon/fan.jpg","../images/card/weapon/guding_blade.jpg","../images/card/weapon/halberd.jpg",
+"../images/card/weapon/hualiu.jpg","../images/card/weapon/ice_sword.jpg","../images/card/weapon/jueying.jpg","../images/card/weapon/kylin_bow.jpg",
+"../images/card/weapon/moon_spear.jpg","../images/card/weapon/qinggang_sword.jpg","../images/card/weapon/renwang_shield.jpg","../images/card/weapon/silver_lion.jpg",
+"../images/card/weapon/spear.jpg","../images/card/weapon/vine.jpg","../images/card/weapon/zhuahuangfeidian.jpg","../images/card/weapon/zixing.jpg",
+];
+var card_weapon = {
+  "title":"装备牌",
+  "data":card_weapon_imgs,
+  "id":"card_weapon",
+  'content': '连弩、贯石斧、大宛、仁王盾、绝影...',
+  'icon_src':'images/sunshangxiang.png'
+};
+
+var card_heros = {
+  "title":"武将牌",
+  "data":[],
+  "id":"card_heros",
+  'content': '刘备、曹操、孙权、董卓...',
+  'icon_src':'images/zhouyu.png'
+};
+
+var card_datas = [card_basic, card_kit, card_physic, card_status, card_weapon, card_heros];

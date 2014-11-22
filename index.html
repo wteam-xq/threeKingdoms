@@ -44,8 +44,9 @@
       <img src="images/404.jpg" alt="404">
     </div>
   </div>
-  <div class="mainmenu main-panel" id="mainmenu">
 
+  <!-- 主页面 -->
+  <div class="mainmenu main-panel" id="mainmenu">
     <div class="tkd-navbar">
       <div class="navbar navbar-default row" role="navigation">
       　<div class="navbar-header col-xs-5 col-lg-5 pull-left">
@@ -63,10 +64,10 @@
       
       <div class="menu-nav row">
         <ul class="nav nav-tabs" role="tablist">
-          <li class="active col-xs-3 col-md-3" role="presentation"><a href="#rule" data-toggle="tab">规则</a></li>
-          <li class="col-xs-3 col-md-3"><a href="#card" data-toggle="tab">游戏牌</a></li>
-          <li class="col-xs-3 col-md-3"><a href="#heros" data-toggle="tab">武将</a></li>
-          <li class="col-xs-3 col-md-3"><a href="#strategy" data-toggle="tab">攻略</a></li>
+          <li class="active col-xs-3 col-md-3" id="menu-rule"><a href="#rule" data-toggle="tab">规则</a></li>
+          <li class="col-xs-3 col-md-3" id="menu-card"><a href="#card" data-toggle="tab">游戏牌</a></li>
+          <li class="col-xs-3 col-md-3" id="menu-heros"><a href="#heros" data-toggle="tab">武将</a></li>
+          <li class="col-xs-3 col-md-3" id="menu-str"><a href="#strategy" data-toggle="tab">攻略</a></li>
         </ul>
       </div>
     </div>
@@ -145,19 +146,20 @@
     </div>
   </div>
 
+  <!-- 规则详情页 -->
+  <div class="tkd-navbar rule-detail" id="rule-detail">
+    <div class="panel panel-warning">规则详情页</div>
+  </div>
+
+  <!-- 卡牌类型metro展示 -->
+  <div class="tkd-navbar card-types sub-page" id="card-types">
+    <div class="panel panel-warning">卡牌类型</div>
+  </div>
+  
   <!-- 置顶小按钮 -->
   <div id="backtotop">
     <div class="bttbg"></div>
   </div>
 
-  <!-- 规则详情页 -->
-  <div class="rule-detail" id="rule-detail">
-    <div class="panel panel-warning">规则详情页</div>
-  </div>
-  <!-- 卡牌类型metro展示 -->
-  <div class="card-types" id="card-types">
-    <div class="panel panel-warning">卡牌类型</div>
-  </div>
-  
 </body>
 </html>

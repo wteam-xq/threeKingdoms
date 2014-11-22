@@ -1,5 +1,6 @@
 // 加入时间戳(手机调试无缓存加载)
 var time_stamp = new Date().getTime();
+// var time_stamp = '2';
 
 document.writeln('<script type="text/javascript" src="datas/heros.js?v=' + time_stamp + '"></script>');
 document.writeln('<script type="text/javascript" src="datas/rule.js?v=' + time_stamp + '"></script>');

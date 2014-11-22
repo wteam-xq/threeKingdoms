@@ -1,6 +1,7 @@
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
 var search_array = [{'key':'应用信息','type':'appInfo','id':'author'},{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
+var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta']; 
 
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
@@ -51,6 +52,8 @@ $(document).ready(function(){
     createGroupItem({'datas': card_datas, '$target_dom': $card, 'click_fn': showCardTypes});
     createDropdownMenu(heros_datas, $heros);
     createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
+
+
     // 获得 风火山林 包 package_array(全局变量)
     package_array = getPackagesDatas();
     // 默认显示 “三国鼎立” “蜀国”
@@ -72,19 +75,44 @@ $(document).ready(function(){
     var $this = $(this);
     var $detailPanel = null;
     var $main = null;
+    var _data_item = null;
     var _datas = [];
     var _parent_id = '';
     var _detail_id = '';
+    var _html = '';
+    var _color = '';
+    var _color_index = 0;
+    var _colors_len = metro_colors.length;
 
-    _datas = $this.data('item-data');
-    if (_datas == null || _datas.length == 0){
-      return false;
-    }
     _parent_id = $this.parents('div.tab-pane').attr('id');
     _detail_id = _parent_id + '-types';
     $detailPanel = $('#' + _detail_id);
     $main = $this.parents('div.main-panel');
+    // 武将卡 特殊处理
+    if ($this.attr('id') === 'card_heros'){
+      $main.find('ul.nav-tabs').find('#menu-heros > a').trigger('click')
+      return true;
+    }
+    _datas = $this.data('item-data');
+    if (_datas == null || _datas.length == 0){
+      return false;
+    }
     createAppHead($detailPanel);
+
+    _html = '<div class="row sub-page">';
+    // metro 效果显示
+    for (var i = 0, len = _datas.length; i < len; i++){
+      _data_item = _datas[i];
+      
+      _color = metro_colors[_color_index];
+      _color_index++;
+      if (_color_index > _colors_len - 1){
+        _color_index = 0;
+      }
+      _html += '<div class="col-sm-6 col-md-3"><div class="thumbnail tile tile-medium tile-'+ _color +' col-md-3"><a href="#"><h1>'+ _color +'</h1></a></div></div>';
+    }
+    _html += '</div>';
+    $detailPanel.append(_html);
 
     gotoPage($detailPanel, $main);
   }
@@ -129,7 +157,6 @@ $(document).ready(function(){
     $detailPanel.find('div.panel-body').append(_html);
     // $detailPanel.css('height', $window.height() + 'px');
     gotoPage($detailPanel, $main);
-    $detailPanel.css('padding-top', $detailPanel.find('div.tkd-navbar').css('height') );
   }  
   //生成 次级页面 头部html
   function createAppHead($target_dom){
@@ -140,7 +167,7 @@ $(document).ready(function(){
       return false;
     }
     p_id = $target_dom.attr('id');
-    _html = '<div class="tkd-navbar navbar navbar-default row"role="navigation"><div class="navbar-header col-xs-5 col-md-3 pull-left"><a href="##"class="navbar-brand logo-brand"><span class="glyphicon glyphicon-chevron-left back-ico"data-btntype="cancel"id="back-index"></span></a></div><form class="navbar-form navbar-right col-xs-7 col-md-4 row"role="search"><div class="form-group pull-left col-xs-12"><span class="glyphicon glyphicon-search tkd-search"></span><input type="text"data-parentId="'+ p_id +'"class="form-control pull-right input-search"placeholder="搜索卡牌、攻略、规则"></div></form></div>';
+    _html = '<div class="navbar navbar-default row"role="navigation"><div class="navbar-header col-xs-5 col-md-3 pull-left"><a href="##"class="navbar-brand logo-brand"><span class="glyphicon glyphicon-chevron-left back-ico"data-btntype="cancel"id="back-index"></span></a></div><form class="navbar-form navbar-right col-xs-7 col-md-4 row"role="search"><div class="form-group pull-left col-xs-12"><span class="glyphicon glyphicon-search tkd-search"></span><input type="text"data-parentId="'+ p_id +'"class="form-control pull-right input-search"placeholder="搜索卡牌、攻略、规则"></div></form></div>';
     $target_dom.empty();
     $target_dom.append(_html);
     return $target_dom;
@@ -509,11 +536,13 @@ $(document).ready(function(){
       $this.css('margin-left', '0px');
     });
 
-    $target.css('width', $target.css('width'));
-    $target.css('margin-left', $target.css('width'));
+    $target.css({'width': $target.css('width'), 
+      'margin-left':$target.css('width')
+    });
     $target.show();
+
     $target.animate({'margin-left':'0px'}, 500, function(){
-      $(this).css('width', '100%');
+      $(this).css({'width':'100%', 'position':'static'});
     });
   }
   function closePage($target, $main){
@@ -524,9 +553,10 @@ $(document).ready(function(){
     
     $main.css('margin-left', '-' + $main.css('width'));
     $main.show();
+
     $main.animate({'margin-left':'0px'}, 500, function(){
     });
-    $target.css('width', $target.css('width'));
+    $target.css({'width':$target.css('width'), 'position':'fixed'});
     $target.animate({'margin-left': $target.css('width')}, 500, function(){
       var $this = $(this);
       $this.hide();
@@ -726,7 +756,7 @@ $(document).ready(function(){
       data_item_array = data_item.datas || [];
       pull_left_right = (i % 2 == 0)?'pull-left':'pull-right';
       if (data_item_array.length > 0){
-        _item_html = '<div class="dropdown ' + pull_left_right + ' col-xs-12 col-md-4">' + 
+        _item_html = '<div class="dropdown ' + pull_left_right + ' col-xs-5 col-md-4">' + 
           '<button class="btn btn-pairs btn-lg dropdown-toggle" type="button" id="' + data_item.id + '" data-toggle="dropdown">' + 
             data_item.title + 
             '<span class="caret"></span>'
