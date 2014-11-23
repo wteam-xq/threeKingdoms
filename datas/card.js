@@ -727,31 +727,31 @@ var savage_assault = [{"p":"锦囊牌*南蛮入侵"},
 {"p":"[A]不能。 "}];
 
 var json_physic = [{"p":"特殊牌*体力牌"},
+{"p":"      （2体力值）", "id": "physic_2"},
 {"img":"images/card/physic/physic_2.jpg"},
-{"p":"      （2体力值）"},
+{"p":"      （3体力值）", "id":"physic_3"},
 {"img":"images/card/physic/physic_3.jpg"},
-{"p":"      （3体力值）"},
+{"p":"      （4体力值）", "id": "physic_4"},
 {"img":"images/card/physic/physic_4.jpg"},
-{"p":"      （4体力值）"},
+{"p":"      （5体力值）", "id": "physic_5"},
 {"img":"images/card/physic/physic_5.jpg"},
-{"p":"      （5体力值）"},
 {"p":"作用：以阴阳鱼的数量表示玩家当前的体力值，体力牌分为2体力值、3体力值、4体力值、5体力值。玩家需根据当前武将体力上限选择相应的体力牌。"}];
 
 var json_status = [{"p":"特殊牌*身份牌"},
 {"p":"用以确认各玩家在游戏中所扮演的身份，分为四种身份：主公、忠臣、反贼、内奸"},
-{"p":"主公"},
+{"p":"主公", 'id': 'juese_zhugong'},
 {"img":"images/card/status/juese_zhugong.jpg"},
 {"p":"游戏目标：消灭所有的反贼和内奸，平定天下。 "},
 {"p":"技巧：主公的目标为尽量保证忠臣存活的情况下全灭反贼和内奸。具体到行动就是保证本身防御并压制全场，在行动过程中一定要分散反贼火力，当然尺度是关键，要以保证自己生存为首要任务，尽量让反贼火力分散产生内部混乱。"},
-{"p":"忠臣"},
+{"p":"忠臣", 'id': 'juese_zhongcheng'},
 {"img":"images/card/status/juese_zhongcheng.jpg"},
 {"p":"游戏目标：不惜一切保护主公，胜利条件与主公相同。"},
 {"p":"技巧：作为忠臣要明白一个活忠的威慑价值大于和反贼以命换命，忠臣是主公的屏障，是主公控制局势的武器和筹码，得局势者得天下，而忠臣就是局势天平的指针。"},
-{"p":"反贼"},
+{"p":"反贼", 'id': 'juese_fanzei'},
 {"img":"images/card/status/juese_fanzei.jpg"},
 {"p":"游戏目标：杀死主公，推翻统治。"},
 {"p":"技巧：反贼是最简单也是最纠结的角色，说简单是因为任务很简单只要杀到一个叫做主公的家伙就可以了，说纠结是因为反贼人数众多，大家思路开阔难以统一。配合方面需要注意的是，不能总想着让别人配合你，要想想怎么才能让别人理解你的想法，配合来自充分的思考而非心有灵犀。"},
-{"p":"内奸"},
+{"p":"内奸", 'id':'juese_neijian'},
 {"img":"images/card/status/juese_neijian.jpg"},
 {"p":"游戏目标：除掉除自己外所有的人，成为最后的生还者。"},
 {"p":"技巧：如果说局势是天平，忠臣是指针，那么内奸就是游码。内奸以身份的特殊，获胜的难度和获胜后的超强成就感一直深受大家喜爱。内奸打法多样，战术灵活，成功的内奸=正确的战术+冷静的头脑+强悍的RP。"}];
@@ -889,10 +889,21 @@ var card_basic = {
   'icon_src':'images/ganning.png'
 };
 
-var card_kit_imgs = ["images/card/kit/amazing_grace.jpg","images/card/kit/archery_attack.jpg","images/card/kit/collateral.jpg",
-"images/card/kit/dismantlement.jpg","images/card/kit/duel.jpg","images/card/kit/ex_nihilo.jpg","images/card/kit/fire_attack.jpg",
-"images/card/kit/god_salvation.jpg","images/card/kit/indulgence.jpg","images/card/kit/iron_chain.jpg","images/card/kit/lightning.jpg",
-"images/card/kit/nullification.jpg","images/card/kit/snatch.jpg","images/card/kit/supply_shortage.jpg"];
+var card_kit_imgs = [{'id':'amazing_grace', 'icon_src': 'images/card/kit/amazing_grace.jpg', 'data': amazing_grace, 'title': '五谷丰登'},
+{'id':'archery_attack', 'icon_src': 'images/card/kit/archery_attack.jpg', 'data': archery_attack, 'title': '万箭齐发'},
+{'id':'collateral', 'icon_src': 'images/card/kit/collateral.jpg', 'data': collateral, 'title': '借刀杀人'},
+{'id':'dismantlement', 'icon_src': 'images/card/kit/dismantlement.jpg', 'data': dismantlement, 'title': '过河拆桥'},
+{'id':'duel', 'icon_src': 'images/card/kit/duel.jpg', 'data': duel, 'title': '决斗'},
+{'id':'ex_nihilo', 'icon_src': 'images/card/kit/ex_nihilo.jpg', 'data': ex_nihilo, 'title': '无中生有'},
+{'id':'fire_attack', 'icon_src': 'images/card/kit/fire_attack.jpg', 'data': fire_attack, 'title': '火攻'},
+{'id':'god_salvation', 'icon_src': 'images/card/kit/god_salvation.jpg', 'data': god_salvation, 'title': '桃园结义'},
+{'id':'indulgence', 'icon_src': 'images/card/kit/indulgence.jpg', 'data': indulgence, 'title': '乐不思蜀'},
+{'id':'iron_chain', 'icon_src': 'images/card/kit/iron_chain.jpg', 'data': iron_chain, 'title': '铁索连环'},
+{'id':'lightning', 'icon_src': 'images/card/kit/lightning.jpg', 'data': lightning, 'title': '闪电'},
+{'id':'nullification', 'icon_src': 'images/card/kit/nullification.jpg', 'data': nullification, 'title': '无懈可击'},
+{'id':'snatch', 'icon_src': 'images/card/kit/snatch.jpg', 'data': snatch, 'title': '顺手牵羊'},
+{'id':'supply_shortage', 'icon_src': 'images/card/kit/supply_shortage.jpg', 'data': supply_shortage, 'title': '兵粮寸断'}
+];
 var card_kit = {
   "title":"锦囊牌",
   "data":card_kit_imgs,
@@ -901,8 +912,11 @@ var card_kit = {
   'icon_src':'images/huangyueying.png'
 };
 
-var card_physic_imgs = ["images/card/physic/physic_2.jpg","images/card/physic/physic_3.jpg","images/card/physic/physic_4.jpg",
-"images/card/physic/physic_5.jpg"];
+var card_physic_imgs = [{'id':'physic_2', 'icon_src': 'images/card/physic/physic_2.jpg', 'data': json_physic, 'title': '2体力值'},
+{'id':'physic_3', 'icon_src': 'images/card/physic/physic_3.jpg', 'data': json_physic, 'title': '3体力值'},
+{'id':'physic_4', 'icon_src': 'images/card/physic/physic_4.jpg', 'data': json_physic, 'title': '4体力值'},
+{'id':'physic_5', 'icon_src': 'images/card/physic/physic_5.jpg', 'data': json_physic, 'title': '5体力值'}
+];
 var card_physic = {
   "title":"体力牌",
   "data":card_physic_imgs,
@@ -911,8 +925,11 @@ var card_physic = {
   'icon_src':'images/xiaoqiao.png'
 };
 
-var card_status_imgs = ["images/card/status/juese_fanzei.jpg","images/card/status/juese_neijian.jpg","images/card/status/juese_zhongcheng.jpg",
-"images/card/status/juese_zhugong.jpg"];
+var card_status_imgs = [{'id':'juese_fanzei', 'icon_src': 'images/card/status/juese_fanzei.jpg', 'data': json_status, 'title': '反贼'},
+{'id':'juese_neijian', 'icon_src': 'images/card/status/juese_neijian.jpg', 'data': json_status, 'title': '内奸'},
+{'id':'juese_zhongcheng', 'icon_src': 'images/card/status/juese_zhongcheng.jpg', 'data': json_status, 'title': '忠臣'},
+{'id':'juese_zhugong', 'icon_src': 'images/card/status/juese_zhugong.jpg', 'data': json_status, 'title': '主公'}
+];
 var card_status = {
   "title":"身份牌",
   "data":card_status_imgs,
@@ -921,12 +938,29 @@ var card_status = {
   'icon_src':'images/zhaoyun.png'
 };
 
-var card_weapon_imgs = ["images/card/weapon/axe.jpg","images/card/weapon/blade.jpg","images/card/weapon/chitu.jpg",
-"images/card/weapon/crossbow.jpg","images/card/weapon/dayuan.jpg","images/card/weapon/dilu.jpg","images/card/weapon/double_sword.jpg",
-"images/card/weapon/eight_diagram.jpg","images/card/weapon/fan.jpg","images/card/weapon/guding_blade.jpg","images/card/weapon/halberd.jpg",
-"images/card/weapon/hualiu.jpg","images/card/weapon/ice_sword.jpg","images/card/weapon/jueying.jpg","images/card/weapon/kylin_bow.jpg",
-"images/card/weapon/moon_spear.jpg","images/card/weapon/qinggang_sword.jpg","images/card/weapon/renwang_shield.jpg","images/card/weapon/silver_lion.jpg",
-"images/card/weapon/spear.jpg","images/card/weapon/vine.jpg","images/card/weapon/zhuahuangfeidian.jpg","images/card/weapon/zixing.jpg",
+var card_weapon_imgs = [{'id':'axe', 'icon_src': 'images/card/weapon/axe.jpg', 'data': axe, 'title': '贯石斧'},
+{'id':'blade', 'icon_src': 'images/card/weapon/blade.jpg', 'data': blade, 'title': '青龙偃月刀'},
+{'id':'chitu', 'icon_src': 'images/card/weapon/chitu.jpg', 'data': chitu, 'title': '赤兔'},
+{'id':'crossbow', 'icon_src': 'images/card/weapon/crossbow.jpg', 'data': crossbow, 'title': '诸葛连弩'},
+{'id':'dayuan', 'icon_src': 'images/card/weapon/dayuan.jpg', 'data': dayuan, 'title': '大宛'},
+{'id':'dilu', 'icon_src': 'images/card/weapon/dilu.jpg', 'data': dilu, 'title': '的卢'},
+{'id':'double_sword', 'icon_src': 'images/card/weapon/double_sword.jpg', 'data': double_sword, 'title': '雌雄双股剑'},
+{'id':'eight_diagram', 'icon_src': 'images/card/weapon/eight_diagram.jpg', 'data': eight_diagram, 'title': '八卦阵'},
+{'id':'fan', 'icon_src': 'images/card/weapon/fan.jpg', 'data': fan, 'title': '朱雀羽扇'},
+{'id':'guding_blade', 'icon_src': 'images/card/weapon/guding_blade.jpg', 'data': guding_blade, 'title': '古锭刀'},
+{'id':'halberd', 'icon_src': 'images/card/weapon/halberd.jpg', 'data': halberd, 'title': '方天画戟'},
+{'id':'hualiu', 'icon_src': 'images/card/weapon/hualiu.jpg', 'data': hualiu, 'title': '骅骝'},
+{'id':'ice_sword', 'icon_src': 'images/card/weapon/ice_sword.jpg', 'data': ice_sword, 'title': '寒冰剑'},
+{'id':'jueying', 'icon_src': 'images/card/weapon/jueying.jpg', 'data': jueying, 'title': '绝影'},
+{'id':'kylin_bow', 'icon_src': 'images/card/weapon/kylin_bow.jpg', 'data': kylin_bow, 'title': '麒麟弓'},
+{'id':'moon_spear', 'icon_src': 'images/card/weapon/moon_spear.jpg', 'data': moon_spear, 'title': '银月枪'},
+{'id':'qinggang_sword', 'icon_src': 'images/card/weapon/qinggang_sword.jpg', 'data': qinggang_sword, 'title': '青釭剑'},
+{'id':'renwang_shield', 'icon_src': 'images/card/weapon/renwang_shield.jpg', 'data': renwang_shield, 'title': '仁王盾'},
+{'id':'silver_lion', 'icon_src': 'images/card/weapon/silver_lion.jpg', 'data': silver_lion, 'title': '白银狮子'},
+{'id':'spear', 'icon_src': 'images/card/weapon/spear.jpg', 'data': spear, 'title': '丈八蛇矛'},
+{'id':'vine', 'icon_src': 'images/card/weapon/vine.jpg', 'data': vine, 'title': '藤甲'},
+{'id':'zhuahuangfeidian', 'icon_src': 'images/card/weapon/zhuahuangfeidian.jpg', 'data': zhuahuangfeidian, 'title': '爪黄飞电'},
+{'id':'zixing', 'icon_src': 'images/card/weapon/zixing.jpg', 'data': zixing, 'title': '紫骍'}
 ];
 var card_weapon = {
   "title":"装备牌",

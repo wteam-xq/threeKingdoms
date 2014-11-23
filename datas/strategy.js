@@ -1482,17 +1482,20 @@ var str_datas = [{
     'title':'1v1模式',
     'content': '本文详尽阐述了三国杀online中1v1...',
     'icon_src':'images/caobei.png',
-    'data': str_onevsone
+    'data': str_onevsone,
+    'id': 'str_onevsone'
   },{
     'title':'3v3模式',
     'content': '三国杀3v3模式最好的组合是哪些...',
     'icon_src':'images/daqiao.png',
-    'data': str_threevsthree
+    'data': str_threevsthree,
+    'id': 'str_threevsthree'
   },{
     'title':'身份模式',
     'content': '如果8个玩家都是比较熟的...',
     'icon_src':'images/yuji.png',
-    'data': str_status
+    'data': str_status,
+    'id': 'str_status'
   }]
 },
 {
@@ -1502,22 +1505,26 @@ var str_datas = [{
     'title':'蜀国武将',
     'content': '乱世的枭雄---刘备...',
     'icon_src':'images/liubei.png',
-    'data': str_shu
+    'data': str_shu,
+    'id': 'str_shu'
   },{
     'title':'魏国武将',
     'content': '魏武帝---曹操...',
     'icon_src':'images/caocao.png',
-    'data': str_wei
+    'data': str_wei,
+    'id': 'str_wei'
   },{
     'title':'吴国武将',
     'content': '年轻的贤君---孙权...',
     'icon_src':'images/sunquan.png',
-    'data': str_wu
+    'data': str_wu,
+    'id': 'str_wu'
   },{
     'title':'群雄武将',
     'content': '绝世的舞姬---貂蝉...',
     'icon_src':'images/diaochan.png',
-    'data': str_qun
+    'data': str_qun,
+    'id': 'str_qun'
   }]
 },
 {
@@ -1527,47 +1534,14 @@ var str_datas = [{
     'title':'锦囊牌',
     'content': '如果说基本牌是游戏的...',
     'icon_src':'images/huangyueying.png',
-    'data': str_kit
+    'data': str_kit,
+    'id': 'str_kit'
   },{
     'title':'武器牌',
     'content': '三国杀的武器是...',
     'icon_src':'images/sunshangxiang.png',
-    'data': str_weapon
+    'data': str_weapon,
+    'id': 'str_weapon'
   }]
 }
 ];
-function getJson(href){
-  var json_data = [];
-  switch(href){
-		case "onevsone":
-			json_data = str_onevsone; 
-			break;
-		case "threevsthree":
-			json_data = str_threevsthree;
-			break;
-		case "status":
-			json_data = str_status;
-			break;
-		case "shu":
-			json_data = str_shu;
-			break;
-		case "wei":
-			json_data = str_wei;
-			break;
-		case "wu":
-			json_data = str_wu;
-			break;
-		case "heros":
-			json_data = str_qun;
-			break;
-		case "kit":
-			json_data = str_kit;
-			break;
-		case "weapon":
-			json_data = str_weapon;
-			break;
-		default:
-			alert("所选模式出问题了");
-		}
-  return json_data;
-}

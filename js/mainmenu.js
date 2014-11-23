@@ -117,7 +117,7 @@ $(document).ready(function(){
       if (_data_item.title){
         _block_name = _data_item.title;
       }
-      _html += '<div class="col-sm-6 col-md-3"><div class="thumbnail tile tile-medium tile-'+ _color +' col-md-3"><a href="#"><h1>'+ _block_name +'</h1></a></div></div>';
+      _html += '<div class="col-sm-6 col-md-3"><div id="'+ _data_item.id +'" class="thumbnail tile tile-medium tile-'+ _color +' col-md-3"><a href="#"><h1>'+ _block_name +'</h1></a></div></div>';
     }
     _html += '</div>';
 
@@ -140,12 +140,12 @@ $(document).ready(function(){
     var $this = $(this);
     var $detail_panel = null;
     var $main = null;
+    var $cur_item = null;
     var _datas = [];
     var _parent_id = '';
     var _detail_id = '';
     var _html = '';
     var _data_item = null;
-
     _datas = $this.data('item-data');
     if (_datas == null || _datas.length == 0){
       return false;
@@ -170,10 +170,24 @@ $(document).ready(function(){
         _html += '<div class="thumbnail"><img src="' + _data_item.img + '" alt="..."></div>';
         continue;
       }
+      if (_data_item.id){
+        _html += '<div id="'+ _data_item.id +'">' + _data_item.p + '</div>';
+        continue;
+      }
       _html += '<div>' + _data_item.p +'</div>';
     }
     $detail_panel.find('div.panel-body').append(_html);
     gotoPage($detail_panel, $main);
+    // 判断是否滚动页面(身份牌、体力牌)
+    $cur_item = $detail_panel.find('#' + $this.attr('id'));
+    if ($cur_item.length > 0){
+      var _offset_top = $cur_item.offset().top;
+      _offset_top -= $detail_panel.find('div.sub-navbar').height();
+      setTimeout(function(){
+        window.scrollTo(0,_offset_top);
+      }, 1000);
+    }
+
   }  
   //生成 次级页面 头部html
   function createAppHead($target_dom){
@@ -552,6 +566,11 @@ $(document).ready(function(){
     if ($target == null || $main == null){
       return false;
     }
+
+    $main.css({'-webkit-transform':'translate3d(0,0,0)',
+      '-o-transform':'translate3d(0,0,0)',
+      'transform':'translate3d(0,0,0)'
+    });
     $main.animate({'margin-left': '-' + $main.css('width')}, 500, function(){
       var $this = $(this);
       $this.hide();
@@ -563,8 +582,18 @@ $(document).ready(function(){
     });
     $target.show();
 
+    $target.css({'-webkit-transform':'translate3d(0,0,0)',
+      '-o-transform':'translate3d(0,0,0)',
+      'transform':'translate3d(0,0,0)'
+    });
     $target.animate({'margin-left':'0px'}, 500, function(){
-      $(this).css({'width':'100%', 'position':'relative'});
+      var $this = $(this);
+      // 解决 新页面fixed 无效Bug
+      $this.css({'-webkit-transform':'none',
+        '-o-transform':'none',
+        'transform':'none'
+      });
+      $this.css({'width':'100%', 'position':'relative'});
     });
   }
   function closePage($target, $main){
@@ -575,8 +604,16 @@ $(document).ready(function(){
     
     $main.css('margin-left', '-' + $main.css('width'));
     $main.show();
-
+    $main.css({'-webkit-transform':'translate3d(0,0,0)',
+      '-o-transform':'translate3d(0,0,0)',
+      'transform':'translate3d(0,0,0)'
+    });
     $main.animate({'margin-left':'0px'}, 500, function(){
+    });
+
+    $target.css({'-webkit-transform':'translate3d(0,0,0)',
+      '-o-transform':'translate3d(0,0,0)',
+      'transform':'translate3d(0,0,0)'
     });
     $target.css({'width':$target.css('width'), 'position':'fixed'});
     $target.animate({'margin-left': $target.css('width')}, 500, function(){
@@ -590,6 +627,7 @@ $(document).ready(function(){
   function createGroupItem(options){
     var _item_htmls = '';
     var _item_html = '';
+    var _item_id_html = '';
     var item_data = null;
     var $target_dom = null;
     var click_fn = null;
@@ -610,7 +648,10 @@ $(document).ready(function(){
       // 加载 规则菜单 dom
       for(var i = 0, len = datas.length; i < len; i++){
         item_data = datas[i];
-        _item_html = '<a href="##" class="list-group-item list-group-item-warning" id="'+ item_data.id +'">' + 
+        if (item_data.id){
+          _item_id_html = 'id="' + item_data.id + '"'
+        }
+        _item_html = '<a href="##" class="list-group-item list-group-item-warning" ' + _item_id_html + ' >' + 
           '<img class="pull-left list-item-img" src="' + item_data.icon_src + '" alt="' + item_data.title + '" >' + 
           '<h3 class="list-group-item-heading">' + item_data.title + '</h3>' + 
           '<p class="list-group-item-text">' + item_data.content + '</p>' + 
@@ -711,7 +752,7 @@ $(document).ready(function(){
         '</div>';
         $item_list = $(_item_html);
         setting.$target_dom.append($item_list);
-        createGroupItem( {'datas': item_data.array_datas, '$target_dom': $item_list.find('#str_' + item_data.id)} );
+        createGroupItem( {'datas': item_data.array_datas, '$target_dom': $item_list.find('#str_' + item_data.id), 'click_fn': showDetail} );
       }
     } 
     // 生成toggle 面板 按钮

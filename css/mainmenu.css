@@ -129,7 +129,7 @@ a:active, a:hover{
   transform: translate3d(0,0,0);
 }
 .sub-navbar{
-  top: 0;
+  top: 0 !important;
   border-width: 0 0 1px;
   position: fixed !important;
   right: 0;
