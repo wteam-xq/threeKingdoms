@@ -1,7 +1,8 @@
+// 武将包数量
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
 var search_array = [{'key':'应用信息','type':'appInfo','id':'author'},{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
-var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta']; 
+var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
@@ -48,19 +49,20 @@ $(document).ready(function(){
 
     $('#progress').hide();
     $mainmenu.show();
+
+    /** 界面渲染 **/
     createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});
     createGroupItem({'datas': card_datas, '$target_dom': $card, 'click_fn': showCardTypes});
     createDropdownMenu(heros_datas, $heros);
     createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
-
-
     // 获得 风火山林 包 package_array(全局变量)
     package_array = getPackagesDatas();
     // 默认显示 “三国鼎立” “蜀国”
     createHerosList('country_shu', $heros);
-    // 定义基本事件
+
+    /** 定义事件 **/
     $mainmenu.find('#to-person-info').on('click',logoEvent);
-    // 用on 代替 live 
+    // on 实现 live  
     $body.on('focus', 'input.input-search', toSearchEvent);
     $('#backtotop').on('click', toTop);
     // 滚动监听
@@ -73,20 +75,23 @@ $(document).ready(function(){
   // 设计卡牌信息
   function showCardTypes(){
     var $this = $(this);
-    var $detailPanel = null;
+    var $detail_panel = null;
     var $main = null;
     var _data_item = null;
     var _datas = [];
     var _parent_id = '';
     var _detail_id = '';
     var _html = '';
+    // metro 效果实现变量
     var _color = '';
     var _color_index = 0;
+    var _block_name = '';
     var _colors_len = metro_colors.length;
+    var _random_colors = Util.getRandomArray(metro_colors);
 
-    _parent_id = $this.parents('div.tab-pane').attr('id');
+    _parent_id = $this.parents('div.item-list').attr('id');
     _detail_id = _parent_id + '-types';
-    $detailPanel = $('#' + _detail_id);
+    $detail_panel = $('#' + _detail_id);
     $main = $this.parents('div.main-panel');
     // 武将卡 特殊处理
     if ($this.attr('id') === 'card_heros'){
@@ -97,30 +102,43 @@ $(document).ready(function(){
     if (_datas == null || _datas.length == 0){
       return false;
     }
-    createAppHead($detailPanel);
+    createAppHead($detail_panel);
 
-    _html = '<div class="row sub-page">';
-    // metro 效果显示
+    _html = '<div class="row sub-page item-list" id="sub-card">';
     for (var i = 0, len = _datas.length; i < len; i++){
       _data_item = _datas[i];
       
-      _color = metro_colors[_color_index];
+      _color = _random_colors[_color_index];
+      _block_name = _color;
       _color_index++;
       if (_color_index > _colors_len - 1){
         _color_index = 0;
       }
-      _html += '<div class="col-sm-6 col-md-3"><div class="thumbnail tile tile-medium tile-'+ _color +' col-md-3"><a href="#"><h1>'+ _color +'</h1></a></div></div>';
+      if (_data_item.title){
+        _block_name = _data_item.title;
+      }
+      _html += '<div class="col-sm-6 col-md-3"><div class="thumbnail tile tile-medium tile-'+ _color +' col-md-3"><a href="#"><h1>'+ _block_name +'</h1></a></div></div>';
     }
     _html += '</div>';
-    $detailPanel.append(_html);
 
-    gotoPage($detailPanel, $main);
+    $detail_panel.append(_html);
+    // 赋予点击事件
+    $detail_panel.find('div.sub-page').find('div.tile-medium').each(function(i){
+      var $this = $(this);
+      var dataObj = _datas[i].data;
+      if (dataObj){
+        $this.data('item-data', dataObj);
+        $this.on('click', showDetail);
+      }
+    });
+
+    gotoPage($detail_panel, $main);
   }
 
   //rule 页面点击事件
   function showDetail(){
     var $this = $(this);
-    var $detailPanel = null;
+    var $detail_panel = null;
     var $main = null;
     var _datas = [];
     var _parent_id = '';
@@ -132,20 +150,20 @@ $(document).ready(function(){
     if (_datas == null || _datas.length == 0){
       return false;
     }
-    _parent_id = $this.parents('div.tab-pane').attr('id');
+    _parent_id = $this.parents('div.item-list').attr('id');
     _detail_id = _parent_id + '-detail';
-    $detailPanel = $('#' + _detail_id);
+    $detail_panel = $('#' + _detail_id);
     $main = $this.parents('div.main-panel');
-    createAppHead($detailPanel);
+    createAppHead($detail_panel);
 
     _html = '<div class="panel panel-warning"><div class="panel-heading"></div><div class="panel-body"></div></div>';
-    $detailPanel.append(_html);
+    $detail_panel.append(_html);
 
     _html = '';
     for (var i = 0, len = _datas.length; i < len; i++){
       _data_item = _datas[i];
       if (i == 0){
-        $detailPanel.find('div.panel-heading').html(_data_item.p);
+        $detail_panel.find('div.panel-heading').html(_data_item.p);
         continue;
       }
       if (_data_item.img){
@@ -154,9 +172,8 @@ $(document).ready(function(){
       }
       _html += '<div>' + _data_item.p +'</div>';
     }
-    $detailPanel.find('div.panel-body').append(_html);
-    // $detailPanel.css('height', $window.height() + 'px');
-    gotoPage($detailPanel, $main);
+    $detail_panel.find('div.panel-body').append(_html);
+    gotoPage($detail_panel, $main);
   }  
   //生成 次级页面 头部html
   function createAppHead($target_dom){
@@ -167,9 +184,14 @@ $(document).ready(function(){
       return false;
     }
     p_id = $target_dom.attr('id');
-    _html = '<div class="navbar navbar-default row"role="navigation"><div class="navbar-header col-xs-5 col-md-3 pull-left"><a href="##"class="navbar-brand logo-brand"><span class="glyphicon glyphicon-chevron-left back-ico"data-btntype="cancel"id="back-index"></span></a></div><form class="navbar-form navbar-right col-xs-7 col-md-4 row"role="search"><div class="form-group pull-left col-xs-12"><span class="glyphicon glyphicon-search tkd-search"></span><input type="text"data-parentId="'+ p_id +'"class="form-control pull-right input-search"placeholder="搜索卡牌、攻略、规则"></div></form></div>';
+    _html = '<div class="navbar sub-navbar navbar-default row"role="navigation"><div class="navbar-header col-xs-5 col-md-3 pull-left"><a href="##"class="navbar-brand logo-brand"><span class="glyphicon glyphicon-chevron-left back-ico"data-btntype="cancel"id="back-index"></span></a></div><form class="navbar-form navbar-right col-xs-7 col-md-4 row"role="search"><div class="form-group pull-left col-xs-12"><span class="glyphicon glyphicon-search tkd-search"></span><input type="text"data-parentId="'+ p_id +'"class="form-control pull-right input-search"placeholder="搜索卡牌、攻略、规则"></div></form></div>';
     $target_dom.empty();
     $target_dom.append(_html);
+
+    // 添加内边距(页面渲染完成执行)
+    setTimeout(function(){
+      $target_dom.css({'padding-top': $target_dom.find('div.sub-navbar').css('height')});
+    },10);
     return $target_dom;
   } 
   
@@ -542,7 +564,7 @@ $(document).ready(function(){
     $target.show();
 
     $target.animate({'margin-left':'0px'}, 500, function(){
-      $(this).css({'width':'100%', 'position':'static'});
+      $(this).css({'width':'100%', 'position':'relative'});
     });
   }
   function closePage($target, $main){

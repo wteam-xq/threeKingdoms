@@ -42,7 +42,7 @@ a:active, a:hover{
   background-color: #CFBAAA;
 }
 
-.mainmenu, .person-info, .search-info, .noCanvasTips, .rule-detail, .card-types{
+.mainmenu, .person-info, .search-info, .noCanvasTips, .rule-detail, .card-types, .card-detail{
   display: none;
   position: relative;
 }
@@ -127,6 +127,14 @@ a:active, a:hover{
   -webkit-transform: translate3d(0,0,0);
   -o-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
+}
+.sub-navbar{
+  top: 0;
+  border-width: 0 0 1px;
+  position: fixed !important;
+  right: 0;
+  left: 0;
+  z-index: 1030;
 }
 .navbar{
   /*margin-bottom: 0px !important;*/
@@ -240,7 +248,7 @@ a:active, a:hover{
   padding: 0px !important;
 }
 .heros-list{
-  min-height: 450px;
+  min-height: 550px;
 }
 .search-tips{
   text-align: center;
@@ -305,6 +313,19 @@ a:active, a:hover{
 .tile-magenta{
   background-color: #ff0097;
 }
+.tile-teal{
+  background-color: #00aba9;
+}
+.tile-turquoise{
+  background-color: #1abc9c;
+}
+.tile-green-sea{
+  background-color: #16a085;
+}
+.tile-emerald{
+  background-color: #2ecc71;
+}
+
 .tile h1, .tile h2, .tile h3, .tile h4, .tile h5, .tile h6{
   color: #fff;
   -webkit-user-select: none;

@@ -12,14 +12,7 @@
 <script src="components/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="components/bootstrap.min.css">
 
-<script src="js/map.js"></script>
 <script src="js/init.js"></script>
-<!-- <script src="datas/heros.js"></script>
-<script src="datas/rule.js"></script>
-<script src="datas/card.js"></script>
-<script src="datas/strategy.js"></script>
-<script src="js/mainmenu.js"></script>
-<link rel="stylesheet" type="text/css" href="css/mainmenu.css"> -->
 
 <link rel="icon" href="favicon.ico">
 </head>
@@ -74,18 +67,18 @@
     
     <!-- 规则组合 -->
     <div class="tab-content">
-      <div  role="tabpanel" class="list-group tab-pane fade in active rule" id="rule">
+      <div  role="tabpanel" class="list-group tab-pane fade in active rule item-list" id="rule">
         规则内容
       </div>
-      <div class="tab-pane fade" id="card">
+      <div class="tab-pane fade item-list" id="card">
         卡牌内容
       </div>
 
-      <div class="tab-pane fade" id="heros">
+      <div class="tab-pane fade item-list" id="heros">
         武将内容        
       </div>
 
-      <div class="tab-pane fade" id="strategy">
+      <div class="tab-pane fade item-list" id="strategy">
         攻略内容
       </div>
     </div>
@@ -150,9 +143,13 @@
   <div class="tkd-navbar rule-detail" id="rule-detail">
     <div class="panel panel-warning">规则详情页</div>
   </div>
+  <!-- 卡牌详情页 -->
+  <div class="tkd-navbar card-detail" id="sub-card-detail">
+    <div class="panel panel-warning">卡牌详情页</div>
+  </div>
 
   <!-- 卡牌类型metro展示 -->
-  <div class="tkd-navbar card-types sub-page" id="card-types">
+  <div class="tkd-navbar card-types sub-page main-panel" id="card-types">
     <div class="panel panel-warning">卡牌类型</div>
   </div>
   
