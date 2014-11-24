@@ -54,7 +54,7 @@ $(document).ready(function(){
     createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});
     createGroupItem({'datas': card_datas, '$target_dom': $card, 'click_fn': showCardTypes});
     createDropdownMenu(heros_datas, $heros);
-    createToggleBtn({'datas':str_datas, '$target_dom':$strategy});
+    createToggleBtn({'datas':str_datas, '$target_dom':$strategy, 'click_fn': showMultDetail});
     // 获得 风火山林 包 package_array(全局变量)
     package_array = getPackagesDatas();
     // 默认显示 “三国鼎立” “蜀国”
@@ -156,7 +156,7 @@ $(document).ready(function(){
     $main = $this.parents('div.main-panel');
     createAppHead($detail_panel);
 
-    _html = '<div class="panel panel-warning"><div class="panel-heading"></div><div class="panel-body"></div></div>';
+    _html = '<div class="panel panel-warning"><div class="panel-heading content-heading"></div><div class="sub-content panel-body"></div></div>';
     $detail_panel.append(_html);
 
     _html = '';
@@ -187,8 +187,102 @@ $(document).ready(function(){
         window.scrollTo(0,_offset_top);
       }, 1000);
     }
-
   }  
+  // 展示多页数据
+  function showMultDetail(){
+    var $this = $(this);
+    var $detail_panel = null;
+    var $main = null;
+    var $panel_body = null;
+    var _datas = [];
+    var _parent_id = '';
+    var _detail_id = '';
+    var _html = '';
+    var _data_item = null;
+    var _page_index = 0;
+
+    _datas = $this.data('item-data');
+    if (_datas == null || _datas.length == 0){
+      return false;
+    }
+    _parent_id = $this.parents('div.item-list').attr('id');
+    _detail_id = _parent_id + '-detail';
+    $detail_panel = $('#' + _detail_id);
+    $main = $this.parents('div.main-panel');
+    createAppHead($detail_panel);
+    _html = '<div class="panel panel-warning"><div class="panel-heading content-heading"></div><div class="sub-content panel-body"></div></div>';
+    $detail_panel.append(_html);
+
+    $panel_body = $detail_panel.find('div.panel-body');
+    $detail_panel.find('div.panel-heading').html($this.find('.list-group-item-heading').text());
+    $panel_body.append(_html);
+    // 默认展示第一页
+    gotoPageCount(_page_index);
+    $panel_body.on('click', panelContentClick);
+    $panel_body.on('click', 'li', pagerBtnClick);
+
+    gotoPage($detail_panel, $main);
+
+    // 点击翻页按钮
+    function pagerBtnClick(){
+      var $this = $(this);
+      var _type = '';
+      if ($this.hasClass('disabled')){
+        return false;
+      }
+      if ( $this.hasClass('previous') ){
+        _page_index--;
+      }else{
+        _page_index++;
+      }
+      gotoPageCount(_page_index);
+      return false;
+    }
+    // 点击页面内容
+    function panelContentClick(){
+      var $this = $(this);
+      var $content_pager = $this.find('#content-pager');
+      if ($content_pager.is(':visible')){
+        $content_pager.hide();
+      }else{
+        $content_pager.show();
+      }
+    }
+    // 跳转至页面
+    function gotoPageCount(index){
+      var _page_content = [];
+      var _cont_item = [];
+      var _cont_html = '';
+      _page_content = _datas[index];
+      if (_page_content.length == 0){
+        return false;
+      }
+      $panel_body.empty();
+
+      for (var i = 0, len = _page_content.length; i < len; i++){
+        _cont_item = _page_content[i];
+        if (_cont_item.img){
+          _cont_html += '<div class="thumbnail"><img src="' + _cont_item.img + '" alt="..."></div>';
+          continue;
+        }
+        _cont_html += '<div>' + _cont_item.p +'</div>';
+      }
+      $panel_body.append(_cont_html);
+      // 添加分页控件
+      _cont_html = '<ul id="content-pager" class="pager content-pager"><li class="previous"><a href="javascript:void(0);">&laquo;上一页</a></li><li class="next"><a href="javascript:void(0);">下一页&raquo;</a></li></ul> ';
+      $panel_body.append(_cont_html);
+      
+      // 分页控件样式变化
+      if (index === 0){
+        $panel_body.find('li.previous').addClass('disabled');
+      }
+      if (index === _datas.length - 1){
+        $panel_body.find('li.next').addClass('disabled');
+      }
+    }
+
+  }
+
   //生成 次级页面 头部html
   function createAppHead($target_dom){
     var p_id = '';
@@ -725,7 +819,8 @@ $(document).ready(function(){
     var setting = {
       'datas': [],
       '$target_dom': null,
-      'is_empty': true
+      'is_empty': true,
+      'click_fn': null
     };
     var _item_html = '';
     var $item_list = null;
@@ -752,7 +847,7 @@ $(document).ready(function(){
         '</div>';
         $item_list = $(_item_html);
         setting.$target_dom.append($item_list);
-        createGroupItem( {'datas': item_data.array_datas, '$target_dom': $item_list.find('#str_' + item_data.id), 'click_fn': showDetail} );
+        createGroupItem( {'datas': item_data.array_datas, '$target_dom': $item_list.find('#str_' + item_data.id), 'click_fn': setting.click_fn} );
       }
     } 
     // 生成toggle 面板 按钮

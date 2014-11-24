@@ -155,7 +155,7 @@ a:active, a:hover{
   cursor: pointer;
   height: 50px;
   position: fixed;
-  bottom: 55px;
+  bottom: 100px;
   right: -60px;
   z-index: 9999;
   -moz-transition: all 1s ease;
@@ -256,14 +256,20 @@ a:active, a:hover{
 .rule-detail{
   text-align: left;
 }
-.rule-detail{
-  font-size: 18px !important;
-}
-.panel-body div{
+.sub-content{
+  color: #666;
+  font-size: 18px;
   line-height: 1.8em;
 }
-.panel-body .thumbnail{
-  line-height: 1em;
+.content-heading{
+  font-size: 18px;
+  font-weight: bold;
+}
+.content-pager{
+  position: fixed;
+  bottom: 5px;
+  width: 90%;
+  margin: 15px auto;
 }
 /*metro 风格颜色块*/
 .tile{
