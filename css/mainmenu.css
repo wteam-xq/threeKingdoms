@@ -271,6 +271,9 @@ a:active, a:hover{
   width: 90%;
   margin: 15px auto;
 }
+.pager-tips{
+  margin-left: 1em;
+}
 /*metro 风格颜色块*/
 .tile{
   display: block;

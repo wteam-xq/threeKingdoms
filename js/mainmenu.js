@@ -214,7 +214,9 @@ $(document).ready(function(){
     $detail_panel.append(_html);
 
     $panel_body = $detail_panel.find('div.panel-body');
-    $detail_panel.find('div.panel-heading').html($this.find('.list-group-item-heading').text());
+    _html = '<span>' + $this.find('.list-group-item-heading').text() + '</span>';
+    _html += '<span class="pager-tips"></span>';
+    $detail_panel.find('div.panel-heading').append(_html);
     $panel_body.append(_html);
     // 默认展示第一页
     gotoPageCount(_page_index);
@@ -236,6 +238,8 @@ $(document).ready(function(){
         _page_index++;
       }
       gotoPageCount(_page_index);
+      // 返回顶部
+      toTop();
       return false;
     }
     // 点击页面内容
@@ -253,6 +257,7 @@ $(document).ready(function(){
       var _page_content = [];
       var _cont_item = [];
       var _cont_html = '';
+      var _page_count = _datas.length;
       _page_content = _datas[index];
       if (_page_content.length == 0){
         return false;
@@ -271,7 +276,9 @@ $(document).ready(function(){
       // 添加分页控件
       _cont_html = '<ul id="content-pager" class="pager content-pager"><li class="previous"><a href="javascript:void(0);">&laquo;上一页</a></li><li class="next"><a href="javascript:void(0);">下一页&raquo;</a></li></ul> ';
       $panel_body.append(_cont_html);
-      
+      _cont_html = '(第' + (index + 1) + '页  ' + '共' + _page_count + '页)';
+      $panel_body.prev('div.panel-heading').find('span.pager-tips').html(_cont_html);
+
       // 分页控件样式变化
       if (index === 0){
         $panel_body.find('li.previous').addClass('disabled');
