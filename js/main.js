@@ -80,6 +80,7 @@ $(document).ready(function(){
     var $detail_panel = null;
     var $main = null;
     var _datas = [];
+    var _data = [];
     var _datas_id = '';
     var _parent_id = '';
     var _detail_id = '';
@@ -99,8 +100,25 @@ $(document).ready(function(){
 
     _html = '<div class="panel panel-warning"><div class="panel-heading content-heading"></div><div class="sub-content panel-body"></div></div>';
     $detail_panel.append(_html);
-    
+    $detail_panel.find('div.panel-heading').html('武将牌*' + $this.find('.list-group-item-heading').text() );
     _html = '';
+
+    // for (var i = 0, len = _datas.length; i < len; i++){
+    //   _data = _datas[i];
+    //   switch(i){
+    //     case 0:
+    //       break;
+    //     case 1:
+    //       break;
+    //     case 2:
+    //       break;
+    //     case 3:
+    //       break;
+    //   }
+    //   for (var j = 0, jLen = _data.length; j < jLen; j++){
+    //     _data_item = _data[j];
+    //   }
+    // }
     $detail_panel.find('div.panel-body').append(_html);
     gotoPage($detail_panel, $main);
   }
@@ -451,7 +469,7 @@ $(document).ready(function(){
     $target.append(_html_str);
     
     // 生成一 group-list 项
-    createToggleBtn({'datas':list_datas, '$target_dom':$target.find('.heros-list') });
+    createToggleBtn({'datas':list_datas, '$target_dom':$target.find('.heros-list'), 'click_fn': showHerosDetail});
 
     //按需加载变量
     list_dom_datas = {
