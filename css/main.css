@@ -37,12 +37,11 @@ a:active, a:hover{
 	width:100%;
 }
 #mainmenu{
-  padding-top: 119px;
   width: 100%;
   background-color: #CFBAAA;
 }
 
-.mainmenu, .person-info, .search-info, .noCanvasTips, .rule-detail, .card-types, .card-detail{
+.mainmenu, .person-info, .search-info, .noCanvasTips, .rule-detail, .card-types, .card-detail, .heros-detail{
   display: none;
   position: relative;
 }

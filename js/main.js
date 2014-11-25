@@ -46,9 +46,11 @@ $(document).ready(function(){
       $('#noCanvasTips').show();
       return false;
     }
-
+    var navbar_height = 0;
     $('#progress').hide();
     $mainmenu.show();
+    navbar_height = $mainmenu.find('div.tkd-navbar').css('height');
+    $mainmenu.css({'padding-top': navbar_height});
 
     /** 界面渲染 **/
     createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});
@@ -72,7 +74,38 @@ $(document).ready(function(){
     $searchInfo.find('input').on('input', watchInputEvent);
     $searchInfo.find('#search-submit').on('click', searchBtnEvent);
   }
-  // 设计卡牌信息
+  // 武将详情页面
+  function showHerosDetail(){
+    var $this = $(this);
+    var $detail_panel = null;
+    var $main = null;
+    var _datas = [];
+    var _datas_id = '';
+    var _parent_id = '';
+    var _detail_id = '';
+    var _html = '';
+    var _data_item = null;
+    _datas_id = $this.data('item-data');
+    // heros_detail 全局变量
+    _datas = heros_detail[_datas_id];
+    if (_datas == null || _datas.length == 0){
+      return false;
+    }
+    _parent_id = $this.parents('div.item-list').attr('id');
+    _detail_id = _parent_id + '-detail';
+    $detail_panel = $('#' + _detail_id);
+    $main = $this.parents('div.main-panel');
+    createAppHead($detail_panel);
+
+    _html = '<div class="panel panel-warning"><div class="panel-heading content-heading"></div><div class="sub-content panel-body"></div></div>';
+    $detail_panel.append(_html);
+    
+    _html = '';
+    $detail_panel.find('div.panel-body').append(_html);
+    gotoPage($detail_panel, $main);
+  }
+
+  // 卡牌分类页面
   function showCardTypes(){
     var $this = $(this);
     var $detail_panel = null;
@@ -287,7 +320,6 @@ $(document).ready(function(){
         $panel_body.find('li.next').addClass('disabled');
       }
     }
-
   }
 
   //生成 次级页面 头部html
@@ -418,6 +450,7 @@ $(document).ready(function(){
     _html_str = '<div class="heros-list"></div>';
     $target.append(_html_str);
     
+    // 生成一 group-list 项
     createToggleBtn({'datas':list_datas, '$target_dom':$target.find('.heros-list') });
 
     //按需加载变量

@@ -1,7 +1,7 @@
 var three_shu = 
 [
  [
-{"title":"刘备","content":"乱世的枭雄","icon_src":"images/heros/head/head_shu001.jpg","href":"../herosInfo/shu001.html"},
+{"title":"刘备","content":"乱世的枭雄","icon_src":"images/heros/head/head_shu001.jpg","data":"shu001"},
 {"title":"关羽","content":"美髯公","icon_src":"images/heros/head/head_shu002.jpg","href":"../herosInfo/shu002.html"},
 {"title":"张飞","content":"万夫不当","icon_src":"images/heros/head/head_shu003.jpg","href":"../herosInfo/shu003.html"},
 {"title":"诸葛亮","content":"迟暮的丞相","icon_src":"images/heros/head/head_shu004.jpg","href":"../herosInfo/shu004.html"},
@@ -242,39 +242,3 @@ var package_title = {
   'package_famous':'一将成名武将',
   'package_all':'全部武将'
 };
-
-function start(){
-   var ranNum = Math.random();
-    if(ranNum < 0.25){
-      $("body").css("background-image","url(images/shu.jpg)");
-    }else if(ranNum < 0.50){
-      $("body").css("background-image","url(images/wu.jpg)");
-    }else if(ranNum < 0.75){
-      $("body").css("background-image","url(images/wei.jpg)");
-    }else{
-      $("body").css("background-image","url(images/wteam-logo.png)");
-    }
-    //判断浏览器支不支持localStorage
-    if (window.localStorage) {
-    var storage = window.localStorage;
-    var storage_three_all = storage.getItem("storage_three_all");
-    var message_json = "";
-    //判断localStorage中有没有存储json对象
-    if(storage_three_all){
-      window.setTimeout("window.location.href='mainmenu.html'", 700);
-    }else{
-      //将json数据存入
-      storage.setItem("storage_three_all",JSON.stringify(three_all));
-      storage.setItem("storage_three_shu",JSON.stringify(three_shu));
-      storage.setItem("storage_three_wei",JSON.stringify(three_wei));
-      storage.setItem("storage_three_wu",JSON.stringify(three_wu));
-      storage.setItem("storage_three_heros",JSON.stringify(three_heros));
-      storage.setItem("storage_three_god",JSON.stringify(three_god));
-      window.location.href='mainmenu.html'
-    }
-    
-  } else {
-    alert('internet exploer is no support local storage!');
-  }
-
-}
