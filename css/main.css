@@ -273,6 +273,12 @@ a:active, a:hover{
 .pager-tips{
   margin-left: 1em;
 }
+.blue{
+  color: #2820DE;
+}
+.red{
+  color: #CC0000;
+}
 /*metro 风格颜色块*/
 .tile{
   display: block;

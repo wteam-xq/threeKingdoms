@@ -1,7 +1,7 @@
 // 武将包数量
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
-var search_array = [{'key':'应用信息','type':'appInfo','id':'author'},{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
+var search_array = [{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
 //页面加载后执行， dom 加载完成
@@ -79,13 +79,18 @@ $(document).ready(function(){
     var $this = $(this);
     var $detail_panel = null;
     var $main = null;
+    var _data_item = null;
     var _datas = [];
     var _data = [];
+
+    var _data_types = ['name', 'online', 'power', 'q', 'p'];
+    // 当前绘制位置标志位， 例如， 当前绘制到 “online战功”(online)
+    var _flag_item = '';
     var _datas_id = '';
     var _parent_id = '';
     var _detail_id = '';
     var _html = '';
-    var _data_item = null;
+
     _datas_id = $this.data('item-data');
     // heros_detail 全局变量
     _datas = heros_detail[_datas_id];
@@ -100,27 +105,91 @@ $(document).ready(function(){
 
     _html = '<div class="panel panel-warning"><div class="panel-heading content-heading"></div><div class="sub-content panel-body"></div></div>';
     $detail_panel.append(_html);
-    $detail_panel.find('div.panel-heading').html('武将牌*' + $this.find('.list-group-item-heading').text() );
+    $detail_panel.find('div.panel-heading').html('武将牌*' + _datas[0][0].name );
+    
     _html = '';
-
-    // for (var i = 0, len = _datas.length; i < len; i++){
-    //   _data = _datas[i];
-    //   switch(i){
-    //     case 0:
-    //       break;
-    //     case 1:
-    //       break;
-    //     case 2:
-    //       break;
-    //     case 3:
-    //       break;
-    //   }
-    //   for (var j = 0, jLen = _data.length; j < jLen; j++){
-    //     _data_item = _data[j];
-    //   }
-    // }
+    if (_datas.length != _data_types.length){
+      _html = '数组长度不统一, 加载页面失败！'
+      $detail_panel.find('div.panel-body').append(_html);
+      gotoPage($detail_panel, $main);
+      return false;
+    }
+    for (var i = 0, len = _datas.length; i < len; i++){
+      _data = _datas[i];
+      _flag_item = _data_types[i];
+      'name', 'online', 'power', 'q', 'p'
+      switch(_flag_item){
+        case 'name':
+          _html += renderName(_data);
+          break;
+        case 'online':
+          _html += renderOnline(_data);
+          break;
+        case 'power':
+          _html += renderPower(_data);
+          break;
+        case 'q':
+          _html += renderQa(_data);
+          break;
+        case 'p':
+          _html += renderStr(_data);
+          break;
+        default:
+          break;
+      }
+    }
     $detail_panel.find('div.panel-body').append(_html);
     gotoPage($detail_panel, $main);
+
+    function renderName(_data){
+      var _html = '';
+      for (var j = 0, jLen = _data.length; j < jLen; j++){
+        _data_item = _data[j];
+        _html += '<div class="thumbnail"><img src="' + _data_item.img + '" alt="..."></div>';
+        _html += '<div><span class="blue">武将称号: </span><span>'+ _data_item.nickname +'</span></div>';
+      }
+      return _html;
+    }
+    function renderOnline(_data){
+      var _html = '';
+      _html += '<div><span class="blue">Online战功: </span></div>';
+      for (var j = 0, jLen = _data.length; j < jLen; j++){
+        _data_item = _data[j];
+        _html += '<div><span>'+ _data_item.online +'</span><span>——</span><span>'+ _data_item.content +'</span></div>';
+      }
+      return _html;
+    }
+    function renderPower(_data){
+      var _html = '';
+      _html += '<div><span class="blue">武将技能: </span></div>';
+      for (var j = 0, jLen = _data.length; j < jLen; j++){
+        _data_item = _data[j];
+        _html += '<div>'+ _data_item.power +'</div>';
+      }
+      return _html;
+    }
+    function renderQa(_data){
+      var _html = '';
+      _html += '<div><span class="blue">有问有答: </span></div>';
+      for (var j = 0, jLen = _data.length; j < jLen; j++){
+        _data_item = _data[j];
+        _html += '<div><span class="red">[Q]</span> '+ _data_item.q +'</div>';
+        _html += '<div><span class="red">[A]</span> '+ _data_item.a +'</div>';
+        if (_data_item.example){
+          _html += '<div><span class="red">例如 </span> '+ _data_item.example +'</div>';
+        }
+      }
+      return _html;
+    }
+    function renderStr(_data){
+      var _html = '';
+      _html += '<div><span class="blue">身份局攻略: </span></div>';
+      for (var j = 0, jLen = _data.length; j < jLen; j++){
+        _data_item = _data[j];
+        _html += '<div>'+ _data_item.p +'</div>';
+      }
+      return _html;
+    }
   }
 
   // 卡牌分类页面
@@ -197,6 +266,8 @@ $(document).ready(function(){
     var _detail_id = '';
     var _html = '';
     var _data_item = null;
+    // 显示的内容
+    var _content = '';
     _datas = $this.data('item-data');
     if (_datas == null || _datas.length == 0){
       return false;
@@ -213,6 +284,7 @@ $(document).ready(function(){
     _html = '';
     for (var i = 0, len = _datas.length; i < len; i++){
       _data_item = _datas[i];
+      _content = _data_item.p;
       if (i == 0){
         $detail_panel.find('div.panel-heading').html(_data_item.p);
         continue;
@@ -225,7 +297,16 @@ $(document).ready(function(){
         _html += '<div id="'+ _data_item.id +'">' + _data_item.p + '</div>';
         continue;
       }
-      _html += '<div>' + _data_item.p +'</div>';
+      if (_content.indexOf('[A]') != -1){
+        _content = _content.replace('[A]', '');
+        _html += '<div><span class="red">[A]</span> ' + _content +'</div>';
+      }else if(_content.indexOf('[Q]') != -1){
+        _content = _content.replace('[Q]', '');
+        _html += '<div><span class="red">[Q]</span> ' + _content +'</div>';
+      }else{
+        _html += '<div>' + _content +'</div>';
+      }
+      
     }
     $detail_panel.find('div.panel-body').append(_html);
     gotoPage($detail_panel, $main);
@@ -403,7 +484,7 @@ $(document).ready(function(){
         }
         if (_index == package_array.length){
           // 数组降维
-          _herosDatas = arrayReDimensions(package_array);
+          _herosDatas = Util.arrayReDimensions(package_array);
         }else{
           _herosDatas = package_array[_index];
         }
@@ -418,7 +499,7 @@ $(document).ready(function(){
           _index++;
         }
         if (_index == heros_array.length){
-          _herosDatas = arrayReDimensions(heros_array);
+          _herosDatas = Util.arrayReDimensions(heros_array);
         }else{
           _herosDatas = heros_array[_index];
         }
@@ -481,24 +562,7 @@ $(document).ready(function(){
     $target.find('.heros-list').data('dom-datas', list_dom_datas);
     return true;
   }
-  // 数组降维(只适用于维度2+以上的数组)
-  function arrayReDimensions(array){
-    var _result = [];
-    var _array_item = [];
-
-    if (array == null || array.length == 0){
-      return _result;
-    }
-
-    _result = array[0].slice(0);
-    for (var i = 1, len = array.length; i < len; i++){
-      _array_item = array[i];
-      for (var j = 0, jLen = _array_item.length; j < jLen; j++){
-        _result[j] = _result[j].concat(_array_item[j]);
-      }
-    }
-    return _result;
-  }
+  
   // 获得武将列表显示数据
   function getHerosGroupDatas(herosDatas, herosTypes){
     var _result = [];
@@ -1036,7 +1100,6 @@ $(document).ready(function(){
       $influDrmenu.find('ul').remove();
       createMenuUl(_datas, $influDrmenu);
 
-      // $package_title.html('全部武将').attr('data-cur-name', item_title);
       drmenuRightEvent(item_title, $target_dom);
     }
     return true;
@@ -1084,7 +1147,7 @@ $(document).ready(function(){
       list_datas = getHerosGroupDatas(herosDatas.slice(0, datas_len), herosTypes.slice(0, datas_len));
       setTimeout(function(){
         removeLoading($heros_list);
-        createToggleBtn({'datas':list_datas, '$target_dom':$heros_list, 'is_empty': true});
+        createToggleBtn({'datas':list_datas, '$target_dom':$heros_list, 'is_empty': true, 'click_fn': showHerosDetail});
         $heros_list.data('dom-datas', list_dom_datas);
       }, 200);
     }

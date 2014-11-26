@@ -1,9 +1,9 @@
 var Util = {
+  /**
+   * 获得数组的随机顺序
+   * @returns {Array}
+   */
   'getRandomArray': function (array){
-    /**
-     * 获得数组的随机顺序
-     * @returns {Array}
-     */
     var _result = new Array();
     var _old_array = new Array();
     var rnd = 0;
@@ -19,11 +19,34 @@ var Util = {
     } 
     return _result; 
   },
+  /**
+   * 数组降维(只适用于维度3+以上的数组)
+   * @returns {Array}
+   */
+  'arrayReDimensions': function(array){
+    var _result = [];
+    var _array_item = [];
+    var _old_array = [];
+
+    if (array == null || array.length == 0){
+      return _result;
+    }
+    // 不影响原数组
+    _old_array = array.slice(0);
+    _result = _old_array[0];
+    for (var i = 1, len = _old_array.length; i < len; i++){
+      _array_item = _old_array[i];
+      for (var j = 0, jLen = _array_item.length; j < jLen; j++){
+        _result[j] = _result[j].concat(_array_item[j]);
+      }
+    }
+    return _result;
+  },
+  /**
+   * js Map 实现
+   * @returns {Map}
+   */
   'Map': function (){
-    /**
-     * js Map 实现
-     * @returns {Map}
-     */
     this.keys = [];
     this.data = {};
 
