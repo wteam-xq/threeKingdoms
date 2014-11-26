@@ -1,7 +1,8 @@
 // 武将包数量
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
-var search_array = [{'key':'1V1规则','type':'rule','id':'onevone'},{'key':'3V3规则','type':'rule','id':'threevthree'},{'key':'身份局规则','type':'rule','id':'status'},{'key':'国战规则','type':'rule','id':'royal'},{'key':'虎牢关规则','type':'rule','id':'hlg'},{'key':'转世规则','type':'rule','id':'relive'},{'key':'基本牌','type':'card','id':'basic'},{'key':'锦囊牌','type':'card','id':'kit'},{'key':'体力牌','type':'card','id':'physic'},{'key':'身份牌','type':'card','id':'status'},{'key':'装备牌','type':'card','id':'weapon'},{'key':'武将牌','type':'card','id':'heros'}];
+var search_array = [{'key':'1V1规则','type':'detail','pid':'rule', 'data': rule_onevsone},{'key':'刘备','type':'heros-detail','pid':'heros', 'data': 'shu001'},{'key':'1v1模式','type':'mult-detail','pid':'strategy', 'data': str_onevsone}];
+
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
 //页面加载后执行， dom 加载完成
@@ -895,13 +896,14 @@ $(document).ready(function(){
     }
   }
   
-  // 普通列表HTML生成(带点击事件)
+  // 普通列表HTML生成(搜索列表)
   function createListGroup(datas, $target_dom){
     if (datas == null || $target_dom == null){
       return false;
     }
     var _item_htmls = '';
     var _item_html = '';
+    var item_datas = [];
     var item_data = null;
 
     $target_dom.empty();
@@ -910,29 +912,44 @@ $(document).ready(function(){
       _item_htmls = '<div class="list-group">';
       for(var i = 0, len = datas.length; i < len; i++){
         item_data = datas[i];
-        _item_html = '<a href="##" data-type="'+ item_data.type +'" data-id="'+ item_data.id +'" class="list-group-item list-group-item-warning">' + 
-          item_data.key +
-        '</a>';
+        _item_html = '';
+        _item_html += '<div class="item-list" id="'+ item_data.pid +'">';
+        _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning">' + item_data.key + '</a>';
+        _item_html +='</div>';
+
+        item_datas.push(item_data.data);
         _item_htmls += _item_html;
       }
       _item_htmls += '</div>';
 
       $target_dom.append(_item_htmls);
-      $target_dom.find('a').on('click', listClickEvent);
+
+      $target_dom.find('a').each(function(i){
+        var $this = $(this);
+        var _type = $this.attr('data-type');
+        var _data = item_datas[i];
+        // 不为空则 赋予 点击事件
+        if (_data){
+          $this.data('item-data', _data);
+          switch(_type){
+            case 'detail':
+              $this.on('click', showDetail); 
+              break;
+            case 'heros-detail':
+              $this.on('click', showHerosDetail); 
+              break;
+            case 'mult-detail':
+              $this.on('click', showMultDetail); 
+              break;
+            default:
+              break;
+          }
+        }
+      });
       return $target_dom;
     }else{
       $target_dom.html('数据异常！');
       return $target_dom;
-    }
-
-    function listClickEvent(){
-      var $this = $(this);
-      var _type = $this.attr('data-type');
-      var _id = $this.attr('data-id');
-      //对应处理
-      console.log('data-type: ' + _type + '\n' +
-        'data-id: ' + _id + '\n'
-      );
     }
   }
 
