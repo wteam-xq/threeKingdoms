@@ -1,7 +1,24 @@
 // 武将包数量
 var PACKAGE_AMOUNT = 7;
 // 搜索内容
-var search_array = [{'key':'1V1规则','type':'detail','pid':'rule', 'data': rule_onevsone},{'key':'刘备','type':'heros-detail','pid':'heros', 'data': 'shu001'},{'key':'1v1模式','type':'mult-detail','pid':'strategy', 'data': str_onevsone}];
+var search_array = [{
+    'key': '1V1规则',
+    'type': 'detail',
+    'pid': 'rule',
+    'data': rule_onevsone
+},
+{
+    'key': '刘备',
+    'type': 'heros-detail',
+    'pid': 'heros',
+    'data': 'shu001'
+},
+{
+    'key': '1v1模式',
+    'type': 'mult-detail',
+    'pid': 'strategy',
+    'data': str_onevsone
+}];
 
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
@@ -106,7 +123,7 @@ $(document).ready(function(){
 
     _html = '<div class="panel panel-warning"><div class="panel-heading content-heading"></div><div class="sub-content panel-body"></div></div>';
     $detail_panel.append(_html);
-    $detail_panel.find('div.panel-heading').html('武将牌*' + _datas[0][0].name );
+    $detail_panel.find('div.panel-heading').html('武将牌*' + $this.attr('title') );
     
     _html = '';
     if (_datas.length != _data_types.length){
@@ -347,7 +364,7 @@ $(document).ready(function(){
     $detail_panel.append(_html);
 
     $panel_body = $detail_panel.find('div.panel-body');
-    _html = '<span>' + $this.find('.list-group-item-heading').text() + '</span>';
+    _html = '<span>' + $this.attr('title') + '</span>';
     _html += '<span class="pager-tips"></span>';
     $detail_panel.find('div.panel-heading').append(_html);
     $panel_body.append(_html);
@@ -747,7 +764,7 @@ $(document).ready(function(){
         _list_datas = getHerosGroupDatas(_dom_datas.datas.slice(_datas_len), _dom_datas.types.slice(_datas_len));
         setTimeout(function(){
           removeLoading($heros_list);
-          createToggleBtn({'datas':_list_datas, '$target_dom':$heros_list, 'is_empty': false});
+          createToggleBtn({'datas':_list_datas, '$target_dom':$heros_list, 'is_empty': false, 'click_fn': showHerosDetail});
           _dom_datas.allshow = true;
         }, 1000);
       }
@@ -868,7 +885,7 @@ $(document).ready(function(){
         if (item_data.id){
           _item_id_html = 'id="' + item_data.id + '"'
         }
-        _item_html = '<a href="##" class="list-group-item list-group-item-warning" ' + _item_id_html + ' >' + 
+        _item_html = '<a href="##" title="'+ item_data.title +'" class="list-group-item list-group-item-warning" ' + _item_id_html + ' >' + 
           '<img class="pull-left list-item-img" src="' + item_data.icon_src + '" alt="' + item_data.title + '" >' + 
           '<h3 class="list-group-item-heading">' + item_data.title + '</h3>' + 
           '<p class="list-group-item-text">' + item_data.content + '</p>' + 
@@ -914,7 +931,7 @@ $(document).ready(function(){
         item_data = datas[i];
         _item_html = '';
         _item_html += '<div class="item-list" id="'+ item_data.pid +'">';
-        _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning">' + item_data.key + '</a>';
+        _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning" title="'+ item_data.key +'">' + item_data.key + '</a>';
         _item_html +='</div>';
 
         item_datas.push(item_data.data);

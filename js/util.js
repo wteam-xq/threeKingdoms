@@ -32,10 +32,9 @@ var Util = {
       return _result;
     }
     // 不影响原数组
-    _old_array = array.slice(0);
-    _result = _old_array[0];
-    for (var i = 1, len = _old_array.length; i < len; i++){
-      _array_item = _old_array[i];
+    _result = array[0].slice(0);
+    for (var i = 1, len = array.length; i < len; i++){
+      _array_item = array[i];
       for (var j = 0, jLen = _array_item.length; j < jLen; j++){
         _result[j] = _result[j].concat(_array_item[j]);
       }
