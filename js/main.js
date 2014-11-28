@@ -19,21 +19,76 @@ var search_array = [{
     'pid': 'strategy',
     'data': str_onevsone
 }];
+// 搜索map数据库
+var search_array2 = getSearchMap();
 
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
+
+// 自动生成搜索Map
+function getSearchMap(){
+  var result = null,
+  array_item = null,
+  item_obj = null,
+  key = '',
+  sub_array = [];
+
+  result = new Util.Map();
+  /**********************    detail 类型页 ***********************************/
+  // 规则(rule_datas 全局变量)
+  for (var i = 0, len = rule_datas.length; i < len; i++){
+    array_item = rule_datas[i];
+    if (array_item.title == null || array_item.data == null){
+      continue;
+    }
+    key = array_item.title;
+    item_obj = {
+      'key': array_item.title,
+      'type': 'detail',
+      'pid': 'rule',
+      'data': array_item.data
+    };
+    result.put(key, item_obj);
+  }
+
+  /**********************    mult-detail 类型页 ***********************************/
+  // 攻略(str_datas 全局变量)
+  for (var i = 0, len = str_datas.length; i < len; i++){
+    if (str_datas[i].array_datas == null || str_datas[i].array_datas.length == 0){
+      continue;
+    }
+    sub_array = str_datas[i].array_datas;
+    for (var j = 0, jLen = sub_array.length; j < jLen; j++){
+      array_item = sub_array[j];
+      if (array_item.title == null || array_item.data == null){
+        continue;
+      }
+      key = array_item.title;
+      item_obj = {
+        'key': array_item.title,
+        'type': 'mult-detail',
+        'pid': 'rule',
+        'data': array_item.data
+      };
+      result.put(key, item_obj);
+    }
+  }
+  
+  return result;
+}
 
 //页面加载后执行， dom 加载完成
 $(document).ready(function(){
 
-  var $window = $(window);
-  var $body = $('body');
-  var $mainmenu = $('#mainmenu');
-  var $heros = $('#heros');
-  var $rule = $('#rule');
-  var $card = $('#card');
-  var $strategy = $('#strategy');
-  var $searchInfo = $('#search-info');
+  var $window = $(window),
+  $body = $('body'),
+  $mainmenu = $('#mainmenu'),
+  $heros = $('#heros'),
+  $rule = $('#rule'),
+  $card = $('#card'),
+  $strategy = $('#strategy'),
+  $searchInfo = $('#search-info');
   
+  // pProgressInit();
   init();
 
   // 插件进度条初始化
@@ -100,7 +155,6 @@ $(document).ready(function(){
     var _data_item = null;
     var _datas = [];
     var _data = [];
-
     var _data_types = ['name', 'online', 'power', 'q', 'p'];
     // 当前绘制位置标志位， 例如， 当前绘制到 “online战功”(online)
     var _flag_item = '';
@@ -158,6 +212,8 @@ $(document).ready(function(){
     }
     $detail_panel.find('div.panel-body').append(_html);
     gotoPage($detail_panel, $main);
+    // 返回页面顶部
+    toTop();
 
     function renderName(_data){
       var _html = '';
@@ -374,7 +430,7 @@ $(document).ready(function(){
     $panel_body.on('click', 'li', pagerBtnClick);
 
     gotoPage($detail_panel, $main);
-
+    toTop();
     // 点击翻页按钮
     function pagerBtnClick(){
       var $this = $(this);
@@ -675,11 +731,11 @@ $(document).ready(function(){
   }
   // 点击搜索按钮 事件
   function searchEvent(val){
-    var filter_array = [];
-    var search_item = null;
-    var $searchList = $('#search-info').find('div.search-list');
-    var _has_loading = false;
-    var _old_key = '';
+    var filter_array = [],
+    search_item = null,
+    $searchList = $('#search-info').find('div.search-list'),
+    _has_loading = false,
+    _old_key = '';
 
     if (val == null || val == ''){
       return false;
@@ -689,12 +745,17 @@ $(document).ready(function(){
       return false;
     }
     //  search_array 为全局变量
-    for (var i = 0, len = search_array.length; i < len; i++){
-      search_item = search_array[i];
-      if ( search_item.key.search(new RegExp(val,"i")) != -1){
-        filter_array.push(search_item);
+    // for (var i = 0, len = search_array.length; i < len; i++){
+    //   search_item = search_array[i];
+    //   if ( search_item.key.search(new RegExp(val,"i")) != -1){
+    //     filter_array.push(search_item);
+    //   }
+    // }
+    search_array2.each(function(key, item_val, i){
+      if ( item_val.key.search(new RegExp(val,"i")) != -1){
+        filter_array.push(item_val);
       }
-    }
+    });
 
     _has_loading = $searchList.find('div.loading-cont').length > 0?true:false;
     if (!_has_loading){
