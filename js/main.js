@@ -1,26 +1,7 @@
 // 武将包数量
 var PACKAGE_AMOUNT = 7;
-// 搜索内容
-var search_array = [{
-    'key': '1V1规则',
-    'type': 'detail',
-    'pid': 'rule',
-    'data': rule_onevsone
-},
-{
-    'key': '刘备',
-    'type': 'heros-detail',
-    'pid': 'heros',
-    'data': 'shu001'
-},
-{
-    'key': '1v1模式',
-    'type': 'mult-detail',
-    'pid': 'strategy',
-    'data': str_onevsone
-}];
 // 搜索map数据库
-var search_array2 = getSearchMap();
+var search_array = getSearchMap();
 
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
@@ -30,7 +11,8 @@ function getSearchMap(){
   array_item = null,
   item_obj = null,
   key = '',
-  sub_array = [];
+  sub_array = [],
+  child_sub_array = [];
 
   result = new Util.Map();
   /**********************    detail 类型页 ***********************************/
@@ -40,15 +22,39 @@ function getSearchMap(){
     if (array_item.title == null || array_item.data == null){
       continue;
     }
-    key = array_item.title;
+    key = array_item.id;
     item_obj = {
-      'key': array_item.title,
+      'key': array_item.id,
+      'title': array_item.title,
       'type': 'detail',
       'pid': 'rule',
-      'data': array_item.data
+      'data': array_item.data,
     };
     result.put(key, item_obj);
   }
+  // 卡牌（非武将 card_datas 全局变量）
+  for (var i = 0, len = card_datas.length; i < len; i++){
+    sub_array = card_datas[i].data;
+    if (sub_array == null || sub_array.length == 0){
+      continue;
+    }
+    for (var j = 0, jLen = sub_array.length; j < jLen; j++){
+      array_item = sub_array[j];
+      if (array_item.title == null || array_item.data == null){
+        continue;
+      }
+      key = array_item.id;
+      item_obj = {
+        'key': array_item.id,
+        'title': array_item.title,
+        'type': 'detail',
+        'pid': 'sub-card',
+        'data': array_item.data
+      };
+      result.put(key, item_obj);
+    }
+  }
+  
 
   /**********************    mult-detail 类型页 ***********************************/
   // 攻略(str_datas 全局变量)
@@ -62,9 +68,10 @@ function getSearchMap(){
       if (array_item.title == null || array_item.data == null){
         continue;
       }
-      key = array_item.title;
+      key = array_item.id;
       item_obj = {
-        'key': array_item.title,
+        'key': array_item.id,
+        'title': array_item.title,
         'type': 'mult-detail',
         'pid': 'rule',
         'data': array_item.data
@@ -72,7 +79,35 @@ function getSearchMap(){
       result.put(key, item_obj);
     }
   }
-  
+  /**********************   heros 类型页 ***********************************/
+  // 武将（heros_array 全局变量）三维数组
+  for (var i = 0, len = heros_array.length; i < len; i++){
+    sub_array = heros_array[i];
+    if (sub_array == null || sub_array.length == 0){
+      continue;
+    }
+    for (var j = 0, jLen = sub_array.length; j < jLen; j++){
+      child_sub_array = sub_array[j];
+      if (child_sub_array == null || child_sub_array.length == 0){
+        continue;
+      }
+      for (var k = 0, kLen = child_sub_array.length; k < kLen; k++){
+        array_item = child_sub_array[k];
+        if (array_item.title == null || array_item.data == null){
+          continue;
+        }
+        key = array_item.data;
+        item_obj = {
+          'key': array_item.data,
+          'title': array_item.title,
+          'type': 'heros-detail',
+          'pid': 'heros',
+          'data': array_item.data
+        };
+        result.put(key, item_obj);
+      }
+    }
+  }
   return result;
 }
 
@@ -149,19 +184,19 @@ $(document).ready(function(){
   }
   // 武将详情页面
   function showHerosDetail(){
-    var $this = $(this);
-    var $detail_panel = null;
-    var $main = null;
-    var _data_item = null;
-    var _datas = [];
-    var _data = [];
-    var _data_types = ['name', 'online', 'power', 'q', 'p'];
+    var $this = $(this),
+    $detail_panel = null,
+    $main = null,
+    _data_item = null,
+    _datas = [],
+    _data = [],
+    _data_types = ['name', 'online', 'power', 'q', 'p'],
     // 当前绘制位置标志位， 例如， 当前绘制到 “online战功”(online)
-    var _flag_item = '';
-    var _datas_id = '';
-    var _parent_id = '';
-    var _detail_id = '';
-    var _html = '';
+    _flag_item = '',
+    _datas_id = '',
+    _parent_id = '',
+    _detail_id = '',
+    _html = '';
 
     _datas_id = $this.data('item-data');
     // heros_detail 全局变量
@@ -269,19 +304,19 @@ $(document).ready(function(){
   // 卡牌分类页面
   function showCardTypes(){
     var $this = $(this);
-    var $detail_panel = null;
-    var $main = null;
-    var _data_item = null;
-    var _datas = [];
-    var _parent_id = '';
-    var _detail_id = '';
-    var _html = '';
+    $detail_panel = null,
+    $main = null,
+    _data_item = null,
+    _datas = [],
+    _parent_id = '',
+    _detail_id = '',
+    _html = '',
     // metro 效果实现变量
-    var _color = '';
-    var _color_index = 0;
-    var _block_name = '';
-    var _colors_len = metro_colors.length;
-    var _random_colors = Util.getRandomArray(metro_colors);
+    _color = '',
+    _color_index = 0,
+    _block_name = '',
+    _colors_len = metro_colors.length,
+    _random_colors = Util.getRandomArray(metro_colors);
 
     _parent_id = $this.parents('div.item-list').attr('id');
     _detail_id = _parent_id + '-types';
@@ -331,17 +366,18 @@ $(document).ready(function(){
 
   //rule 页面点击事件
   function showDetail(){
-    var $this = $(this);
-    var $detail_panel = null;
-    var $main = null;
-    var $cur_item = null;
-    var _datas = [];
-    var _parent_id = '';
-    var _detail_id = '';
-    var _html = '';
-    var _data_item = null;
+    var $this = $(this),
+    $detail_panel = null,
+    $main = null,
+    $cur_item = null,
+    _datas = [],
+    _parent_id = '',
+    _detail_id = '',
+    _html = '',
+    _data_item = null,
     // 显示的内容
-    var _content = '';
+    _content = '';
+
     _datas = $this.data('item-data');
     if (_datas == null || _datas.length == 0){
       return false;
@@ -396,16 +432,16 @@ $(document).ready(function(){
   }  
   // 展示多页数据
   function showMultDetail(){
-    var $this = $(this);
-    var $detail_panel = null;
-    var $main = null;
-    var $panel_body = null;
-    var _datas = [];
-    var _parent_id = '';
-    var _detail_id = '';
-    var _html = '';
-    var _data_item = null;
-    var _page_index = 0;
+    var $this = $(this),
+    $detail_panel = null,
+    $main = null,
+    $panel_body = null,
+    _datas = [],
+    _parent_id = '',
+    _detail_id = '',
+    _html = '',
+    _data_item = null,
+    _page_index = 0;
 
     _datas = $this.data('item-data');
     if (_datas == null || _datas.length == 0){
@@ -497,8 +533,8 @@ $(document).ready(function(){
 
   //生成 次级页面 头部html
   function createAppHead($target_dom){
-    var p_id = '';
-    var _html = '';
+    var p_id = '',
+    _html = '';
 
     if ($target_dom == null){
       return false;
@@ -534,12 +570,12 @@ $(document).ready(function(){
   }
   //根据包名获得武将数据
   function getHerosDatasByName(package_name){
-    var _result = null;
-    var _herosDatas = [];
-    var _herosTypes = [];
-    var _type = '';
-    var _title = '';
-    var _index = 0;
+    var _result = null,
+    _herosDatas = [],
+    _herosTypes = [],
+    _type = '',
+    _title = '',
+    _index = 0;
 
     if (package_name == null || package_name == ''){
       return _result;
@@ -596,15 +632,15 @@ $(document).ready(function(){
   // 生成武将列表
   function createHerosList(package_name ,$target){
     // heros_array drMenu_type_datas 全局变量
-    var herosDatas = [];
-    var herosTypes = [];
-    var list_datas = [];
-    var title = '';
+    var herosDatas = [],
+    herosTypes = [],
+    list_datas = [],
+    title = '',
     // 按需加载， 只显示一部分数据
-    var datas_len = 0;
-    var _html_str = '';
-    var list_dom_datas = null;
-    var package_heros_datas = null;
+    datas_len = 0,
+    _html_str = '',
+    list_dom_datas = null,
+    package_heros_datas = null;
 
     package_heros_datas = getHerosDatasByName(package_name);
     if (package_heros_datas == null){
@@ -639,10 +675,10 @@ $(document).ready(function(){
   
   // 获得武将列表显示数据
   function getHerosGroupDatas(herosDatas, herosTypes){
-    var _result = [];
-    var _data_item = null;
-    var _type_item = null;
-    var _result_item = null;
+    var _result = [],
+    _data_item = null,
+    _type_item = null,
+    _result_item = null;
 
     if (herosDatas.length == 0 || herosTypes.length == 0 || herosDatas.length != herosTypes.length){
       return _result;
@@ -661,9 +697,9 @@ $(document).ready(function(){
   }
   // 获得“风火山林”数据
   function getPackagesDatas(){
-    var _result = [];
-    var _three_item = [];
-    var _package_item = [];
+    var _result = [],
+    _three_item = [],
+    _package_item = [];
 
     if (heros_array.length == 0){
       return _result;
@@ -689,10 +725,11 @@ $(document).ready(function(){
   }
   // 删除搜索文字
   function removeSearchEvent(){
-    var $this = $(this);
-    var $searchInput = $this.prev('input');
-    var $backIndex = $this.parents('.navbar').find('#back-index');
-    var $searchSubmit = $this.parents('.navbar').find('#search-submit');
+    var $this = $(this),
+    $searchInput = $this.prev('input'),
+    $backIndex = $this.parents('.navbar').find('#back-index'),
+    $searchSubmit = $this.parents('.navbar').find('#search-submit');
+
     if ($searchInput.val() == ''){
       return false;
     }
@@ -703,10 +740,10 @@ $(document).ready(function(){
   }
   // 监听用户输入文字
   function watchInputEvent(){
-    var $this = $(this);
-    var $closeBtn = $this.next('.search-close');
-    var $backIndex = $this.parents('.navbar').find('#back-index');
-    var $searchSubmit = $this.parents('.navbar').find('#search-submit');
+    var $this = $(this),
+    $closeBtn = $this.next('.search-close'),
+    $backIndex = $this.parents('.navbar').find('#back-index'),
+    $searchSubmit = $this.parents('.navbar').find('#search-submit');
 
     if ($this.val().length == 0){
       $backIndex.show();
@@ -723,8 +760,8 @@ $(document).ready(function(){
   }
   //搜索页面 按钮点击
   function searchBtnEvent(){
-    var $this = $(this);
-    var val = '';
+    var $this = $(this),
+    val = '';
 
     val = $this.prevAll('.form-group').find('input').val();
     searchEvent(val);
@@ -751,8 +788,8 @@ $(document).ready(function(){
     //     filter_array.push(search_item);
     //   }
     // }
-    search_array2.each(function(key, item_val, i){
-      if ( item_val.key.search(new RegExp(val,"i")) != -1){
+    search_array.each(function(key, item_val, i){
+      if ( item_val.title.search(new RegExp(val,"i")) != -1){
         filter_array.push(item_val);
       }
     });
@@ -781,29 +818,28 @@ $(document).ready(function(){
 
   // logo点击事件
   function logoEvent(){
-    var $main = $('#mainmenu'); 
-    var $target = $('#person-info');
+    var $main = $('#mainmenu'),
+    $target = $('#person-info');
     gotoPage($target, $main);
   }
   // 进入搜索页面
   function toSearchEvent(){
-    var $target = $('#search-info');
-    var $this = $(this);
-    var parent_id = $this.attr('data-parentId');
-    var $main = $('#' + parent_id);
+    var $target = $('#search-info'),
+    $this = $(this),
+    parent_id = $this.attr('data-parentId'),
+    $main = $('#' + parent_id);
     gotoPage($target, $main);
   }
   // 滚动监听
   function watchScrollEvent(){
     var $body = $('body');
-    var $toTop = $body.find('#backtotop');
-    var $heros_list = null;
-    var _dom_datas = null;
-    var _datas_len = 0;
-    var _list_datas = [];
+    $toTop = $body.find('#backtotop'),
+    $heros_list = null,
+    _dom_datas = null,
+    _datas_len = 0,
+    _list_datas = [],
     // 判断滚动条是否到达底部
-    var _scroll_bottom = false;
-    var _has_loading = false;
+    _scroll_bottom = false,    _has_loading = false;
 
     // 置顶图标的出现或消失
     if ($body.scrollTop() >= 150){
@@ -920,14 +956,14 @@ $(document).ready(function(){
 
   // 主菜单列表html生成
   function createGroupItem(options){
-    var _item_htmls = '';
-    var _item_html = '';
-    var _item_id_html = '';
-    var item_data = null;
-    var $target_dom = null;
-    var click_fn = null;
-    var datas = [];
-    var setting = {
+    var _item_htmls = '',
+    _item_html = '',
+    _item_id_html = '',
+    item_data = null,
+    $target_dom = null,
+    click_fn = null,
+    datas = [],
+    setting = {
       'datas': [],
       '$target_dom': null,
       'click_fn': null
@@ -979,10 +1015,9 @@ $(document).ready(function(){
     if (datas == null || $target_dom == null){
       return false;
     }
-    var _item_htmls = '';
-    var _item_html = '';
-    var item_datas = [];
-    var item_data = null;
+    var _item_htmls = '',
+    _item_html = '',
+    item_datas = [],    item_data = null;
 
     $target_dom.empty();
     if(datas && datas.length > 0){
@@ -992,7 +1027,7 @@ $(document).ready(function(){
         item_data = datas[i];
         _item_html = '';
         _item_html += '<div class="item-list" id="'+ item_data.pid +'">';
-        _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning" title="'+ item_data.key +'">' + item_data.key + '</a>';
+        _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning" title="'+ item_data.title +'">' + item_data.title + '</a>';
         _item_html +='</div>';
 
         item_datas.push(item_data.data);
@@ -1039,10 +1074,10 @@ $(document).ready(function(){
       'is_empty': true,
       'click_fn': null
     };
-    var _item_html = '';
-    var $item_list = null;
-    var item_data = null;
-    var $app_btn = null;
+    var _item_html = '',
+    $item_list = null,
+    item_data = null,
+    $app_btn = null;
     $.extend(setting, options);
     
 
@@ -1088,9 +1123,9 @@ $(document).ready(function(){
 
   // 生成 dropdown-menu 的UI项
   function createMenuUl(_datas, $target_dom){
-    var $result = null;
-    var _html = ''; 
-    var _data = null;
+    var $result = null,
+    _html = '',
+    _data = null;
     if (_datas == null || _datas.length == 0){
       return $result;
     }
@@ -1110,13 +1145,13 @@ $(document).ready(function(){
   }
   // 生成武将菜单项dom
   function createDropdownMenu(datas, $target_dom){
-    var data_item = null;
-    var _item_html = '';
-    var $item_html = null
-    var _item_htmls = '';
-    var data_item_array = [];
-    var pull_left_right = 'pull-left';
-    var $dropdown_menu = null;
+    var data_item = null,
+    _item_html = '',
+    $item_html = null,
+    _item_htmls = '',
+    data_item_array = [],
+    pull_left_right = 'pull-left',
+    $dropdown_menu = null;
 
     if (datas == null || datas.length == 0){
       return $target_dom;
@@ -1149,9 +1184,10 @@ $(document).ready(function(){
     var $li_a = $target_dom.find('li > a');
     $li_a.on('click', function(){
       var $this = $(this);
-      var _id = this.id;
-      var _type = /drmenu/.test(_id)?'drmenu':/country/.test(_id)?'country':'package'
-      var $ul_parent = $this.parents('div.tab-pane:first');
+      _id = this.id,
+      _type = /drmenu/.test(_id)?'drmenu':/country/.test(_id)?'country':'package',
+      $ul_parent = $this.parents('div.tab-pane:first');
+
       switch(_type){
         case 'drmenu':
           drmenuLeftEvent(_id, $ul_parent);
@@ -1169,12 +1205,12 @@ $(document).ready(function(){
   }
   // drmenu li点击事件
   function drmenuLeftEvent(_id, $target_dom){
-    var drmenu_name = ''; 
-    var current_name = '';
-    var item_title = '';
-    var $influDrmenu = null;
-    var $package_title = null;
-    var _datas = [];
+    var drmenu_name = '',
+    current_name = '',
+    item_title = '',
+    $influDrmenu = null,
+    $package_title = null,
+    _datas = [];
 
     if (_id == null){
       return false;
@@ -1201,16 +1237,16 @@ $(document).ready(function(){
   }
   // drmenu li点击事件
   function drmenuRightEvent(_id, $target_dom){
-    var title = '';
-    var current_name = '';
-    var pacakge_heros_datas = null;
-    var list_dom_datas = null;
-    var $package_title = $target_dom.find('#items-type');
-    var $heros_list = $target_dom.find('div.heros-list');
-    var list_datas = [];
-    var herosDatas = [];
-    var herosTypes = [];
-    var datas_len = 0;
+    var title = '',
+    current_name = '',
+    pacakge_heros_datas = null,
+    list_dom_datas = null,
+    $package_title = $target_dom.find('#items-type'),
+    $heros_list = $target_dom.find('div.heros-list'),
+    list_datas = [],
+    herosDatas = [],
+    herosTypes = [],
+    datas_len = 0;
 
     current_name = $package_title.attr('data-cur-name');
     // 如果点选的为当前类型， 不切换

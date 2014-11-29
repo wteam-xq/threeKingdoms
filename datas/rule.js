@@ -221,35 +221,35 @@ var rule_datas = [{
   'content': '1v1对战模式是以三国杀基本规则...',
   'icon_src':'images/caobei.png',
   'data': rule_onevsone,
-  'id':'onevone'
+  'id':'rule_onevone'
 },{
   'title':'3V3规则',
   'content': '3v3竞技模式为依附于三国杀核...',
   'icon_src':'images/daqiao.png',
   'data': rule_threevsthree,
-  'id':'threevthree'
+  'id':'rule_threevthree'
 },{
   'title':'身份局规则',
   'content': '你即将开始学习一款集角色扮演...',
   'icon_src':'images/yuji.png',
   'data': rule_status,
-  'id': 'status'
+  'id': 'rule_status'
 },{
   'title':'国战规则',
   'content': '玩家的游戏目标与势力有关：消灭...',
   'icon_src':'images/guojia.png',
   'data': rule_battle_royal,
-  'id': 'royal'
+  'id': 'rule_royal'
 },{
   'title':'虎牢关规则',
   'content': '面对越来越多的《三国杀》系列...',
   'icon_src':'images/lvbu.png',
   'data': rule_hlg,
-  'id': 'hlg'
+  'id': 'rule_hlg'
 },{
   'title':'转世规则',
   'content': '对酒当歌，人生几何？当一个...',
   'icon_src':'images/zhangjiao.png',
   'data': rule_relive,
-  'id': 'relive'
+  'id': 'rule_relive'
 }];
