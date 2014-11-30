@@ -69,11 +69,11 @@ var three_wei =
 ],
 [
 {"title":"杨修","content":"恃才放旷","icon_src":"images/heros/head/head_sp001.jpg","data":"sp001"},
-{"title":"庞德","content":"抬榇之悟","icon_src":"images/heros/head/head_sp006.jpg","data":"sp006"},
+{"title":"庞德(sp)","content":"抬榇之悟","icon_src":"images/heros/head/head_sp006.jpg","data":"sp006"},
 {"title":"关羽(sp)","content":"汉寿亭候","icon_src":"images/heros/head/head_sp007.jpg","data":"sp007"},
-{"title":"贾羽","content":"算无遗策","icon_src":"images/heros/head/head_sp012.jpg","data":"sp012"},
-{"title":"曹仁","content":"险不推难","icon_src":"images/heros/head/head_sp015.jpg","data":"sp015"},
-{"title":"蔡文姬","content":"金璧之才","icon_src":"images/heros/head/head_sp009.jpg","data":"sp009"}
+{"title":"贾羽(sp)","content":"算无遗策","icon_src":"images/heros/head/head_sp012.jpg","data":"sp012"},
+{"title":"曹仁(sp)","content":"险不推难","icon_src":"images/heros/head/head_sp015.jpg","data":"sp015"},
+{"title":"蔡文姬(sp)","content":"金璧之才","icon_src":"images/heros/head/head_sp009.jpg","data":"sp009"}
 ],
 [
 {"title":"曹植","content":"八斗之才","icon_src":"images/heros/head/head_yj001.jpg","data":"yj001"},

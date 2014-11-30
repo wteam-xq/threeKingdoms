@@ -836,10 +836,9 @@ $(document).ready(function(){
     $toTop = $body.find('#backtotop'),
     $heros_list = null,
     _dom_datas = null,
-    _datas_len = 0,
-    _list_datas = [],
     // 判断滚动条是否到达底部
-    _scroll_bottom = false,    _has_loading = false;
+    _scroll_bottom = false,    
+    _has_loading = false;
 
     // 置顶图标的出现或消失
     if ($body.scrollTop() >= 150){
@@ -856,10 +855,14 @@ $(document).ready(function(){
       _scroll_bottom = ( ($(document).scrollTop() + 50) >= $(document).height() - $(window).height() )?true:false;
       _has_loading = $heros_list.find('div.loading-cont').length > 0?true:false;
       if (_scroll_bottom && _dom_datas && !_dom_datas.allshow && !_has_loading){
-        _datas_len = parseInt(_dom_datas.datas.length/2);
+        
         addLoading($heros_list);
-        _list_datas = getHerosGroupDatas(_dom_datas.datas.slice(_datas_len), _dom_datas.types.slice(_datas_len));
         setTimeout(function(){
+          var _list_datas = [],
+          _datas_len = 0;
+
+          _datas_len = parseInt(_dom_datas.datas.length/2);
+          _list_datas = getHerosGroupDatas(_dom_datas.datas.slice(_datas_len), _dom_datas.types.slice(_datas_len));
           removeLoading($heros_list);
           createToggleBtn({'datas':_list_datas, '$target_dom':$heros_list, 'is_empty': false, 'click_fn': showHerosDetail});
           _dom_datas.allshow = true;
