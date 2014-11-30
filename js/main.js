@@ -55,7 +55,6 @@ function getSearchMap(){
     }
   }
   
-
   /**********************    mult-detail 类型页 ***********************************/
   // 攻略(str_datas 全局变量)
   for (var i = 0, len = str_datas.length; i < len; i++){
@@ -123,8 +122,8 @@ $(document).ready(function(){
   $strategy = $('#strategy'),
   $searchInfo = $('#search-info');
   
-  // pProgressInit();
-  init();
+  pProgressInit();
+  // init();
 
   // 插件进度条初始化
   function pProgressInit(){
@@ -137,7 +136,7 @@ $(document).ready(function(){
         // 隐藏进度条，背景颜色变更
         $('body').css({'background-color':'#fff'});
         // 启动函数
-        // init();
+        init();
        }
     };
     var myplugin = $('#progress').cprogress(options);
@@ -261,6 +260,9 @@ $(document).ready(function(){
     }
     function renderOnline(_data){
       var _html = '';
+      if (_data == null || _data.length == 0){
+        return _html;
+      }
       _html += '<div><span class="blue">Online战功: </span></div>';
       for (var j = 0, jLen = _data.length; j < jLen; j++){
         _data_item = _data[j];
@@ -270,6 +272,9 @@ $(document).ready(function(){
     }
     function renderPower(_data){
       var _html = '';
+      if (_data == null || _data.length == 0){
+        return _html;
+      }
       _html += '<div><span class="blue">武将技能: </span></div>';
       for (var j = 0, jLen = _data.length; j < jLen; j++){
         _data_item = _data[j];
@@ -279,11 +284,18 @@ $(document).ready(function(){
     }
     function renderQa(_data){
       var _html = '';
+      if (_data == null || _data.length == 0){
+        return _html;
+      }
       _html += '<div><span class="blue">有问有答: </span></div>';
       for (var j = 0, jLen = _data.length; j < jLen; j++){
         _data_item = _data[j];
-        _html += '<div><span class="red">[Q]</span> '+ _data_item.q +'</div>';
-        _html += '<div><span class="red">[A]</span> '+ _data_item.a +'</div>';
+        if (_data_item.q){
+          _html += '<div><span class="red">[Q]</span> '+ _data_item.q +'</div>';
+        }
+        if (_data_item.a){
+          _html += '<div><span class="red">[A]</span> '+ _data_item.a +'</div>';
+        }
         if (_data_item.example){
           _html += '<div><span class="red">例如 </span> '+ _data_item.example +'</div>';
         }
@@ -292,6 +304,9 @@ $(document).ready(function(){
     }
     function renderStr(_data){
       var _html = '';
+      if (_data == null || _data.length == 0){
+        return _html;
+      }
       _html += '<div><span class="blue">身份局攻略: </span></div>';
       for (var j = 0, jLen = _data.length; j < jLen; j++){
         _data_item = _data[j];

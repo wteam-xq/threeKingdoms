@@ -30,6 +30,9 @@ a:active, a:hover{
 	padding:0 50%;
 	width:100%;
 }
+#progress .jCProgress{
+  margin-left: -52px;
+}
 #start{
 	position:fixed;
 	top:40%;
