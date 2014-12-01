@@ -438,9 +438,9 @@ $(document).ready(function(){
     // 判断是否滚动页面(身份牌、体力牌)
     $cur_item = $detail_panel.find('#' + $this.attr('id'));
     if ($cur_item.length > 0){
-      var _offset_top = $cur_item.offset().top;
-      _offset_top -= $detail_panel.find('div.sub-navbar').height();
       setTimeout(function(){
+        var _offset_top = $cur_item.offset().top;
+        _offset_top -= $detail_panel.find('div.sub-navbar').height();
         window.scrollTo(0,_offset_top);
       }, 1000);
     }
