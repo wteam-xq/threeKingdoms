@@ -4,14 +4,13 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     //清除目录
-    clean: ['dest'],
+    clean: ['dest/*'],
 
     // 复制字体文件
     copy: {
       main: {
         files: [
           {expand: true, src: ['fonts/*'], dest: 'dest'}
-          {expand: true, src: ['components/bootstrap.min.css'], dest: 'dest/components/lib.css'}
         ]
       }
     },
@@ -19,10 +18,10 @@ module.exports = function (grunt) {
     //压缩JS
     uglify: {
       my_target: {
-        files: [{expand: true,cwd: 'components', src: ['**/*.js'],dest: 'dest/components/lib.js'},
-          {expand: true,cwd: 'datas', src: ['**/*.js'],dest: 'dest/datas/datas.js'},
-          {expand: true, src: ['js/main.js'],dest: 'dest/js/main.js'},
-          {expand: true, src: ['js/util.js'],dest: 'dest/js/util.js'},
+        files: [{dest: 'dest/components/lib.js', src: ['components/*.js'] },
+          {dest: 'dest/datas/datas.js', src: ['datas/*.js']},
+          {dest: 'dest/js/main.js', src: ['js/main.js']},
+          {dest: 'dest/js/util.js', src: ['js/util.js']}
         ]
       }
     },
@@ -31,7 +30,8 @@ module.exports = function (grunt) {
     cssmin: {
       prod: {
         files: {
-          'dest/css/main.css': ['css/main.css']
+          'dest/css/main.css': ['css/main.css'],
+          'dest/css/lib.css': ['components/bootstrap.min.css']
         }
       }
     },
@@ -44,14 +44,21 @@ module.exports = function (grunt) {
           pngquant: true
         },
         files: [
-          {expand: true, src: ['images/*.{png,jpg,jpeg,gif,webp,svg}'], dest: 'dest'}
+          {expand: true, cwd: 'images/', src: ['**/*.{png,jpg,jpeg,gif,webp,svg}'], dest: 'dest/images'}
         ]
       }
     },
-
     // 处理html中css、js 引入合并问题
+    useminPrepare:{
+      html: 'index.html',
+      options: {
+        flow: { steps: { js: ['concat', 'uglifyjs'], css: ['concat', 'cssmin'] }, post: {} } 
+      }
+    },
+   
     usemin: {
       html: 'dest/index.html'
+      
     },
 
     //压缩HTML
@@ -68,6 +75,14 @@ module.exports = function (grunt) {
     }
 
   });
-
-  grunt.registerTask('default', ['clean', 'copy', 'uglify', 'cssmin', 'imagemin', 'htmlmin', 'usemin']);
+  // 加载任务的插件
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-usemin');
+  // grunt.registerTask('default', ['clean', 'copy', 'uglify', 'cssmin', 'imagemin', 'htmlmin', 'usemin']);
+  grunt.registerTask('default', ['clean', 'useminPrepare', 'uglify', 'cssmin', 'htmlmin', 'usemin']);
 };
