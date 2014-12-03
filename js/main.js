@@ -121,9 +121,10 @@ $(document).ready(function(){
   $card = $('#card'),
   $strategy = $('#strategy'),
   $searchInfo = $('#search-info');
+  $rightDocker = $('#rightDocker');
   
-  pProgressInit();
-  // init();
+  // pProgressInit();
+  init();
 
   // 插件进度条初始化
   function pProgressInit(){
@@ -180,7 +181,60 @@ $(document).ready(function(){
     $searchInfo.find('.search-close').on('click', removeSearchEvent);
     $searchInfo.find('input').on('input', watchInputEvent);
     $searchInfo.find('#search-submit').on('click', searchBtnEvent);
+    // 二维码按钮点击
+    if ($rightDocker.is(':visible')){
+      $rightDocker.on('click', rightDockerEvent);
+    }
   }
+
+  // 二维码按钮点击
+  function rightDockerEvent(){
+    var $this = $(this),
+    pop_of_left = 0,
+    had_event = 'false',
+    $dockerPopover = $this.find('#dockerPopover');
+
+    // 计算弹出框位置
+    pop_of_left = $this.offset().left - $dockerPopover.width() - 10;
+    had_event = $this.attr('data-had-event');
+
+    if (!$dockerPopover.hasClass('in')){
+      $dockerPopover.css({'left': pop_of_left+'px'});
+      $dockerPopover.addClass('in');
+    }else{
+      $dockerPopover.removeClass('in');
+      return false;
+    }
+
+    // 点击任意地方 弹出框消失
+    if (had_event != 'true'){
+      $this.attr('data-had-event', 'true');
+      $('html').on('click', function(event){
+        if (!$dockerPopover.hasClass('in') ){
+          return false;
+        }
+        // 判断点击点是否在弹出框内
+        var $target = $(event.target);
+        if ( !isChildAndSelfOf($target, 'rightDocker') ){
+          $dockerPopover.removeClass('in');
+          return false;
+        }
+      });
+    }
+
+  }
+
+  // 判断:当前元素是否是被筛选元素的子元素或者本身 
+  function isChildAndSelfOf($target_dom, parent_id){
+    var _result = false;
+    if ($target_dom.attr('id') === parent_id){
+      _result = true;
+    }else if ($target_dom.parents('#' + parent_id).length > 0){
+      _result = true;
+    }
+    return _result;
+  }
+
   // 武将详情页面
   function showHerosDetail(){
     var $this = $(this),

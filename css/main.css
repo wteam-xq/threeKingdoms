@@ -286,6 +286,61 @@ a:active, a:hover{
 .red{
   color: #CC0000;
 }
+/*二维码小图标*/
+#rightDocker{
+  position: fixed;
+  top: 50%;
+  margin-top: -40px;
+  right: 0;
+}
+#rightDockerBtn{
+  border-radius: 4px 0 0 4px;
+}
+#rightDockerBtn i{
+  font-size: 28px;
+  margin-top: 2px;
+  display: block;
+}
+#dockerPopover{
+  position: fixed;
+}
+.popover.left .arrow{
+  top: 50%;
+  right: -11px;
+  margin-top: -11px;
+  border-right-width: 0;
+  border-left-color: #999;
+  border-left-color: rgba(0,0,0,.25);
+}
+.docker-right{
+  vertical-align: middle;
+}
+.popover-content td{
+  border-top: 0px !important;
+  background-color: #ccc;
+}
+.popover-content .heading{
+  text-align: center;
+  color: #428bca;
+  margin-bottom: 5px;
+}
+.icon-mobile-phone{
+  font-size: 28px;
+  color: #fff;
+  background: #145CCD;
+  display: inline-block;
+  width: 36px;
+  line-height: 36px;
+  height: 36px;
+  border-radius: 25px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.docker-show{
+  top: 155px; 
+  left: 1060px; 
+  display: block;
+}
 /*metro 风格颜色块*/
 .tile{
   display: block;
