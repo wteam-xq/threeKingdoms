@@ -1044,7 +1044,7 @@ $(document).ready(function(){
       for(var i = 0, len = datas.length; i < len; i++){
         item_data = datas[i];
         _item_html = '';
-        _item_html += '<div class="item-list" id="'+ item_data.pid +'">';
+        _item_html += '<div class="item-list search-item" id="'+ item_data.pid +'">';
         _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning" title="'+ item_data.title +'">' + item_data.title + '</a>';
         _item_html +='</div>';
 
