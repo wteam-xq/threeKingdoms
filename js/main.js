@@ -183,13 +183,13 @@ $(document).ready(function(){
     $searchInfo.find('#search-submit').on('click', searchBtnEvent);
     // 二维码按钮点击
     if ($rightDocker.is(':visible')){
-      $rightDocker.on('click', rightDockerEvent);
+      $rightDocker.find('#rightDockerBtn').on('click', rightDockerEvent);
     }
   }
 
   // 二维码按钮点击
   function rightDockerEvent(){
-    var $this = $(this),
+    var $this = $(this).parents('#rightDocker'),
     pop_of_left = 0,
     had_event = 'false',
     $dockerPopover = $this.find('#dockerPopover');
@@ -211,7 +211,7 @@ $(document).ready(function(){
       $this.attr('data-had-event', 'true');
       $('html').on('click', function(event){
         if (!$dockerPopover.hasClass('in') ){
-          return false;
+          return true;
         }
         // 判断点击点是否在弹出框内
         var $target = $(event.target);
@@ -221,7 +221,6 @@ $(document).ready(function(){
         }
       });
     }
-
   }
 
   // 判断:当前元素是否是被筛选元素的子元素或者本身 
@@ -532,7 +531,7 @@ $(document).ready(function(){
     // 默认展示第一页
     gotoPageCount(_page_index);
     $panel_body.on('click', panelContentClick);
-    $panel_body.on('click', 'li', pagerBtnClick);
+    $detail_panel.on('click', '#content-pager > li', pagerBtnClick);
 
     gotoPage($detail_panel, $main);
     toTop();
@@ -555,8 +554,9 @@ $(document).ready(function(){
     }
     // 点击页面内容
     function panelContentClick(){
-      var $this = $(this);
-      var $content_pager = $this.find('#content-pager');
+      var $this = $(this),
+      $content_pager = $detail_panel.find('#content-pager');
+
       if ($content_pager.is(':visible')){
         $content_pager.hide();
       }else{
@@ -565,12 +565,13 @@ $(document).ready(function(){
     }
     // 跳转至页面
     function gotoPageCount(index){
-      var _page_content = [];
-      var _cont_item = [];
-      var _cont_html = '';
-      var _page_count = _datas.length;
+      var _page_content = [],
+      _cont_item = [],
+      _cont_html = '',
+      _page_count = _datas.length,
       _page_content = _datas[index];
-      if (_page_content.length == 0){
+
+      if (index < 0 || _page_content.length == 0){
         return false;
       }
       $panel_body.empty();
@@ -585,18 +586,24 @@ $(document).ready(function(){
       }
       $panel_body.append(_cont_html);
       // 添加分页控件
+      if ($detail_panel.find('#content-pager').length > 0){
+        $detail_panel.find('#content-pager').remove();
+      }
       _cont_html = '<ul id="content-pager" class="pager content-pager"><li class="previous"><a href="javascript:void(0);">&laquo;上一页</a></li><li class="next"><a href="javascript:void(0);">下一页&raquo;</a></li></ul> ';
-      $panel_body.append(_cont_html);
+      // $panel_body.append(_cont_html);
+      $detail_panel.append(_cont_html);
+
       _cont_html = '(第' + (index + 1) + '页  ' + '共' + _page_count + '页)';
       $panel_body.prev('div.panel-heading').find('span.pager-tips').html(_cont_html);
 
       // 分页控件样式变化
       if (index === 0){
-        $panel_body.find('li.previous').addClass('disabled');
+        $detail_panel.find('#content-pager>li.previous').addClass('disabled');
       }
       if (index === _datas.length - 1){
-        $panel_body.find('li.next').addClass('disabled');
+        $detail_panel.find('#content-pager>li.next').addClass('disabled');
       }
+      
     }
   }
 
@@ -850,13 +857,6 @@ $(document).ready(function(){
     if (_old_key == val){
       return false;
     }
-    //  search_array 为全局变量
-    // for (var i = 0, len = search_array.length; i < len; i++){
-    //   search_item = search_array[i];
-    //   if ( search_item.key.search(new RegExp(val,"i")) != -1){
-    //     filter_array.push(search_item);
-    //   }
-    // }
     search_array.each(function(key, item_val, i){
       if ( item_val.title.search(new RegExp(val,"i")) != -1){
         filter_array.push(item_val);
@@ -1098,7 +1098,7 @@ $(document).ready(function(){
       for(var i = 0, len = datas.length; i < len; i++){
         item_data = datas[i];
         _item_html = '';
-        _item_html += '<div class="item-list search-item" id="'+ item_data.pid +'">';
+        _item_html += '<div class="item-list search-item" id="search-'+ item_data.pid +'">';
         _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning" title="'+ item_data.title +'">' + item_data.title + '</a>';
         _item_html +='</div>';
 

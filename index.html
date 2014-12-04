@@ -11,15 +11,17 @@
 <script src="components/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="components/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" src="js/init.js"></script>
 <!-- build:js datas/datas.js -->
-<script type="text/javascript" src="datas/heros.js"></script>
+<!-- <script type="text/javascript" src="datas/heros.js"></script>
 <script type="text/javascript" src="datas/heros_detail.js"></script>
 <script type="text/javascript" src="datas/rule.js"></script>
 <script type="text/javascript" src="datas/card.js"></script>
-<script type="text/javascript" src="datas/strategy.js"></script>
+<script type="text/javascript" src="datas/strategy.js"></script> -->
 <!-- endbuild -->
-<script type="text/javascript" src="js/util.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<!-- <script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/main.js"></script> -->
 
 <link rel="icon" href="favicon.ico">
 </head>
@@ -49,13 +51,13 @@
   <div class="mainmenu main-panel" id="mainmenu">
     <div class="tkd-navbar">
       <div class="navbar navbar-default row" role="navigation">
-      　<div class="navbar-header col-xs-5 col-lg-5 pull-left">
+      　<div class="navbar-header col-xs-5 col-md-3 col-lg-3 pull-left">
       　    <a href="##" class="navbar-brand logo-brand" id='to-person-info'>
               <img src="images/logo.png" class="logo" alt="logo">
             </a>
       　</div>
-        <form class="navbar-form navbar-right col-xs-7 col-lg-7 row" role="search">
-          <div class="form-group pull-left col-xs-12">
+        <form class="navbar-form navbar-right col-xs-7 col-md-9 col-lg-9 row" role="search">
+          <div class="form-group pull-left col-xs-12 col-md-12 col-lg-12">
             <span class="glyphicon glyphicon-search tkd-search"></span>
             <input data-parentId="mainmenu" type="text" class="form-control pull-right input-search" placeholder="搜索卡牌、攻略、规则">
           </div>
@@ -146,6 +148,11 @@
         </div>
     </div>
   </div>
+  
+   <!-- 卡牌类型metro展示 -->
+  <div class="tkd-navbar card-types sub-page main-panel" id="card-types">
+    <div class="panel panel-warning">卡牌类型</div>
+  </div>
 
   <!-- 规则详情页 -->
   <div class="tkd-navbar rule-detail" id="rule-detail">
@@ -164,21 +171,31 @@
     <div class="panel panel-warning">攻略详情页</div>
   </div>
 
-  <!-- 卡牌类型metro展示 -->
-  <div class="tkd-navbar card-types sub-page main-panel" id="card-types">
-    <div class="panel panel-warning">卡牌类型</div>
+ 
+  <!-- 搜索结果详情页 -->
+  <div class="tkd-navbar rule-detail" id="search-rule-detail">
+    <div class="panel panel-warning">规则详情页</div>
+  </div>
+  <div class="tkd-navbar card-detail" id="search-sub-card-detail">
+    <div class="panel panel-warning">卡牌详情页</div>
+  </div>
+  <div class="tkd-navbar heros-detail" id="search-heros-detail">
+    <div class="panel panel-warning">武将详情页</div>
+  </div>
+  <div class="tkd-navbar card-detail" id="search-strategy-detail">
+    <div class="panel panel-warning">攻略详情页</div>
   </div>
   
   <!-- 置顶小按钮 -->
   <div id="backtotop">
     <div class="bttbg"></div>
   </div>
-  <!-- 二维码小按钮 -->
-  <div id="rightDocker" class="hidden-xs">
+
+  <!-- 二维码小按钮 只有PC可见-->
+  <div id="rightDocker" class="hidden-xs hidden-sm hidden-md">
     <button id="rightDockerBtn" class="btn btn-default">
       <i class="glyphicon glyphicon-qrcode"></i>
     </button>
-
     <div class="popover fade left no-arrow docker-show" id="dockerPopover">
       <div class="arrow"></div>
       <div class="popover-content docker-right">
@@ -194,7 +211,6 @@
         </table>
       </div>
     </div>
-
   </div>
 
 </body>

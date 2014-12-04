@@ -272,10 +272,10 @@ a:active, a:hover{
 }
 .content-pager{
   position: fixed;
-  bottom: 5px;
+  bottom: 35px;
   width: 90%;
-  margin: 15px auto;
-  /*margin-left: 5%;*/
+  font-size: 20px;
+  margin: 0 5%;
 }
 .pager-tips{
   margin-left: 1em;
@@ -293,6 +293,7 @@ a:active, a:hover{
   margin-top: -40px;
   right: 0;
 }
+
 #rightDockerBtn{
   border-radius: 4px 0 0 4px;
 }
