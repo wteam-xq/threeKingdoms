@@ -948,12 +948,17 @@ $(document).ready(function(){
     if ($target == null || $main == null){
       return false;
     }
+    
+    // 判断是否为 搜索详情页打开
+    if ( $main.hasClass('search-detail') ){
+      $main.find('#back-index').trigger('click');
+      return false;
+    }
     var back_event = function(){
       closePage($target, $main);
     }
     
     var $backIco = $target.find('#back-index');
-
     openPage($target, $main);
     // 配置返回页面事件
     if ( $target.attr('data-backEvent') != 'true'){
@@ -965,6 +970,7 @@ $(document).ready(function(){
       $backIco.on('click', back_event);
     }
   }
+
   function openPage($target, $main){
     if ($target == null || $main == null){
       return false;

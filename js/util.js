@@ -1,3 +1,8 @@
+/*
+ *  written by wteam_xq time 20141125
+ *  Distributed under the MIT License
+ *  项目工具类
+ */
 var Util = {
   /**
    * 获得数组的随机顺序

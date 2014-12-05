@@ -6,22 +6,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+<!-- build:js components/lib.js -->
 <script src="components/jquery-1.10.2.min.js"></script>
 <script src="components/progress.min.js"></script>
 <script src="components/bootstrap.min.js"></script>
+<!-- endbuild -->
+
 <link rel="stylesheet" type="text/css" href="components/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
-<script type="text/javascript" src="js/init.js"></script>
+<!-- <script type="text/javascript" src="js/init.js"></script> -->
+
 <!-- build:js datas/datas.js -->
-<!-- <script type="text/javascript" src="datas/heros.js"></script>
+<script type="text/javascript" src="datas/heros.js"></script>
 <script type="text/javascript" src="datas/heros_detail.js"></script>
 <script type="text/javascript" src="datas/rule.js"></script>
 <script type="text/javascript" src="datas/card.js"></script>
-<script type="text/javascript" src="datas/strategy.js"></script> -->
+<script type="text/javascript" src="datas/strategy.js"></script>
 <!-- endbuild -->
-<!-- <script type="text/javascript" src="js/util.js"></script>
-<script type="text/javascript" src="js/main.js"></script> -->
+
+<!-- build:js js/main.js -->
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<!-- endbuild -->
 
 <link rel="icon" href="favicon.ico">
 </head>
@@ -115,8 +122,8 @@
         <li class="list-group-item"><strong>作者: &nbsp;</strong><span>wteam-xq</span></li>
         <li class="list-group-item"><strong>邮箱: &nbsp;</strong><span>857609086@qq.com</span></li>
         <li class="list-group-item"><strong>QQ: &nbsp;</strong><span>857609086</span></li>
-        <li class="list-group-item"><strong>博客: &nbsp;</strong><span>http://www.cnblogs.com/wteam-xq/</span></li>
-        <li class="list-group-item"><strong>github: &nbsp;</strong><span> https://github.com/wteam-xq</span></li>
+        <li class="list-group-item"><strong>博客: &nbsp;</strong><a href="http://www.cnblogs.com/wteam-xq/">http://www.cnblogs.com/wteam-xq/</a></li>
+        <li class="list-group-item"><strong>github: &nbsp;</strong><a href="https://github.com/wteam-xq"> https://github.com/wteam-xq</a></li>
       </ul>
     </div>
   </div>
@@ -173,16 +180,16 @@
 
  
   <!-- 搜索结果详情页 -->
-  <div class="tkd-navbar rule-detail" id="search-rule-detail">
+  <div class="tkd-navbar rule-detail search-detail" id="search-rule-detail">
     <div class="panel panel-warning">规则详情页</div>
   </div>
-  <div class="tkd-navbar card-detail" id="search-sub-card-detail">
+  <div class="tkd-navbar card-detail search-detail" id="search-sub-card-detail">
     <div class="panel panel-warning">卡牌详情页</div>
   </div>
-  <div class="tkd-navbar heros-detail" id="search-heros-detail">
+  <div class="tkd-navbar heros-detail search-detail" id="search-heros-detail">
     <div class="panel panel-warning">武将详情页</div>
   </div>
-  <div class="tkd-navbar card-detail" id="search-strategy-detail">
+  <div class="tkd-navbar card-detail search-detail" id="search-strategy-detail">
     <div class="panel panel-warning">攻略详情页</div>
   </div>
   

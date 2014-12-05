@@ -248,6 +248,8 @@ a:active, a:hover{
 }
 .sub-page.row{
   margin: 0px !important;
+  background-color: #fff;
+  min-height: 300px;
 }
 .heros-dropdownmenu .dropdown{
   padding: 0px !important;
@@ -286,6 +288,7 @@ a:active, a:hover{
 .red{
   color: #CC0000;
 }
+
 /*二维码小图标*/
 #rightDocker{
   position: fixed;

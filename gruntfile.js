@@ -9,20 +9,19 @@ module.exports = function (grunt) {
       unImg: ["dest/*", "!dest/images"]
     },
 
-    // 复制字体文件
+    // 复制文件
     copy: {
       main: {
         files: [
           {expand: true, src: ['fonts/*'], dest: 'dest'},
-          {expand: true, src: ['components/*'], dest: 'dest'},
+          {expand: true, src: ['components/**.css'], dest: 'dest'},
           {expand: true, src: ['index.html'], dest: 'dest'}
         ]
       }
     },
     // 合并文件
     concat:{
-      'components/lib.js': ['components/*.js'],
-      'datas/datas.js': ['datas/*.js']
+      'dest/components/lib.js': ['components/jquery-1.10.2.min.js', 'components/progress.min.js', 'components/bootstrap.min.js']
     },
 
     //压缩JS
@@ -30,8 +29,9 @@ module.exports = function (grunt) {
       generated: {
         files: [
           {dest: 'dest/datas/datas.js', src: ['datas/*.js']},
-          {dest: 'dest/js/main.js', src: ['js/main.js']},
-          {dest: 'dest/js/util.js', src: ['js/util.js']}
+          // {dest: 'dest/js/main.js', src: ['js/main.js']},
+          // {dest: 'dest/js/util.js', src: ['js/util.js']}
+          {dest: 'dest/js/main.js', src: ['js/util.js', 'js/main.js']}
         ]
       }
     },
@@ -48,9 +48,9 @@ module.exports = function (grunt) {
 
     //压缩图片
     imagemin: {
-      generated: {
+      dynamic: {
         options: {
-          optimizationLevel: 7,
+          optimizationLevel: 3,
           pngquant: true
         },
         files: [
@@ -87,7 +87,7 @@ module.exports = function (grunt) {
   });
   // 加载任务的插件
   grunt.loadNpmTasks('grunt-contrib-copy');
-  // grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -95,5 +95,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
   // grunt.registerTask('default', ['clean', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin', 'htmlmin', 'usemin']);
-  grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'usemin', 'htmlmin']);
+  grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin']);
 };
