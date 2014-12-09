@@ -52,6 +52,5 @@
   * 使用grunt 进行打版，grunt-usemin 是难点，解决方案：使用最新版本（官方英文教程为最新版）+ 细看 官方教程(在github 或 npm网站可搜到);
 
 ### 留存bug
-* 搜索详情页 再次点击 搜索框， 返回到搜索页面时， 页面再次进入死循环；
 * 小米系统(最新MIUI)浏览器 武将菜单 下拉首次增加数据时， 加载图标右侧渲染出脏节点； 
 * grunt-contrib-imagemin   error the socket is closed

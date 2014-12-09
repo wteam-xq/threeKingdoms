@@ -50,12 +50,14 @@ module.exports = function (grunt) {
     imagemin: {
       dynamic: {
         options: {
-          optimizationLevel: 3,
+          optimizationLevel: 7,
           pngquant: true
         },
-        files: [
-          {expand: true, cwd: 'images/', src: ['**/*.{png,jpg,jpeg,gif,webp,svg}'], dest: 'dest/images'}
-        ]
+        files: [{expand: true, 
+            cwd: 'images/', 
+            src: ['**/*.{png,jpg,jpeg,gif,webp,svg}'], 
+            dest: 'dest/images'
+        }]
       }
     },
 
@@ -95,5 +97,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
   // grunt.registerTask('default', ['clean', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin', 'htmlmin', 'usemin']);
-  grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin']);
+  // grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin']);
+  grunt.registerTask('default', ['imagemin']);
 };
