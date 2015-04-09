@@ -161,9 +161,13 @@ $(document).ready(function(){
     $mainmenu.css({'padding-top': navbar_height});
 
     /** 界面渲染 **/
+    // 加载规则页面, rule_datas : 规则全局数据，../datas/rule.js
     createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});
+    // 加载卡牌页面, card_datas : 规则全局数据，../datas/card.js
     createGroupItem({'datas': card_datas, '$target_dom': $card, 'click_fn': showCardTypes});
+    // 加载武将页面, heros_datas : 规则全局数据，../datas/heros.js
     createDropdownMenu(heros_datas, $heros);
+    // 加载攻略页面, str_datas : 规则全局数据，../datas/strategy.js
     createToggleBtn({'datas':str_datas, '$target_dom':$strategy, 'click_fn': showMultDetail});
     // 获得 风火山林 包 package_array(全局变量)
     package_array = getPackagesDatas();
@@ -568,10 +572,10 @@ $(document).ready(function(){
       var _page_content = [],
       _cont_item = [],
       _cont_html = '',
-      _page_count = _datas.length,
+      _page_count = _datas.length;
       _page_content = _datas[index];
-
-      if (index < 0 || _page_content.length == 0){
+      // 判断传入 页码是否正确
+      if (index < 0 ||  _page_count <= index){
         return false;
       }
       $panel_body.empty();
@@ -971,6 +975,7 @@ $(document).ready(function(){
     }
   }
 
+  // 打开新页面
   function openPage($target, $main){
     if ($target == null || $main == null){
       return false;
@@ -1005,6 +1010,7 @@ $(document).ready(function(){
       $this.css({'width':'100%', 'position':'relative'});
     });
   }
+  // 关闭打开的页面
   function closePage($target, $main){
     if ($target == null || $main == null){
       return false;
@@ -1029,6 +1035,8 @@ $(document).ready(function(){
       var $this = $(this);
       $this.hide();
       $this.css({'margin-left':'0px', 'width':'100%'});
+      // 清空节点，清除子页面所有事件
+      $this.children().remove();
     });
   }
 
@@ -1281,7 +1289,7 @@ $(document).ready(function(){
     });
     return $target_dom;
   }
-  // drmenu li点击事件
+  // drmenu li点击事件(武将 筛选类型)
   function drmenuLeftEvent(_id, $target_dom){
     var drmenu_name = '',
     current_name = '',
@@ -1313,7 +1321,7 @@ $(document).ready(function(){
     }
     return true;
   }
-  // drmenu li点击事件
+  // drmenu li点击事件(武将 筛选)
   function drmenuRightEvent(_id, $target_dom){
     var title = '',
     current_name = '',
