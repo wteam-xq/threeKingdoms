@@ -414,3 +414,10 @@ a:active, a:hover{
 .tile a:hover{
   text-decoration: none;
 }
+/*二维码 显示隐藏样式*/
+.popover.fade{
+  display: none;
+}
+.popover.fade.in{
+  display: block;
+}
