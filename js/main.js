@@ -124,7 +124,17 @@ $(document).ready(function(){
   $rightDocker = $('#rightDocker');
   
   // pProgressInit();
-  init();
+  // 首次加载, 主面板默认不显示
+  if (window.no_support){
+    return false;
+  }if (!window.show_main_panel){
+    setTimeout(function(){
+      $('#loading').hide();
+      init();
+    }, 3000);
+  }else{
+    init();
+  }
 
   // 插件进度条初始化
   function pProgressInit(){
@@ -146,14 +156,6 @@ $(document).ready(function(){
 
   // 初始化函数
   function init(){
-    // 浏览器兼容处理
-    try{
-      document.createElement('canvas').getContext('2d');
-    }catch(e){
-      $('#progress').hide();
-      $('#noCanvasTips').show();
-      return false;
-    }
     var navbar_height = 0;
     $('#progress').hide();
     $mainmenu.show();

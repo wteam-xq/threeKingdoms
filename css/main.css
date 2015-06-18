@@ -7,9 +7,9 @@ a:active, a:hover{
 }
 /*进度条插件*/
 .jCProgress {
-     position: absolute;
-     z-index: 9999999;
-     /*  margin-top:-15px; /* offset from the center */
+  position: absolute;
+  z-index: 9999999;
+  /*  margin-top:-15px; /* offset from the center */
 }
 
 .jCProgress > div.percent {
@@ -22,6 +22,13 @@ a:active, a:hover{
      margin-left:22px;
      text-align: center;
      width:60px;
+}
+/*首次加载出现的loading...*/
+.loading{
+  display: none;
+  width: 100%;
+  text-align: center;
+  padding: 100px;
 }
 /*自定义进度条样式*/
 #progress{
