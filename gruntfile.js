@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         files: [
           {expand: true, src: ['fonts/*'], dest: 'dest'},
           {expand: true, src: ['components/**.css'], dest: 'dest'},
-          {expand: true, src: ['index.html'], dest: 'dest'}
+          {expand: true, src: ['index.html', 'favicon.ico'], dest: 'dest'}
         ]
       }
     },
@@ -96,7 +96,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
-  // grunt.registerTask('default', ['clean', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin', 'htmlmin', 'usemin']);
-  grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin']);
+  // 包括图片处理
+  // grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'concat', 'imagemin', 'usemin', 'htmlmin']);
+  // 不包括图片处理
+  grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin', 'htmlmin']);
   // grunt.registerTask('default', ['imagemin']);
 };
