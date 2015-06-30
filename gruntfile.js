@@ -97,8 +97,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
   // 包括图片处理
-  // grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'concat', 'imagemin', 'usemin', 'htmlmin']);
+  grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'concat', 'imagemin', 'usemin', 'htmlmin']);
   // 不包括图片处理
-  grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin', 'htmlmin']);
+  // grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin', 'htmlmin']);
   // grunt.registerTask('default', ['imagemin']);
 };
