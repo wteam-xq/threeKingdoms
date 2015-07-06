@@ -71,6 +71,7 @@ a:active, a:hover{
   margin-right: 5px;
   width:65px;
   height:50px;
+  background-size:65px 50px;
 }
 
 .dropup .list-group{
@@ -109,6 +110,7 @@ a:active, a:hover{
 .logo{
   width:90px;
   height:35px;
+  background-size: 90px 35px;
 }
 .logo-brand{
   padding: 0px !important;

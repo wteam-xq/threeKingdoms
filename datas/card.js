@@ -886,7 +886,7 @@ var card_basic = {
   "data":card_basic_imgs,
   "id":"card_basic", 
   'content': '酒、火杀、闪、桃、普通杀、雷杀...',
-  'icon_src':'images/ganning.png'
+  'icon_src':'images/guotai.png'
 };
 
 var card_kit_imgs = [{'id':'amazing_grace', 'icon_src': 'images/card/kit/amazing_grace.jpg', 'data': amazing_grace, 'title': '五谷丰登'},
@@ -935,7 +935,7 @@ var card_status = {
   "data":card_status_imgs,
   "id":"card_status",
   'content': '反贼、内奸、忠臣、主公...',
-  'icon_src':'images/zhaoyun.png'
+  'icon_src':'images/yuji.png'
 };
 
 var card_weapon_imgs = [{'id':'axe', 'icon_src': 'images/card/weapon/axe.jpg', 'data': axe, 'title': '贯石斧'},
@@ -975,7 +975,7 @@ var card_heros = {
   "data":[],
   "id":"card_heros",
   'content': '刘备、曹操、孙权、董卓...',
-  'icon_src':'images/zhouyu.png'
+  'icon_src':'images/luxun.png'
 };
 
 var card_datas = [card_basic, card_kit, card_physic, card_status, card_weapon, card_heros];
