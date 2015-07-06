@@ -22,7 +22,7 @@
 git clone https://github.com/wteam-xq/threeKingdoms 
 ```
 
-* 加入grunt 自动化部署依赖包, 右键右键->“git bash” (或 shift+右键->在此打开命令窗口)运行以下命令行:
+* 加入grunt 自动化部署依赖包, 右键->“git bash” (或 shift+右键->在此打开命令窗口)运行以下命令行:
 ```Bash
 npm install -g grunt-cli
 ```

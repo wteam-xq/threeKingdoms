@@ -2,7 +2,7 @@
 var PACKAGE_AMOUNT = 7;
 // 搜索map数据库
 var search_array = getSearchMap();
-
+// metro风格样式列表
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
 // 自动生成搜索Map
@@ -123,7 +123,6 @@ $(document).ready(function(){
   $searchInfo = $('#search-info');
   $rightDocker = $('#rightDocker');
   
-  // pProgressInit();
   // 首次加载, 主面板默认不显示
   if (window.no_support){
     return false;
@@ -136,25 +135,7 @@ $(document).ready(function(){
     init();
   }
 
-  // 插件进度条初始化
-  function pProgressInit(){
-    $('body').css({'background-color':'#000'});
-    // 进图条插件
-    var options = {
-       speed: 20,
-       limit: 100,
-       onComplete: function(){
-        // 隐藏进度条，背景颜色变更
-        $('body').css({'background-color':'#fff'});
-        // 启动函数
-        init();
-       }
-    };
-    var myplugin = $('#progress').cprogress(options);
-    myplugin.start();
-  }
-
-  // 初始化函数
+  // 应用初始化
   function init(){
     var navbar_height = 0;
     $('#progress').hide();
@@ -314,7 +295,7 @@ $(document).ready(function(){
       var _html = '';
       for (var j = 0, jLen = _data.length; j < jLen; j++){
         _data_item = _data[j];
-        _html += '<div class="thumbnail"><img src="' + _data_item.img + '" alt="..."></div>';
+        _html += '<div class="thumbnail"><img class="card-img" src="' + _data_item.img + '" alt="..."></div>';
         _html += '<div><span class="blue">武将称号: </span><span>'+ _data_item.nickname +'</span></div>';
       }
       return _html;
@@ -440,7 +421,7 @@ $(document).ready(function(){
     gotoPage($detail_panel, $main);
   }
 
-  //rule 页面点击事件
+  // 详情展示页面（规则、卡牌）
   function showDetail(){
     var $this = $(this),
     $detail_panel = null,
@@ -458,6 +439,7 @@ $(document).ready(function(){
     if (_datas == null || _datas.length == 0){
       return false;
     }
+    // 'rule'规则页面点击，'sub-card'游戏牌二级页面点击
     _parent_id = $this.parents('div.item-list').attr('id');
     _detail_id = _parent_id + '-detail';
     $detail_panel = $('#' + _detail_id);
@@ -476,7 +458,11 @@ $(document).ready(function(){
         continue;
       }
       if (_data_item.img){
-        _html += '<div class="thumbnail"><img src="' + _data_item.img + '" alt="..."></div>';
+        if (_parent_id === 'sub-card'){
+          _html += '<div class="thumbnail"><img class="card-img" src="' + _data_item.img + '" alt="..."></div>';
+        }else{
+          _html += '<div class="thumbnail"><img src="' + _data_item.img + '" alt="..."></div>';
+        }
         continue;
       }
       if (_data_item.id){

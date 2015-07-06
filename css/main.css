@@ -278,6 +278,9 @@ a:active, a:hover{
   font-size: 18px;
   line-height: 1.8em;
 }
+.card-img{
+  background-size:200px 281px;
+}
 .content-heading{
   font-size: 18px;
   font-weight: bold;
