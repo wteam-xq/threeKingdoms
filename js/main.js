@@ -1028,6 +1028,10 @@ $(document).ready(function(){
       var $this = $(this);
       $this.hide();
       $this.css({'margin-left':'0px', 'width':'100%'});
+      // 恢复主页面内联样式
+      setTimeout(function(){
+        $main.attr({'style':'display: block; padding-top: 114px;'});
+      }, 200);
     });
   }
 
