@@ -120,7 +120,8 @@ $(document).ready(function(){
   $rule = $('#rule'),
   $card = $('#card'),
   $strategy = $('#strategy'),
-  $searchInfo = $('#search-info');
+  $searchInfo = $('#search-info'),
+  $personInfo = $('#person-info'),
   $rightDocker = $('#rightDocker');
   
   // 首次加载, 主面板默认不显示
@@ -140,8 +141,13 @@ $(document).ready(function(){
     var navbar_height = 0;
     $('#progress').hide();
     $mainmenu.show();
+    // 主页面导航条高度设置（防止被遮住）
     navbar_height = $mainmenu.find('div.tkd-navbar').css('height');
     $mainmenu.css({'padding-top': navbar_height});
+    // 应用信息页面高度设置
+    info_navbar_h = $mainmenu.find('div.navbar').css('height');
+    $personInfo.css({'padding-top': info_navbar_h});
+    
 
     /** 界面渲染 **/
     // 加载规则页面, rule_datas : 规则全局数据，../datas/rule.js
@@ -1028,9 +1034,14 @@ $(document).ready(function(){
       var $this = $(this);
       $this.hide();
       $this.css({'margin-left':'0px', 'width':'100%'});
+
+      navbar_height = $main.find('div.navbar').css('height');
+      if ($main.hasClass('mainmenu')){
+        navbar_height = $main.find('div.tkd-navbar').css('height');
+      }
       // 恢复主页面内联样式
       setTimeout(function(){
-        $main.attr({'style':'display: block; padding-top: 114px;'});
+        $main.attr({'style':'display: block; padding-top:' + navbar_height});
       }, 200);
     });
   }
