@@ -145,8 +145,8 @@ $(document).ready(function(){
     navbar_height = $mainmenu.find('div.tkd-navbar').css('height');
     $mainmenu.css({'padding-top': navbar_height});
     // 应用信息页面高度设置
-    info_navbar_h = $mainmenu.find('div.navbar').css('height');
-    $personInfo.css({'padding-top': info_navbar_h});
+    // info_navbar_h = $mainmenu.find('div.navbar').css('height');
+    // $personInfo.css({'padding-top': info_navbar_h});
     
 
     /** 界面渲染 **/
@@ -1035,13 +1035,12 @@ $(document).ready(function(){
       $this.hide();
       $this.css({'margin-left':'0px', 'width':'100%'});
 
-      navbar_height = $main.find('div.navbar').css('height');
-      if ($main.hasClass('mainmenu')){
-        navbar_height = $main.find('div.tkd-navbar').css('height');
-      }
+      // 获得原padding-top高度值
+      // 更多原生js 获取样式值方法：http://www.zhangxinxu.com/wordpress/2012/05/getcomputedstyle-js-getpropertyvalue-currentstyle/
+      padding_height = $main[0].style.paddingTop;
       // 恢复主页面内联样式
       setTimeout(function(){
-        $main.attr({'style':'display: block; padding-top:' + navbar_height});
+        $main.attr({'style':'display: block; padding-top:' + padding_height});
       }, 200);
     });
   }
