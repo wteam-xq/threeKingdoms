@@ -127,7 +127,8 @@ $(document).ready(function(){
   // 首次加载, 主面板默认不显示
   if (window.no_support){
     return false;
-  }if (!window.show_main_panel){
+  }else if (!window.show_main_panel){
+    $('#loading > p').html('首次加载，载入数据中...');
     setTimeout(function(){
       $('#loading').hide();
       init();
@@ -139,7 +140,7 @@ $(document).ready(function(){
   // 应用初始化
   function init(){
     var navbar_height = 0;
-    $('#progress').hide();
+    $('#loading').hide();
     $mainmenu.show();
     // 主页面导航条高度设置（防止被遮住）
     navbar_height = $mainmenu.find('div.tkd-navbar').css('height');

@@ -25,7 +25,7 @@ a:active, a:hover{
 }
 /*首次加载出现的loading...*/
 .loading{
-  display: none;
+  display: block;
   width: 100%;
   text-align: center;
   padding: 100px;
