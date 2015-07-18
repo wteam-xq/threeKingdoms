@@ -1,7 +1,7 @@
 // 武将包数量
 var PACKAGE_AMOUNT = 7;
 // 搜索map数据库
-var search_array = getSearchMap();
+var search_array = [];
 // metro风格样式列表
 var metro_colors = ['blue', 'green', 'red', 'yellow', 'pink', 'purple', 'lime', 'magenta','teal', 'turquoise', 'green-sea', 'emerald']; 
 
@@ -27,8 +27,10 @@ function getSearchMap(){
       'key': array_item.id,
       'title': array_item.title,
       'type': 'detail',
+      // 详情页对应id,对应首页 search-rule-detail
       'pid': 'rule',
       'data': array_item.data,
+      'icon_src': array_item.icon_src
     };
     result.put(key, item_obj);
   }
@@ -48,8 +50,10 @@ function getSearchMap(){
         'key': array_item.id,
         'title': array_item.title,
         'type': 'detail',
+        // 详情页对应id,对应首页 search-sub-card-detail
         'pid': 'sub-card',
-        'data': array_item.data
+        'data': array_item.data,
+        'icon_src': array_item.icon_src
       };
       result.put(key, item_obj);
     }
@@ -72,8 +76,10 @@ function getSearchMap(){
         'key': array_item.id,
         'title': array_item.title,
         'type': 'mult-detail',
-        'pid': 'rule',
-        'data': array_item.data
+        // 详情页对应id,对应首页 search-strategy-detail
+        'pid': 'strategy',
+        'data': array_item.data,
+        'icon_src': array_item.icon_src
       };
       result.put(key, item_obj);
     }
@@ -100,8 +106,10 @@ function getSearchMap(){
           'key': array_item.data,
           'title': array_item.title,
           'type': 'heros-detail',
+          // 详情页对应id,对应首页 search-heros-detail
           'pid': 'heros',
-          'data': array_item.data
+          'data': array_item.data,
+          'icon_src': array_item.icon_src
         };
         result.put(key, item_obj);
       }
@@ -179,6 +187,8 @@ $(document).ready(function(){
     if ($rightDocker.is(':visible')){
       $rightDocker.find('#rightDockerBtn').on('click', rightDockerEvent);
     }
+    // 加载搜索 数据
+    search_array = getSearchMap();
   }
 
   // 二维码按钮点击
@@ -1046,7 +1056,7 @@ $(document).ready(function(){
     });
   }
 
-  // 主菜单列表html生成
+  // 单列表html生成(复用程度最高)
   function createGroupItem(options){
     var _item_htmls = '',
     _item_html = '',
@@ -1108,6 +1118,8 @@ $(document).ready(function(){
       return false;
     }
     var _item_htmls = '',
+    _item_id_html,
+    _item_content,
     _item_html = '',
     item_datas = [],    item_data = null;
 
@@ -1118,9 +1130,16 @@ $(document).ready(function(){
       for(var i = 0, len = datas.length; i < len; i++){
         item_data = datas[i];
         _item_html = '';
-        _item_html += '<div class="item-list search-item" id="search-'+ item_data.pid +'">';
-        _item_html += '<a href="##" data-type="'+ item_data.type +'" class="list-group-item list-group-item-warning" title="'+ item_data.title +'">' + item_data.title + '</a>';
-        _item_html +='</div>';
+
+        if (item_data.pid){
+          _item_id_html = 'id="' + item_data.pid + '"'
+        }
+        _item_content = getTypeByPid(item_data.pid);
+        _item_html = '<div class="item-list" id="search-'+ item_data.pid +'">' + '<a href="##" data-type="'+ item_data.type +'" title="'+ item_data.title +'" class="list-group-item list-group-item-warning" ' + _item_id_html + ' >' + 
+          '<img class="pull-left list-item-img" src="' + item_data.icon_src + '" alt="' + item_data.title + '" >' + 
+          '<h3 class="list-group-item-heading">' + item_data.title + '</h3>' + 
+          '<p class="list-group-item-text">' + _item_content + '</p>' + 
+        '</a>' + '</div>';
 
         item_datas.push(item_data.data);
         _item_htmls += _item_html;
@@ -1156,6 +1175,32 @@ $(document).ready(function(){
       $target_dom.html('数据异常！');
       return $target_dom;
     }
+
+    // 根据搜索内容pid 获得内容类别（内函数）
+    function getTypeByPid(pid){
+      var _result = ' ';
+      if (!pid) {
+        return '未知类型';
+      }
+      switch (pid) {
+        case 'rule':
+          _result = '规则';
+          break;
+        case 'sub-card':
+          _result = '卡牌';
+          break;
+        case 'strategy':
+          _result = '攻略';
+          break;
+        case 'heros':
+          _result = '武将';
+          break;
+        default:
+          _result = '其他类型';
+      }
+      return _result;
+    }
+    
   }
 
   // 生成toggle 面板 按钮

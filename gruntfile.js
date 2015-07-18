@@ -1,4 +1,4 @@
-// 执行压缩、合并代码操作
+// 执行压缩、合并代码、优化图片 操作
 module.exports = function (grunt) {
 
   grunt.initConfig({
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     },
     // 合并文件
     concat:{
-      'dest/components/lib.js': ['components/jquery-1.10.2.min.js', 'components/progress.min.js', 'components/bootstrap.min.js']
+      'dest/components/lib.js': ['components/jquery-1.10.2.min.js', 'components/bootstrap.min.js']
     },
 
     //压缩JS
@@ -100,5 +100,4 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'concat', 'imagemin', 'usemin', 'htmlmin']);
   // 不包括图片处理
   // grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin', 'htmlmin']);
-  // grunt.registerTask('default', ['imagemin']);
 };
