@@ -28,10 +28,11 @@ gulp.task('clean', function(cb){
     cb();
 });
 // 2.拷贝 图标、字体、第三方已压缩文件；
-gulp.task('copy', function(){
+gulp.task('copy', function(cb){
     copy('favicon.ico', 'dest/');
     copy('components/*.css', 'dest/components/');
     copy('fonts/*', 'dest/fonts/');
+    cb();
 });
 // 3.压缩 js 文件；（包括合并操作， 多个js文件压缩成一个文件）
 gulp.task('uglifyjs', function(){
