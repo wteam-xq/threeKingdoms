@@ -34,6 +34,7 @@ gulp.task('copy', function(cb){
     copy('fonts/*', 'dest/fonts/');
     cb();
 });
+
 // 3.压缩 js 文件；（包括合并操作， 多个js文件压缩成一个文件）
 gulp.task('uglifyjs', function(){
     // 1. 找到文件
@@ -100,7 +101,6 @@ gulp.task('htmlmin', function () {
         .pipe( htmlmin(options) )
         .pipe( gulp.dest('dest/') );
 });
-
 
 
 /*************************************************************
