@@ -135,12 +135,6 @@ $(document).ready(function(){
   // 首次加载, 主面板默认不显示
   if (window.no_support){
     return false;
-  }else if (!window.show_main_panel){
-    $('#loading > p').html('首次加载，载入数据中...');
-    setTimeout(function(){
-      $('#loading').hide();
-      init();
-    }, 3000);
   }else{
     init();
   }
@@ -157,7 +151,6 @@ $(document).ready(function(){
     // info_navbar_h = $mainmenu.find('div.navbar').css('height');
     // $personInfo.css({'padding-top': info_navbar_h});
     
-
     /** 界面渲染 **/
     // 加载规则页面, rule_datas : 规则全局数据，../datas/rule.js
     createGroupItem({'datas': rule_datas, '$target_dom': $rule, 'click_fn': showDetail});

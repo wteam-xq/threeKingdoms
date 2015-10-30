@@ -216,12 +216,9 @@
     try{
       document.createElement('canvas').getContext('2d');
       // 首次加载出现加载图标
-      window.show_main_panel = false
       localStorage = window.localStorage;
       _loaded_data = localStorage.getItem('hasLoad');
-      if (_loaded_data){
-        window.show_main_panel = true
-      }else{
+      if (!_loaded_data){
         $('#loading').show();
         localStorage.setItem('hasLoad', true);
       }

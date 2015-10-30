@@ -6,8 +6,6 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     // 获取 gulp-imagemin 模块
     imagemin = require('gulp-imagemin'),
-    // 重命名 插件
-    rename = require('gulp-rename'),
     // 压缩html插件
     htmlmin = require('gulp-htmlmin'),
     // 合并文件
@@ -30,8 +28,6 @@ gulp.task('clean', function(cb){
 // 2.拷贝 图标、字体、第三方已压缩文件；
 gulp.task('copy', function(cb){
     copy('favicon.ico', 'dest/');
-    copy('components/*.css', 'dest/components/');
-    copy('fonts/*', 'dest/fonts/');
     cb();
 });
 
@@ -60,12 +56,7 @@ gulp.task('cssmin', function(){
     // 3. 另存为压缩文件
         .pipe(gulp.dest('dest/css/'))
 });
-// 5.合并js 文件；（合并 第三方已压缩js库）
-gulp.task('concatlib', function () {
-    gulp.src(['components/jquery-1.10.2.min.js', 'components/bootstrap.min.js'])  //要合并的文件
-    .pipe( concat('lib.js') )  // 合并匹配到的js文件并命名为 "lib.js"
-    .pipe( gulp.dest('dest/components/') );
-});
+
 // 6.压缩图片；
 gulp.task('imagemin', function () {
     // 1. 找到图片
@@ -94,7 +85,6 @@ gulp.task('htmlmin', function () {
     };
     gulp.src('index.html')
         .pipe( htmlReplace({
-            'libjs': 'components/lib.js',
             'datasjs': 'datas/datas.js',
             'mainjs': 'js/main.js'
             }) )
@@ -108,5 +98,5 @@ gulp.task('htmlmin', function () {
  ************************************************************/
  // 默认任务
 gulp.task('default', ['clean'], function(){
-    gulp.start('copy', 'uglifyjs', 'cssmin', 'concatlib', 'imagemin', 'htmlmin');
+    gulp.start('copy', 'uglifyjs', 'cssmin', 'imagemin', 'htmlmin');
 });
