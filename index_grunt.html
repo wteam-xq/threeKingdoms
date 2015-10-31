@@ -6,13 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<link rel="stylesheet" type="text/css" href="components/bootstrap.min.css">
+<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
-<!-- build:js components/lib.js -->
-<script src="components/jquery-1.10.2.min.js"></script>
-<script src="components/bootstrap.min.js"></script>
-<!-- endbuild -->
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/init.js"></script> -->
 
@@ -212,14 +210,13 @@
   </div>
 
   <script>
-    // 浏览器兼容处理
+    // 浏览器兼容处理(boostrap3.0 起码IE8+) 兼容能力监测
     try{
       document.createElement('canvas').getContext('2d');
       // 首次加载出现加载图标
       localStorage = window.localStorage;
       _loaded_data = localStorage.getItem('hasLoad');
       if (!_loaded_data){
-        $('#loading').show();
         localStorage.setItem('hasLoad', true);
       }
     }catch(e){

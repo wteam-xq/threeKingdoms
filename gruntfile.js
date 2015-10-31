@@ -13,39 +13,27 @@ module.exports = function (grunt) {
     copy: {
       main: {
         files: [
-          {expand: true, src: ['fonts/*'], dest: 'dest'},
-          {expand: true, src: ['components/**.css'], dest: 'dest'},
           {expand: true, src: ['index.html', 'favicon.ico'], dest: 'dest'}
         ]
       }
     },
-    // 合并文件
-    concat:{
-      'dest/components/lib.js': ['components/jquery-1.10.2.min.js', 'components/bootstrap.min.js']
-    },
-
     //压缩JS
     uglify: {
       generated: {
         files: [
           {dest: 'dest/datas/datas.js', src: ['datas/*.js']},
-          // {dest: 'dest/js/main.js', src: ['js/main.js']},
-          // {dest: 'dest/js/util.js', src: ['js/util.js']}
           {dest: 'dest/js/main.js', src: ['js/util.js', 'js/main.js']}
         ]
       }
     },
-
     //压缩CSS
     cssmin: {
       generated: {
         files: {
           'dest/css/main.css': ['css/main.css']
-          // 'dest/css/lib.css': ['components/bootstrap.min.css']
         }
       }
     },
-
     //压缩图片
     imagemin: {
       dynamic: {
@@ -60,7 +48,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-
     // 处理html中css、js 引入合并问题
     useminPrepare:{
       html: 'index.html',
@@ -72,7 +59,6 @@ module.exports = function (grunt) {
     usemin: {
       html: 'dest/index.html'
     },
-
     //压缩HTML
     htmlmin: {
       options: {
@@ -97,7 +83,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
   // 包括图片处理
-  grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'concat', 'imagemin', 'usemin', 'htmlmin']);
+  grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'imagemin', 'usemin', 'htmlmin']);
   // 不包括图片处理
-  // grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'concat', 'usemin', 'htmlmin']);
+  // grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'usemin', 'htmlmin']);
 };

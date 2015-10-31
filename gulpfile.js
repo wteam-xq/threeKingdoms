@@ -57,7 +57,7 @@ gulp.task('cssmin', function(){
         .pipe(gulp.dest('dest/css/'))
 });
 
-// 6.压缩图片；
+// 5.压缩图片；
 gulp.task('imagemin', function () {
     // 1. 找到图片
     gulp.src('images/**/*.{png,jpg,jpeg,gif,webp,svg}')
@@ -68,7 +68,7 @@ gulp.task('imagemin', function () {
     // 3. 另存图片
         .pipe(gulp.dest('dest/images'))
 });
-// 7. 在html 中替换 调用的 js代码，以及压缩html（例如， a.html 调用了 a.js b.js， 然后 a.js b.js在第3步或第5步被合并成 c.min.js ;  这部分作用就是自动将a.html中改成调用 c.min.js ）。
+// 6. 在html 中替换 调用的 js代码，以及压缩html（例如， a.html 调用了 a.js b.js， 然后 a.js b.js在第3步或第5步被合并成 c.min.js ;  这部分作用就是自动将a.html中改成调用 c.min.js ）。
 gulp.task('htmlmin', function () {
     var options = {
         collapseWhitespace: true,//压缩HTML
