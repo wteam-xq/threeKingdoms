@@ -187,17 +187,21 @@ $(document).ready(function(){
   // 二维码按钮点击
   function rightDockerEvent(){
     var $this = $(this).parents('#rightDocker'),
+    $rightDockerBtn = $('#rightDockerBtn'),
     pop_of_left = 0,
+    pop_of_top = 0,
     had_event = 'false',
     $dockerPopover = $this.find('#dockerPopover');
 
     // 计算弹出框位置
     pop_of_left = $this.offset().left - $dockerPopover.width() - 10;
+    pop_of_top = $this.offset().top - $dockerPopover.height()/2 + $this.height()/2;
     had_event = $this.attr('data-had-event');
 
     if (!$dockerPopover.hasClass('in')){
       $dockerPopover.css({
-        'left': pop_of_left+'px'
+        'left': pop_of_left+'px',
+        'top': pop_of_top + 'px'
       });
       $dockerPopover.addClass('in');
     }else{
