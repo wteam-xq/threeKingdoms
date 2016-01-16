@@ -2,9 +2,8 @@
 ## 三国杀FAQ(第一版名：三国杀宝典)
 
 #### 三国杀游戏查询webApp
-#### [在线演示地址](http://wteamxq.com/threeKingdoms/)
 
-本项目是 bootstrap3.2.0 更新版（v2.0），在github上 实时更新（学习练手项目）
+本项目是 bootstrap3.2.0 更新版（v2.0），在github上 实时更新（学习项目）
 
 * ps: 
   * 本项目数据信息部分已过时(第一版时用java代码生成)，更详细准确的三国杀 fap， 请访问： [三国杀fap](http://dadao.net/sgs/#) 
@@ -23,9 +22,11 @@ git clone https://github.com/wteam-xq/threeKingdoms
 ```
 
 * 加入grunt 自动化部署依赖包, 右键->“git bash” (或 shift+右键->在此打开命令窗口)运行以下命令行:
+	* 全局安装grunt
 ```Bash
 npm install -g grunt-cli
 ```
+	* 本地（项目内）安装grunt
 ```Bash
 npm install
 ```
