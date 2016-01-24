@@ -26,6 +26,13 @@
 
 * 9-17
   * 使用 gulp 重新进行部署；
+* 1-24
+  * 说明页面更改成gulp打版，上线后使用CDN加载类库速度对比
+  * 线上加载时间对比截图1,csdn加速版:
+  ![线上加载时间对比截图1,csdn加速版](https://github.com/wteam-xq/threeKingdoms/blob/master/images/tkd_v2_load.png)
+  * 线上加载时间对比截图1,csdn未加速版:
+  ![线上加载时间对比截图1,csdn未加速版](https://github.com/wteam-xq/threeKingdoms/blob/master/images/tkd_v2_load2.png)
+* 应用初始加载的数据用了6.82s（8.42s）， 所以该单页面demo线上的主要问题在于将所有数据起始加载;
 
 ### 维护日志：
 * 04-10 武将攻略页面， 翻页点击事件 仍留内存；
