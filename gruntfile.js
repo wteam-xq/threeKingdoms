@@ -1,6 +1,5 @@
 // 执行压缩、合并代码、优化图片 操作
 module.exports = function (grunt) {
-
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     //清除目录
@@ -71,7 +70,6 @@ module.exports = function (grunt) {
         }
       }
     }
-
   });
   // 加载任务的插件
   grunt.loadNpmTasks('grunt-contrib-copy');

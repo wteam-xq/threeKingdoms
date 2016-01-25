@@ -3,7 +3,7 @@
 
 #### 三国杀游戏查询webApp
 
-本项目是 bootstrap3.2.0 更新版（v2.0），在github上 实时更新（学习项目）
+本项目是 bootstrap3.2.0 练习DEMO版（v2.0），在github上 实时更新（学习项目）
 
 * ps: 
   * 本项目数据信息部分已过时(第一版时用java代码生成)，更详细准确的三国杀 fap， 请访问： [三国杀fap](http://dadao.net/sgs/#) 

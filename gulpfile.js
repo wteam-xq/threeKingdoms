@@ -16,10 +16,8 @@ var gulp = require('gulp'),
     copy = require('copy'),
     // 清除文件
     del = require('del');
-
 // 版本号
 var APP_VERSION = 'v.1.0';
-
 // 1. 清除旧部署文件；
 gulp.task('clean', function(cb){
     del(['dest/*']);
@@ -30,7 +28,6 @@ gulp.task('copy', function(cb){
     copy('favicon.ico', 'dest/');
     cb();
 });
-
 // 3.压缩 js 文件；（包括合并操作， 多个js文件压缩成一个文件）
 gulp.task('uglifyjs', function(){
     // 1. 找到文件
@@ -56,7 +53,6 @@ gulp.task('cssmin', function(){
     // 3. 另存为压缩文件
         .pipe(gulp.dest('dest/css/'))
 });
-
 // 5.压缩图片；
 gulp.task('imagemin', function () {
     // 1. 找到图片
@@ -91,12 +87,7 @@ gulp.task('htmlmin', function () {
         .pipe( htmlmin(options) )
         .pipe( gulp.dest('dest/') );
 });
-
-
-/*************************************************************
- *                         组合任务      
- ************************************************************/
- // 默认任务
+// 默认任务(组合任务)
 gulp.task('default', ['clean'], function(){
     gulp.start('copy', 'uglifyjs', 'cssmin', 'imagemin', 'htmlmin');
 });
