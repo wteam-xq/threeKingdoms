@@ -7,7 +7,6 @@ module.exports = function (grunt) {
       all: ['dest/*'],
       unImg: ["dest/*", "!dest/images"]
     },
-
     // 复制文件
     copy: {
       main: {
@@ -80,6 +79,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.registerTask('g-copy', ['copy']);
+  grunt.registerTask('g-clean', ['clean']);
   // 包括图片处理
   grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'imagemin', 'usemin', 'htmlmin']);
   // 不包括图片处理
