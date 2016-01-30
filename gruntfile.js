@@ -71,17 +71,21 @@ module.exports = function (grunt) {
     }
   });
   // 加载任务的插件
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-usemin');
+  // 定义任务指令
   grunt.registerTask('g-copy', ['copy']);
   grunt.registerTask('g-clean', ['clean']);
-  // 包括图片处理
+  grunt.registerTask('g-uglify', ['uglify:generated']);
+  grunt.registerTask('g-cssmin', ['cssmin']);
+  grunt.registerTask('g-imagemin', ['imagemin']);
+  grunt.registerTask('g-htmlmin', ['usemin', 'htmlmin']);
   grunt.registerTask('default', ['clean', 'copy', 'uglify:generated', 'cssmin', 'imagemin', 'usemin', 'htmlmin']);
   // 不包括图片处理
   // grunt.registerTask('default', ['clean:unImg', 'copy', 'uglify:generated', 'cssmin', 'usemin', 'htmlmin']);

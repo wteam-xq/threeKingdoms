@@ -31,7 +31,7 @@ gulp.task('copy', function(cb){
 // 3.压缩 js 文件；（包括合并操作， 多个js文件压缩成一个文件）
 gulp.task('uglifyjs', function(){
     // 1. 找到文件
-    gulp.src(['datas/*.js', 'js/uglify_utils.js'])
+    gulp.src(['datas/*.js'])
     // 2. 压缩文件
         .pipe(uglify())
     // 3. 合并成一个文件
