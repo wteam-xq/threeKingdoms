@@ -33,6 +33,8 @@
   * 线上加载时间对比截图1,cdn未加速版:
   ![线上加载时间对比截图1,cdn未加速版](https://github.com/wteam-xq/threeKingdoms/blob/master/images/tkd_v2_load2.png)
 * 应用初始加载的数据用了6.82s（8.42s）， 所以该单页面demo线上的主要问题在于将所有数据起始加载;
+* cdn 加载依赖类库时间：boostrap.min.css(92ms) + jquery.min.js(137ms) + boostrap.min.js(99ms) = 约 350ms
+* 非cdn, gulp本地压缩、合并依赖库加载时间： boostrap.min.css(1.73s) + lib.js(2.87s, jquery.min.js + boostrap.min.js) = 约4.5s
 
 ### 维护日志：
 * 04-10 武将攻略页面， 翻页点击事件 仍留内存；

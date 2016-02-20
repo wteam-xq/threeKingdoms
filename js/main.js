@@ -959,8 +959,7 @@ $(document).ready(function(){
     if ($target == null || $main == null){
       return false;
     }
-    
-    // 判断是否为 搜索详情页打开
+    // 搜索详情页打开,返回主面板
     if ( $main.hasClass('search-detail') ){
       $main.find('#back-index').trigger('click');
       return false;
@@ -968,7 +967,6 @@ $(document).ready(function(){
     var back_event = function(){
       closePage($target, $main);
     }
-    
     var $backIco = $target.find('#back-index');
     openPage($target, $main);
     // 配置返回页面事件
@@ -1023,7 +1021,6 @@ $(document).ready(function(){
       return false;
     }
     var $backIco = $target.find('#back-index');
-    
     $main.css('margin-left', '-' + $main.css('width'));
     $main.show();
     $main.css({'-webkit-transform':'translate3d(0,0,0)',
@@ -1032,7 +1029,6 @@ $(document).ready(function(){
     });
     $main.animate({'margin-left':'0px'}, 500, function(){
     });
-
     $target.css({'-webkit-transform':'translate3d(0,0,0)',
       '-o-transform':'translate3d(0,0,0)',
       'transform':'translate3d(0,0,0)'
