@@ -20,12 +20,12 @@ var gulp = require('gulp'),
 var APP_VERSION = 'v.1.0';
 // 1. 清除旧部署文件；
 gulp.task('clean', function(cb){
-    del(['dest/*']);
+    del(['dist/*']);
     cb();
 });
 // 2.拷贝 图标、字体、第三方已压缩文件；
 gulp.task('copy', function(cb){
-    copy('favicon.ico', 'dest/');
+    copy('favicon.ico', 'dist/');
     cb();
 });
 // 3.压缩 js 文件；（包括合并操作， 多个js文件压缩成一个文件）
@@ -37,12 +37,12 @@ gulp.task('uglifyjs', function(){
     // 3. 合并成一个文件
         .pipe( concat('datas.js') )
     // 4. 另存压缩后的文件
-        .pipe( gulp.dest('dest/datas/') );
+        .pipe( gulp.dest('dist/datas/') );
 
     gulp.src(['js/util.js', 'js/main.js'])
         .pipe(uglify())
         .pipe( concat('main.js') )
-        .pipe( gulp.dest('dest/js/') );
+        .pipe( gulp.dest('dist/js/') );
 });
 // 4.压缩 css 文件；
 gulp.task('cssmin', function(){
@@ -51,7 +51,7 @@ gulp.task('cssmin', function(){
     // 2. 压缩文件
         .pipe(minifyCSS())
     // 3. 另存为压缩文件
-        .pipe(gulp.dest('dest/css/'))
+        .pipe(gulp.dest('dist/css/'))
 });
 // 5.压缩图片；
 gulp.task('imagemin', function () {
@@ -62,7 +62,7 @@ gulp.task('imagemin', function () {
             progressive: true
         }) )
     // 3. 另存图片
-        .pipe(gulp.dest('dest/images'))
+        .pipe(gulp.dest('dist/images'))
 });
 // 6. 在html 中替换 调用的 js代码，以及压缩html（例如， a.html 调用了 a.js b.js， 然后 a.js b.js在第3步或第5步被合并成 c.min.js ;  这部分作用就是自动将a.html中改成调用 c.min.js ）。
 gulp.task('htmlmin', function () {
@@ -85,7 +85,7 @@ gulp.task('htmlmin', function () {
             'mainjs': 'js/main.js'
             }) )
         .pipe( htmlmin(options) )
-        .pipe( gulp.dest('dest/') );
+        .pipe( gulp.dest('dist/') );
 });
 // 默认任务(组合任务)
 gulp.task('default', ['clean'], function(){
